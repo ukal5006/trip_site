@@ -94,6 +94,26 @@ const router = createRouter({
             component: PublicWriteView,
         },
     ],
+    // scrollBehavior() {
+    //     // 매 페이지 이동시 스크롤 위치를 맨 위로 설정
+    //     return { top: 0 };
+    // },
+
+    scrollBehavior(to, from, savedPosition) {
+        // savedPosition이 있으면, 해당 위치로 스크롤합니다.
+        if (savedPosition) {
+            window.scrollTo({
+                top: savedPosition.y,
+                behavior: "smooth",
+            });
+        } else {
+            // savedPosition이 없으면, 페이지 맨 위로 스크롤합니다.
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        }
+    },
 });
 
 router.beforeEach((to, from) => {

@@ -2,7 +2,7 @@
 import { useSettingStore } from "@/stores/setting";
 
 const setting = useSettingStore();
-setting.changeBoxColor("rgb(241,255,227)");
+setting.changeBoxColor("rgb(225,245,196)");
 </script>
 <template>
     <h1>Map</h1>

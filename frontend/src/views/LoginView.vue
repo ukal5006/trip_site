@@ -3,6 +3,11 @@ import LogoComponent from "@/components/LogoComponent.vue";
 import { computed, ref } from "vue";
 import { useMemberStore } from "@/stores/member";
 import router from "@/router";
+import { useSettingStore } from "@/stores/setting";
+
+const setting = useSettingStore();
+setting.changeBoxColor("rgb(240,242,244)");
+// setting.changeBoxColor("rgb(255,249,113)");
 
 // const useRouter = router();
 
@@ -65,9 +70,13 @@ div {
 .btn {
     width: 200px;
     height: 50px;
-    background-color: tomato;
+    background-color: white;
+    border-radius: 10px;
+    transition: 0.3s;
+    border: 1px solid gray;
     &:hover {
         cursor: pointer;
+        box-shadow: 2px 2px 2px gray;
     }
 }
 </style>

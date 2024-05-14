@@ -35,6 +35,7 @@ header {
     left: 50%;
     transform: translate(-50%, 0);
     transition: background-color 0.3s; /* 부드러운 전환 효과 */
+    z-index: 99;
 }
 main {
     padding-top: 60px;

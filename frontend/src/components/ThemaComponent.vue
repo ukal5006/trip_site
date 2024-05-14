@@ -39,7 +39,7 @@ const backgroundStyle = {
 .title,
 .content {
     position: relative;
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 .title {
