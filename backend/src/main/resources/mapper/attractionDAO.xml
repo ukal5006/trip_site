@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.trip.attraction.dao.attractionDAO">
+
+	<select id="selectList" resultMap="mmm">
+		select *
+		from attraction_info
+		where content_type_id=#{contentTypeId}
+		order by content_id desc
+	</select>
+	<resultMap type="AttractionInfoDTO" id="mmm">
+		<result column="content_id" property="contendId" />
+		<result column="content_type_id" property="contentTypeId" />
+		<result column="title" property="title" />
+		<result column="addr1" property="addr1" />
+		<result column="zipcode" property="zipcode" />
+		<result column="tel" property="tel" />
+		<result column="first_image" property="firstImage" />
+		<result column="first_image2" property="firstImage2" />
+		<result column="readcount" property="readCount" />		
+		<result column="sido_code" property="sidoCode" />
+		<result column="gugun_code" property="gugunCode" />
+		<result column="latitude" property="latitude" />
+		<result column="longitude" property="longitude" />
+	</resultMap>
+	
+	<!--랜덤 값 3개 가져오기  -->
+	<select id="getRandomAttractions" resultMap="random">
+		select first_image, title, addr1
+		from attraction_info
+		order by rand() limit 3
+	</select>
+	<resultMap type="AttractionInfoDTO" id="random">
+		<result column="first_image" property="firstImage" />
+		<result column="title" property="title" />
+		<result column="addr1" property="addr1" />
+	</resultMap>
+</mapper>

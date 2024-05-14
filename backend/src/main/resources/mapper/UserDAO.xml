@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.trip.user.dao.UserDAO">
+
+	<select id="login" parameterType="UserDTO" resultMap="mmm">
+		select *
+		from
+		user
+		where
+		user_id=#{userId} and user_password=#{userPwd}
+	</select>
+
+	<resultMap type="UserDTO" id="mmm">
+		<result column="user_id" property="userId" />
+		<result column="user_password" property="userPwd" />
+		<result column="birth" property="birth" />
+		<result column="user_name" property="userName" />
+		<result column="user_phone" property="userPhone" />
+		<result column="admin" property="admin" />
+	</resultMap>
+
+	<select id="findById" parameterType="string"
+		resultType="UserDTO" resultMap="find">
+		SELECT * FROM user WHERE user_id = #{userId}
+	</select>
+	
+		<resultMap type="UserDTO" id="find">
+		<result column="user_id" property="userId" />
+		<result column="user_password" property="userPwd" />
+		<result column="birth" property="birth" />
+		<result column="user_name" property="userName" />
+		<result column="user_phone" property="userPhone" />
+		<result column="admin" property="admin" />
+	</resultMap>
+</mapper>
