@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;DBUtil.java&apos; to &apos;day0321_book/src/main/java/dao&apos;&#x0A;- Original project: &apos;day0320&apos;&#x0A;- Destination element: &apos;day0321_book/src/main/java/dao&apos;&#x0A;- Original element: &apos;model.dao.DBUtil.java&apos;" description="Copy compilation unit" destination="=day0321_book/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;dao" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;model.dao{DBUtil.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1711023982352" units="1" version="1.0"/>
+</session>
