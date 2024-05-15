@@ -1,8 +1,14 @@
 package com.example.trip.util;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.crypto.SecretKey;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -10,28 +16,38 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 
 @Component
 public class JWTUtil {
+	private static final Logger logger = LoggerFactory.getLogger(JWTUtil.class);
+	private Set<String> tokenBlacklist = new HashSet<>();
+
 	@Value("${jwt.access-token.expiretime}")
 	private long accessTokenExpireTime;
-	
+
 	@Value("${jwt.refresh-token.expiretime}")
 	private long refreshTokenExpireTime;
-	
-	private String salt = "your-salt-value";
-	
+
+	@Value("${jwt.secret-key}")
+	private String secret;
+
+	private SecretKey secretKey;
+
+	@PostConstruct
+	public void init() {
+		this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+	}
+
 	private String create(String userId, String subject, long expireTime) {
 		Claims claims = Jwts.claims().setSubject(subject)
 				.setExpiration(new Date(System.currentTimeMillis() + expireTime));
 
 		claims.put("userID", userId);
-		String jwt = Jwts.builder().setHeaderParam("typ", "JWT").setClaims(claims)
-				.signWith(SignatureAlgorithm.HS256, this.generateKey()).compact();
-
-		return jwt;
+		return Jwts.builder().setHeaderParam("typ", "JWT").setClaims(claims)
+				.signWith(secretKey, SignatureAlgorithm.HS256).compact();
 	}
-
 
 	public String createAccessToken(String userId) {
 		return create(userId, "access-token", accessTokenExpireTime);
@@ -41,22 +57,46 @@ public class JWTUtil {
 		return create(userId, "refresh-token", refreshTokenExpireTime);
 	}
 
-	private byte[] generateKey() {
-		byte[] key = null;
+	public String refreshAccessToken(String refreshToken) {
 		try {
-			key = salt.getBytes("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(refreshToken);
+
+			String userId = claims.getBody().get("userID", String.class);
+			return createAccessToken(userId);
 		}
-		return key;
+		catch (Exception e) {
+			logger.error("Error refreshing access token", e);
+			return null;
+		}
 	}
 
 	public boolean checkToken(String token) {
 		try {
-			Jws<Claims> claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(token);
+			if (tokenBlacklist.contains(token)) {
+				logger.warn("Token is blacklisted");
+				return false;
+			}
+			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
 			return true;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
+			logger.error("Invalid JWT token", e);
 			return false;
 		}
+	}
+	
+	public String getUserIdFromToken(String token) {
+		try {
+			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
+			return claims.getBody().get("userID", String.class);
+		}
+		catch (Exception e) {
+			logger.error("Error getting userId from token", e);
+			return null;
+		}
+	}
+
+	public void invalidateToken(String token) {
+		tokenBlacklist.add(token);
 	}
 }
