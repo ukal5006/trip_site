@@ -1,0 +1,60 @@
+package com.so.sweet.board;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import com.so.sweet.util.HomeDealPagination;
+
+@Service
+public class BoardService {
+	private BoardMapper boardMapper;
+	private HomeDealPagination boardPagination;
+
+	public BoardService(BoardMapper boardMapper, HomeDealPagination boardPagination) {
+		this.boardMapper = boardMapper;
+		this.boardPagination = boardPagination;
+	}
+
+	public boolean write(BoardDto board) {
+		System.out.println("DDDDDDD");
+		if (boardMapper.insert(board) > 0)
+			return true;
+		return false;
+	}
+//
+	public List<BoardDto> getAllBoards(Map<String, Object>pageInfo) {
+		return boardMapper.getByPage(pageInfo);
+	}
+//
+//	public Map<String, Object> getPageInfo(int page) {
+//		return boardPagination.getPageInfo(page);
+//	}
+//
+	public BoardDto getBoardById(int articleNo) {
+		return boardMapper.selectOneByArticleNo(articleNo);
+	}
+//
+//	public void incrementHit(int articleNo) {
+//		boardMapper.incrementHit(articleNo);
+//	}
+//
+	public boolean deleteOneById(int articleNo) {
+		if (boardMapper.deleteOneById(articleNo) != 0)
+			return true;
+		return false;
+	}
+	
+	public boolean updateByArticleNo(int articleNo, BoardDto board) {
+		Map<String, Object> boardInfo = new HashMap<>();
+		boardInfo.put("articleNo", articleNo);
+		boardInfo.put("content", board.getContent());
+		boardInfo.put("subject", board.getSubject());
+		if(boardMapper.updateById(boardInfo) > 0)
+			return true;
+		return false;
+	}
+
+}
