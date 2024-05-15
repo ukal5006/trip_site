@@ -1,6 +1,15 @@
 import { defineStore } from 'pinia';
 
 export const useAreaStore = defineStore('area', () => {
+  const breweryAreaList = [
+    { name: 'gyeonggi', title: '경기' },
+    { name: 'incheon', title: '인천' },
+    { name: 'gangwon', title: '강원' },
+    { name: 'chungcheong', title: '충청' },
+    { name: 'jeolla', title: '전라' },
+    { name: 'gyeongsang', title: '경상' },
+    { name: 'jeju', title: '제주' },
+  ];
   const areas = {
     seoul: [
       {
@@ -497,5 +506,5 @@ export const useAreaStore = defineStore('area', () => {
       },
     ],
   };
-  return { areas };
+  return { areas, breweryAreaList };
 });
