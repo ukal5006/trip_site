@@ -27,7 +27,6 @@ public class UserController {
 	public ResponseEntity<?> login(@RequestBody UserDTO user,
 			 HttpSession session) {
 		UserDTO loginInfo = uservice.login(user.getUserId(), user.getUserPwd());
-		
 		if(loginInfo!=null) { // 로그인 성공
 			String accessToken = jwtUtil.createAccessToken(user.getUserId());
             String refreshToken = jwtUtil.createRefreshToken(user.getUserId());
