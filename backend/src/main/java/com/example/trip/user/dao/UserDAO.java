@@ -9,12 +9,19 @@ public interface UserDAO {
 
 	public UserDTO login(UserDTO user); // 로그인
 
-//	public UserDTO login(String Id, String Pw);
-//	public UserDTO login(@Param("userId") String userId, @Param("userPwd") String userPwd);
+	public UserDTO getUser(String userId); // 회원정보조회
 
-	public UserDTO findById(String userId);
+	public int updateUser(UserDTO user); // 회원정보수정
 
-	public void insertUser(UserDTO user);
-	public void deleteUser(String userId);
+	public void insertUser(UserDTO user); // 회원가입
 
+	public void deleteUser(String userId); // 회원탈퇴
+
+	public int checkId(String userId); // 중복체크
+
+	public String findId(UserDTO user); // 아이디 찾기
+
+	public String findPw(UserDTO user); // 비밀번호 찾기
+
+	public void initPw(UserDTO user); // 임시 비밀번호 발급
 }

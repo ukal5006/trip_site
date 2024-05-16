@@ -20,27 +20,65 @@
 	</select>
 
 
-	<select id="findById" parameterType="string"
-		resultType="UserDTO" resultMap="userInfo">
-		SELECT * FROM user WHERE user_id =
+	<select id="getUser" parameterType="string" resultType="UserDTO"
+		resultMap="userInfo">
+		SELECT user_id, birth, user_name, user_phone
+		FROM user WHERE
+		user_id =
 		#{userId}
 	</select>
 
-	<insert id="insertUser"
-		parameterType="UserDTO">
-		INSERT INTO user (user_id, user_password, birth,
+	<insert id="insertUser" parameterType="UserDTO">
+		INSERT INTO user (user_id,
+		user_password, birth,
 		user_name,
 		user_phone, admin)
-		VALUES (#{userId}, #{userPwd}, #{birth},
+		VALUES (#{userId},
+		#{userPwd}, #{birth},
 		#{userName},
 		#{userPhone},
 		#{admin})
 	</insert>
-	
+
+	<select id="checkId" parameterType="string" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM user
+		WHERE user_id=#{userId}
+	</select>
+
+	<select id="findId" parameterType="UserDTO" resultType="string">
+		SELECT
+		user_id FROM user WHERE user_name = #{userName} AND birth = #{birth}
+		AND user_phone = #{userPhone}
+	</select>
+
+	<select id="findPw" parameterType="UserDTO" resultType="string">
+		SELECT
+		user_password FROM user WHERE user_id = #{userId} AND user_name =
+		#{userName} AND birth = #{birth}
+		AND user_phone = #{userPhone}
+	</select>
+
+	<update id="initPw" parameterType="UserDTO">
+		update user set
+		user_password =
+		#{userPwd} where user_id = #{userId}
+	</update>
+
+	<update id="updateUser" parameterType="UserDTO">
+		update user set
+		user_id = #{userId},
+		user_password = #{userPwd},
+		user_phone = #{userPhone}
+		where user_id = #{userId}
+	</update>
+
 	<delete id="deleteUser" parameterType="String">
 		delete from user
-		where user_id = #{userId}
+		where
+		user_id = #{userId}
 	</delete>
-	
+
 
 </mapper>

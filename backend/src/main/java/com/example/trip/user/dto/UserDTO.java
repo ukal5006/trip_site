@@ -30,9 +30,26 @@ public class UserDTO {
 		this.userPhone = userPhone;
 	}
 
+	public UserDTO(String userName, String birth, String userPhone) {
+		this.userName = userName;
+		this.birth = birth;
+		this.userPhone = userPhone;
+	}
+
+	public UserDTO(String userId, String userName, String birth, String userPhone) {
+		this.userId = userId;
+		this.userName = userName;
+		this.birth = birth;
+		this.userPhone = userPhone;
+	}
+
 	public UserDTO(String userId, String userPwd) {
 		this.userId = userId;
 		this.userPwd = userPwd;
+	}
+
+	public UserDTO(String userId) {
+		this.userId = userId;
 	}
 
 	public String getUserId() {
