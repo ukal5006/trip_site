@@ -3,6 +3,7 @@ package com.example.trip.user.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +26,11 @@ public class UserController {
 	// 로그인
 	@PostMapping(value = "/login", headers = {
 			"Content-type=application/json" })
-	public ResponseEntity<?> login(@RequestParam String userId, @RequestParam String userPwd) {
-		UserDTO loginInfo = uservice.login(userId, userPwd);
+	public ResponseEntity<?> login(@RequestBody UserDTO user) {
+		UserDTO loginInfo = uservice.login(user.getUserId(), user.getUserPwd());
 		if (loginInfo != null) { // 로그인 성공
-			String accessToken = jwtUtil.createAccessToken(userId);
-			String refreshToken = jwtUtil.createRefreshToken(userId);
+			String accessToken = jwtUtil.createAccessToken(user.getUserId());
+			String refreshToken = jwtUtil.createRefreshToken(user.getUserPwd());
 
 			LoginResponseDTO response = new LoginResponseDTO(loginInfo, accessToken, refreshToken);
 			return ResponseEntity.ok().body(response);
@@ -46,15 +47,45 @@ public class UserController {
 		jwtUtil.invalidateToken(token);
 		return ResponseEntity.ok().body("로그아웃 되었습니다.");
 	}
-	
+
+	// 회원가입
+	@PostMapping(value = "/signup", headers = {
+			"Content-type=application/json" })
+	public ResponseEntity<?> signup(@RequestBody UserDTO user) {
+		System.out.println("ffff");
+		try {
+			uservice.insertUser(user);
+			return ResponseEntity.status(HttpStatus.CREATED).body("회원가입 성공");
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원가입 실패");
+		}
+	}
+
+	// 회원탈퇴
+	@DeleteMapping(value = "/delete", headers = {
+			"Content-type=application/json" })
+	public ResponseEntity<?> deleteUser(@RequestParam String userId) {
+		try {
+			System.out.println("dddd");
+			uservice.deleteUser(userId);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("회원탈퇴 성공");
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원탈퇴 실패");
+		}
+	}
+
 	// 토큰 재 발급
-//	@PostMapping(value = "/refresh", headers = {"Content-type=application/json"})
-//	public ResponseEntity<?> refresh(@RequestBody String refreshToken) {
-//	    String newAccessToken = jwtUtil.refreshAccessToken(refreshToken);
-//	    if (newAccessToken != null) {
-//	        return ResponseEntity.ok().body(newAccessToken);
-//	    } else {
-//	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid refresh token.");
-//	    }
-//	}
+	@PostMapping(value = "/refresh", headers = {
+			"Content-type=application/json" })
+	public ResponseEntity<?> refresh(@RequestBody String refreshToken) {
+		String newAccessToken = jwtUtil.refreshAccessToken(refreshToken);
+		if (newAccessToken != null) {
+			return ResponseEntity.ok().body(newAccessToken);
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid refresh token.");
+		}
+	}
 }

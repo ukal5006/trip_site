@@ -18,4 +18,12 @@ public class UserService {
 	public UserDTO findById(String userId) {
 		return udao.findById(userId);
 	}
+
+	public void insertUser(UserDTO user) {
+		udao.insertUser(user);
+	}
+
+	public void deleteUser(String userId) {
+		udao.deleteUser(userId);
+	}
 }
