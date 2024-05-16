@@ -17,8 +17,8 @@ public class AttractionService {
 		return adao.selectList(cidtype);
 	}
 	//관광지 랜덤 3개 가져오기
-    public List<AttractionInfoDTO> getRandomAttractions() {
-        return adao.getRandomAttractions();
+    public List<AttractionInfoDTO> getRandomAttractions(String region) {
+        return adao.getRandomAttractions(region);
     }
 	
 }

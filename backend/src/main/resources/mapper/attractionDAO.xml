@@ -17,18 +17,23 @@
 		<result column="tel" property="tel" />
 		<result column="first_image" property="firstImage" />
 		<result column="first_image2" property="firstImage2" />
-		<result column="readcount" property="readCount" />		
+		<result column="readcount" property="readCount" />
 		<result column="sido_code" property="sidoCode" />
 		<result column="gugun_code" property="gugunCode" />
 		<result column="latitude" property="latitude" />
 		<result column="longitude" property="longitude" />
 	</resultMap>
-	
-	<!--랜덤 값 3개 가져오기  -->
+
+	<!--랜덤 값 4개 가져오기 -->
 	<select id="getRandomAttractions" resultMap="random">
-		select first_image, title, addr1
-		from attraction_info
-		order by rand() limit 3
+		SELECT first_image, title, addr1
+		FROM attraction_info
+		WHERE first_image IS NOT NULL AND first_image != ''
+		AND content_type_id = 12
+		AND addr1 LIKE CONCAT(#{addr1}, '%')
+		ORDER BY RAND()
+		LIMIT 3;
+
 	</select>
 	<resultMap type="AttractionInfoDTO" id="random">
 		<result column="first_image" property="firstImage" />

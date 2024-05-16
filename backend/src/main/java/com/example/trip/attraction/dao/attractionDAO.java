@@ -9,7 +9,7 @@ import com.example.trip.attraction.dto.AttractionInfoDTO;
 @Mapper
 public interface attractionDAO {
 	public List<AttractionInfoDTO> selectList(int cidtype); // 관광지 1개 가져오기
-	public List<AttractionInfoDTO> getRandomAttractions(); //관광지 랜덤 3개 가져오기
+	public List<AttractionInfoDTO> getRandomAttractions(String region); //관광지 랜덤 3개 가져오기
 	
 	
 }

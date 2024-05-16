@@ -33,9 +33,9 @@ public class AttractionController {
 	}
 	
 	//관광지 랜덤 3곳 가져오기
-    @GetMapping("/randomList")
-    public ResponseEntity<List<AttractionInfoDTO>> getRandomAttractions() {
-        List<AttractionInfoDTO> attractions = aservice.getRandomAttractions();
+    @GetMapping("/randomList/{region}")
+    public ResponseEntity<List<AttractionInfoDTO>> getRandomAttractions(@PathVariable("region") String region) {
+        List<AttractionInfoDTO> attractions = aservice.getRandomAttractions(region);
         if (attractions.isEmpty()) {
             return ResponseEntity.noContent().build();
         }

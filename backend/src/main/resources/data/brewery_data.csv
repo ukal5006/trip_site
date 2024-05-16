@@ -1,4 +1,4 @@
-양조장 이름,주소,주종,예약문의,최소인원,이미지 URL,위도,경도
+brewery_title,brewery_address,brewery_kind,brewery_num,min_people,brewery_img,brewery_lat,brewery_long
 (주)배혜정도가,경기 화성시 정남면 서봉로 835 (주)배혜정도가,탁주,031-354-9376,5,https://www.goingsool.com/upload/Screenshot%202023-07-31%20at%2014.00.51.JPG,37.1495859,126.9609462
 (주)술샘,경기 용인시 처인구 양지면 죽양대로 2298-1 술샘,"탁주, 약주, 증류주, 리큐르",070-4218-5225,10,https://www.goingsool.com/upload/Screenshot%202023-07-31%20at%2014.04.01.JPG,37.23328185,127.2983363
 (주)우리술,경기 가평군 조종면 대보간선로 29 (주)우리술,"탁주, 살균탁주, 기타주류, 약주",010-2387-1277,5,https://www.goingsool.com/upload/(%EC%A3%BC)%EC%9A%B0%EB%A6%AC%EC%88%A0_%EA%B3%B5%EC%9E%A5%EC%A0%84%EA%B2%BD.jpg,37.81987436,127.3563087
