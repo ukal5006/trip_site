@@ -26,6 +26,7 @@ public class AttractionController {
 		if(attInfo != null) { //리스트 가져오기 성공			
 			return ResponseEntity.ok(attInfo);
 			
+			
 		}
 		else {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("리스트에 들어온 값이 없습니다");
