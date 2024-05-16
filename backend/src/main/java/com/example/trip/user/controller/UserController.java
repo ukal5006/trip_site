@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.trip.user.dto.LoginResponseDTO;
@@ -24,11 +25,11 @@ public class UserController {
 	// 로그인
 	@PostMapping(value = "/login", headers = {
 			"Content-type=application/json" })
-	public ResponseEntity<?> login(@RequestBody UserDTO user) {
-		UserDTO loginInfo = uservice.login(user.getUserId(), user.getUserPwd());
+	public ResponseEntity<?> login(@RequestParam String userId, @RequestParam String userPwd) {
+		UserDTO loginInfo = uservice.login(userId, userPwd);
 		if (loginInfo != null) { // 로그인 성공
-			String accessToken = jwtUtil.createAccessToken(user.getUserId());
-			String refreshToken = jwtUtil.createRefreshToken(user.getUserId());
+			String accessToken = jwtUtil.createAccessToken(userId);
+			String refreshToken = jwtUtil.createRefreshToken(userId);
 
 			LoginResponseDTO response = new LoginResponseDTO(loginInfo, accessToken, refreshToken);
 			return ResponseEntity.ok().body(response);
