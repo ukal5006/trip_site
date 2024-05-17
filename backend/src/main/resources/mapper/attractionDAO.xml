@@ -41,6 +41,7 @@
 	</select>
 
 	<resultMap type="AttractionInfoDTO" id="random">
+		<result column="content_id" property="contendId" />
 		<result column="first_image" property="firstImage" />
 		<result column="title" property="title" />
 		<result column="addr1" property="addr1" />
@@ -69,7 +70,7 @@
 	</select>
 
 	<!-- 랜덤 맛집 3개 조회 -->
-	<select id="getRandomRestaurant" resultType="map">
+	<select id="getRandomRestaurant" resultType="map" resultMap="randRest3">
 		SELECT
 		content_id,
 		first_image,
@@ -85,11 +86,19 @@
 		ORDER BY RAND()
 		LIMIT 3;
 	</select>
+	<resultMap type="map" id="randRest3">
+		<result column="content_id" property="contendId" />
+		<result column="title" property="title" />
+		<result column="addr1" property="addr1" />
+		<result column="first_image" property="firstImage" />
+	</resultMap>
+
 
 	<!-- 조회순 top3 조회 -->
-	<select id="getTop3" resultType="map">
+	<select id="getTop3" resultType="map" resultMap="top3">
 		SELECT
-		content_id,content_type_id,
+		content_id,
+		content_type_id,
 		first_image,
 		title,
 		addr1
@@ -102,6 +111,11 @@
 		LIMIT 3;
 	</select>
 
-
-
+	<resultMap type="map" id="top3">
+		<result column="content_id" property="contendId" />
+		<result column="content_type_id" property="contentTypeId" />
+		<result column="title" property="title" />
+		<result column="addr1" property="addr1" />
+		<result column="first_image" property="firstImage" />
+	</resultMap>
 </mapper>
