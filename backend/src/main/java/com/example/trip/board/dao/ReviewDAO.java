@@ -9,9 +9,7 @@ import com.example.trip.board.dto.ReviewDTO;
 @Mapper
 public interface ReviewDAO {
 
-	public List<ReviewDTO> getList();
-
-	public ReviewDTO showContent(int reviewId);
+	public List<ReviewDTO> getList(int contentId);
 
 	public int writeReview(ReviewDTO review);
 

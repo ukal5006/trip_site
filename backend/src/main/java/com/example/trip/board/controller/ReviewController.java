@@ -13,73 +13,73 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.example.trip.board.dto.NoticeDTO;
-import com.example.trip.board.service.NoticeService;
-import com.example.trip.brewery.service.BreweryService;
+import com.example.trip.board.dto.ReviewDTO;
+import com.example.trip.board.service.ReviewService;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpSession;
-
-@Tag(name = "리뷰 컨트롤러", description="리뷰 CRUD" )
+@RestController
 @RequestMapping(value = "/review")
 public class ReviewController {
-    @Autowired
-    private BreweryService bservice;
-    
-//    //리뷰 리스트 가져오기
-//    @GetMapping("/contentList")
-//    @Operation(method ="GET", summary="공지사항 전체 가져오기")
-//    public List<NoticeDTO> getList(){
-//    	return bservice.getList();
-//    }
+	@Autowired
+	private ReviewService rservice;
 
-//    //커뮤니티 게시글 자세히 보기
-//    @GetMapping("/showContent")
-//    public NoticeDTO showNotice(@RequestParam("noticeId") int noticeId) {
-//    	 NoticeDTO n = bservice.showContent(noticeId);
-//    	 System.out.println(n.toString());
-//    	return bservice.showContent(noticeId);
-//    }
-    
-//    //공지사항 게시글 작성하기(공지사항은 관리자만 작성할 수 있음)
-//    @PostMapping("/write")
-//    public ResponseEntity<?> writeNotice(@RequestBody NoticeDTO notice, HttpSession session) {
-//        String userId = (String) session.getAttribute("userId");  // 세션에서 사용자 ID 가져오기
-//        notice.setUserId(userId);  // NoticeDTO에 사용자 ID 설정
-//
-//        int noticeId = bservice.writeNotice(notice);  // 공지사항 작성
-//        if (noticeId > 0) {
-//            notice.setNoticeId(noticeId);  // 새로 생성된 공지사항 ID 설정
-//            return ResponseEntity.ok(notice);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 작성 실패");
-//        }
-//    }
-    
-//    //공지시항 게시글 수정(공지사항은 관리자만 수정할 수 있음)
-//    @PutMapping("/update")
-//    public ResponseEntity<?> updateNotice(@RequestBody NoticeDTO notice) {
-//        try {
-//            boolean updated = bservice.updateNotice(notice);
-//            if (!updated) {
-//                return ResponseEntity.badRequest().body("Update failed or no permission.");
-//            }
-//            return ResponseEntity.ok("Notice updated successfully.");
-//        } catch (Exception e) {
-//            return ResponseEntity.internalServerError().body("An error occurred: " + e.getMessage());
-//        }
-//    }
-    
-//    // 공지사항 삭제 메소드
-//    @DeleteMapping("/delete/{noticeId}")
-//    public ResponseEntity<?> deleteNotice(@PathVariable int noticeId) {
-//        try {
-//        	bservice.deleteNotice(noticeId);
-//            return ResponseEntity.ok("Notice deleted successfully.");
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete notice: " + e.getMessage());
-//        }
-//    }
+	// 리뷰 목록 조회
+	@GetMapping()
+	public ResponseEntity<List<ReviewDTO>> getList(@RequestParam int contentId) {
+		try {
+			List<ReviewDTO> review = rservice.getList(contentId);
+			return ResponseEntity.ok(review);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(500).body(null);
+		}
+	}
+
+	// 리뷰 등록
+	@PostMapping(value = "/write", headers = {
+			"Content-type=application/json" })
+	public ResponseEntity<?> writeReview(@RequestBody ReviewDTO review) {
+		try {
+			rservice.writeReview(review);
+			return ResponseEntity.status(HttpStatus.CREATED).body("리뷰가 성공적으로 등록되었습니다.");
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 등록에 실패했습니다.");
+		}
+	}
+
+	// 리뷰 수정
+	@PutMapping("/{reviewId}")
+	public ResponseEntity<?> updateReview(@PathVariable int reviewId, @RequestBody ReviewDTO review) {
+		try {
+			int status = rservice.updateReview(review);
+			if (status > 0) {
+				return ResponseEntity.ok("리뷰가 성공적으로 수정되었습니다.");
+			}
+			else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("리뷰를 찾을 수 없습니다.");
+			}
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 수정에 실패했습니다.");
+		}
+	}
+
+	// 리뷰 삭제
+	@DeleteMapping("/{reviewId}")
+	public ResponseEntity<?> deleteReview(@PathVariable int reviewId) {
+		try {
+			int status = rservice.deleteReview(reviewId);
+			if (status > 0) {
+				return ResponseEntity.ok("리뷰가 성공적으로 삭제되었습니다.");
+			}
+			else {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 삭제에 실패했습니다.");
+			}
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 삭제에 실패했습니다.");
+		}
+	}
 }

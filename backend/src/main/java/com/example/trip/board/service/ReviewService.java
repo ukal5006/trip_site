@@ -13,12 +13,8 @@ public class ReviewService {
 	@Autowired
 	private ReviewDAO rdao;
 
-	public List<ReviewDTO> getList() {
-		return rdao.getList();
-	}
-
-	public ReviewDTO showContent(int reviewId) {
-		return rdao.showContent(reviewId);
+	public List<ReviewDTO> getList(int contentId) {
+		return rdao.getList(contentId);
 	}
 
 	public int writeReview(ReviewDTO review) {
