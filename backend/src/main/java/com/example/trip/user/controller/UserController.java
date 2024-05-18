@@ -80,6 +80,16 @@ public class UserController {
 		}
 	}
 
+	// 아이디중복체크
+	@PostMapping(value = "/idCheck", headers = {
+			"Content-type=application/json" })
+	public ResponseEntity<?> idCheck(@RequestBody UserDTO user) {
+		if (uservice.checkId(user.getUserId()) != 0) { // 아이디 중복체크
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("아이디가 이미 존재합니다");
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("사용 가능한 아이디입니다.");
+	}
+
 	// 회원가입
 	@PostMapping(value = "/signup", headers = {
 			"Content-type=application/json" })
@@ -157,13 +167,12 @@ public class UserController {
 	public static boolean isStrongPassword(String password) {
 		if (password.length() < 8) // 8자 이상
 			return false;
-		String upperCasePattern = ".*[A-Z].*"; // 대문자 한개 이상 포함
 		String lowerCasePattern = ".*[a-z].*"; // 소문자 한개 이상 포함
 		String digitPattern = ".*[0-9].*"; // 숫자 한개 이상 포함
 		String specialCharPattern = ".*[!@#$%^&*()-+=].*"; // 공백 제외 특수문자 한개 이상 포함
 
-		return Pattern.matches(upperCasePattern, password) && Pattern.matches(lowerCasePattern, password)
-				&& Pattern.matches(digitPattern, password) && Pattern.matches(specialCharPattern, password);
+		return Pattern.matches(lowerCasePattern, password) && Pattern.matches(digitPattern, password)
+				&& Pattern.matches(specialCharPattern, password);
 	}
 
 	// 랜덤 비밀번호 생성기

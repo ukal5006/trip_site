@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.trip.board.dao.UserBoardDAO">
+
+	<resultMap type="UserBoardDTO"
+		id="boardInfo">
+		<result column="post_id" property="postId" />
+		<result column="post_type" property="postType" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="write_date" property="writeDate" />
+		<result column="update_date" property="updateDate" />
+		<result column="user_id" property="userId" />
+		<result column="read_count" property="readCount" />
+		<result column="good" property="good" />
+		<result column="bad" property="bad" />
+	</resultMap>
+
+	<select id="getList"  resultType="UserBoardDTO" >
+		SELECT post_type, title, user_id, read_count, good, bad, write_date
+		FROM userboard
+	</select>
+
+	<select id="showContent" resultType="UserBoardDTO" 
+		parameterType="int">
+		SELECT * 
+		FROM userboard WHERE
+		post_id = #{postId}
+	</select>
+
+	<insert id="writeBoard" parameterType="UserBoardDTO">
+		INSERT INTO userboard
+		(post_type, title, content, user_id)
+		VALUES
+		(#{postType}, #{title},
+		#{content}, #{userId})
+	</insert>
+
+	<update id="updateBoard" parameterType="UserBoardDTO">
+		UPDATE userboard
+		SET
+		post_type = #{postType}, title = #{title}, content = #{content},
+		update_date = #{updateDate}
+		WHERE post_id = #{postId}
+	</update>
+
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM userboard
+		WHERE
+		post_id = #{postId}
+	</delete>
+</mapper>

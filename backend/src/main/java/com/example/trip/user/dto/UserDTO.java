@@ -21,6 +21,7 @@ public class UserDTO {
 	public UserDTO() {
 		super();
 	}
+	
 
 	public UserDTO(String userId, String userPwd, String birth, String userName, String userPhone) {
 		this.userId = userId;

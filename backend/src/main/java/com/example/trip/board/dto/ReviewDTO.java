@@ -1,122 +1,109 @@
 package com.example.trip.board.dto;
 
+import java.util.Date;
+
 public class ReviewDTO {
 	private int reviewId;
-	private String writeDate;
+	private int contentId;
+	private String userId;
+	private int rate;
 	private String content;
-	private String reviewImg;
-	private String reviewTitle;
-	private String userId; //작성자 아이디
-	private String writeName; // 작성자 이름
-	private int participate; // 참여 명수
-	private int readCount;
-	
-	
-	public ReviewDTO() {}
+	private int good;
+	private int bad;
+	private Date writeDate;
+	private Date updateDate;
 
-
-	public ReviewDTO(int reviewId, String writeDate, String content, String reviewImg, String reviewTitle,
-			String userId, String writeName, int participate, int readCount) {
+	public ReviewDTO(int reviewId, int contentId, String userId, int rate, String content, int good, int bad,
+			Date writeDate, Date updateDate) {
 		super();
 		this.reviewId = reviewId;
-		this.writeDate = writeDate;
-		this.content = content;
-		this.reviewImg = reviewImg;
-		this.reviewTitle = reviewTitle;
+		this.contentId = contentId;
 		this.userId = userId;
-		this.writeName = writeName;
-		this.participate = participate;
-		this.readCount = readCount;
+		this.rate = rate;
+		this.content = content;
+		this.good = good;
+		this.bad = bad;
+		this.writeDate = writeDate;
+		this.updateDate = updateDate;
 	}
-
 
 	public int getReviewId() {
 		return reviewId;
 	}
 
-
 	public void setReviewId(int reviewId) {
 		this.reviewId = reviewId;
 	}
 
-
-	public String getWriteDate() {
-		return writeDate;
+	public int getContentId() {
+		return contentId;
 	}
 
-
-	public void setWriteDate(String writeDate) {
-		this.writeDate = writeDate;
+	public void setContentId(int contentId) {
+		this.contentId = contentId;
 	}
-
-
-	public String getContent() {
-		return content;
-	}
-
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-
-	public String getReviewImg() {
-		return reviewImg;
-	}
-
-
-	public void setReviewImg(String reviewImg) {
-		this.reviewImg = reviewImg;
-	}
-
-
-	public String getReviewTitle() {
-		return reviewTitle;
-	}
-
-
-	public void setReviewTitle(String reviewTitle) {
-		this.reviewTitle = reviewTitle;
-	}
-
 
 	public String getUserId() {
 		return userId;
 	}
 
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-
-	public String getWriteName() {
-		return writeName;
+	public int getRate() {
+		return rate;
 	}
 
-
-	public void setWriteName(String writeName) {
-		this.writeName = writeName;
+	public void setRate(int rate) {
+		this.rate = rate;
 	}
 
-
-	public int getParticipate() {
-		return participate;
+	public String getContent() {
+		return content;
 	}
 
-
-	public void setParticipate(int participate) {
-		this.participate = participate;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-
-	public int getReadCount() {
-		return readCount;
+	public int getGood() {
+		return good;
 	}
 
-
-	public void setReadCount(int readCount) {
-		this.readCount = readCount;
+	public void setGood(int good) {
+		this.good = good;
 	}
-	
+
+	public int getBad() {
+		return bad;
+	}
+
+	public void setBad(int bad) {
+		this.bad = bad;
+	}
+
+	public Date getWriteDate() {
+		return writeDate;
+	}
+
+	public void setWriteDate(Date writeDate) {
+		this.writeDate = writeDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	@Override
+	public String toString() {
+		return "ReviewDTO [reviewId=" + reviewId + ", contentId=" + contentId + ", userId=" + userId + ", rate=" + rate
+				+ ", content=" + content + ", good=" + good + ", bad=" + bad + ", writeDate=" + writeDate
+				+ ", updateDate=" + updateDate + "]";
+	}
+
 }

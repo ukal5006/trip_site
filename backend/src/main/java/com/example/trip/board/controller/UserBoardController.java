@@ -1,0 +1,103 @@
+package com.example.trip.board.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.trip.board.dto.UserBoardDTO;
+import com.example.trip.board.service.UserBoardService;
+
+@RestController
+@RequestMapping(value = "/userBoard")
+public class UserBoardController {
+	@Autowired
+	private UserBoardService uservice;
+
+	// 게시글 목록 조회
+	@GetMapping()
+	public ResponseEntity<List<UserBoardDTO>> getList() {
+		try {
+			List<UserBoardDTO> posts = uservice.getList();
+			return ResponseEntity.ok(posts);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(500).body(null);
+		}
+	}
+
+	// 게시글 세부 조회
+	@GetMapping("/{selectOne}")
+	public ResponseEntity<?> showContent(@RequestParam int postId) {
+		try {
+			UserBoardDTO post = uservice.showContent(postId);
+			if (post != null) {
+				return ResponseEntity.ok(post);
+			}
+			else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("게시글을 찾을 수 없습니다.");
+			}
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 조회에 실패했습니다.");
+		}
+	}
+
+	// 게시글 등록
+	@PostMapping(value = "/write", headers = {
+			"Content-type=application/json" })
+	public ResponseEntity<?> writeBoard(@RequestBody UserBoardDTO userBoard) {
+		try {
+			uservice.writeBoard(userBoard);
+			return ResponseEntity.status(HttpStatus.CREATED).body("게시글이 성공적으로 등록되었습니다.");
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 등록에 실패했습니다.");
+		}
+	}
+
+	// 게시글 수정
+	@PutMapping("/{postId}")
+	public ResponseEntity<?> updateBoard(@PathVariable int postId, @RequestBody UserBoardDTO userBoard) {
+		try {
+			int status = uservice.updateBoard(userBoard);
+			if (status > 0) {
+				return ResponseEntity.ok("게시글이 성공적으로 수정되었습니다.");
+			}
+			else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("게시글을 찾을 수 없습니다.");
+			}
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 수정에 실패했습니다.");
+		}
+	}
+
+	// 게시글 삭제
+	@DeleteMapping("/{postId}")
+	public ResponseEntity<?> deleteBoard(@PathVariable int postId) {
+		try {
+			int status = uservice.deleteBoard(postId);
+			if (status > 0) {
+				return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");
+			}
+			else {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 삭제에 실패했습니다.");
+			}
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 삭제에 실패했습니다.");
+		}
+	}
+
+}
