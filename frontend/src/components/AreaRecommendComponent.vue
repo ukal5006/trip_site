@@ -1,6 +1,28 @@
 <script setup>
-defineProps({
+import axios from 'axios';
+import { ref, watch } from 'vue';
+import { useDataInfoStore } from '@/stores/dataInfo.js';
+
+const URL = 'http://192.168.10.93:9999/attraction/getTop3/';
+const props = defineProps({
   area: Object,
+});
+const data = ref();
+
+const loadData = () => {
+  axios
+    .get(`${URL}${props.area.title}`)
+    .then((response) => {
+      // 서버로부터 받은 데이터로 로직 처리
+      data.value = response.data;
+    })
+    .catch((error) => {
+      console.error('Error fetching data: ', error);
+    });
+};
+loadData();
+watch(props, () => {
+  loadData();
 });
 </script>
 
@@ -8,10 +30,16 @@ defineProps({
   <div class="areaRecommendContainer">
     <div class="areaTitle">{{ area.title }}</div>
     <div class="recommendContentContainer">
-      <!-- <div class="recommendItem" v-for="" :key=""></div> -->
-      <div class="recommendItem">1</div>
-      <div class="recommendItem">2</div>
-      <div class="recommendItem">3</div>
+      <div class="recommendItem" v-for="(item, index) in data" :key="index">
+        <div class="typeTitle">
+          {{ useDataInfoStore().getTypeTitle(item.contentTypeId) }}
+        </div>
+        <div class="imgWrapper">
+          <img class="img" :src="item.firstImage" alt="" />
+        </div>
+        <div class="itemTitle">{{ item.title }}</div>
+        <div class="itemAddr">{{ item.addr1 }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -30,9 +58,35 @@ defineProps({
   margin-bottom: 30px;
 }
 .recommendItem {
-  width: 300px;
+  position: relative;
+  width: 310px;
   height: 350px;
   background-color: antiquewhite;
   border-radius: 10px;
+}
+.typeTitle {
+  position: absolute;
+  background-color: rgb(51, 51, 51);
+  width: 60px;
+  height: 30px;
+  color: rgb(240, 242, 244);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 10px;
+  left: 10px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+.imgWrapper {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>

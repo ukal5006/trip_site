@@ -1,51 +1,76 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from 'vue';
+import axios from 'axios';
+import { useDataInfoStore } from '@/stores/dataInfo';
 
+const dataType = useDataInfoStore().dataType;
 const props = defineProps({
-    random: Object,
+  random: Object,
 });
 
-const randomDatas = ref([1, 2, 3, 4]);
+watch(props, () => {
+  loadData();
+});
+
+const randomDatas = ref('');
+const URL = 'http://192.168.10.93:9999/attraction/';
+const loadData = async () => {
+  console.log('데이터 슛!');
+  try {
+    const response = await axios.get(
+      `${URL}${props.random.type}/${props.random.areaTitle}`
+    );
+    console.log(response.data);
+    randomDatas.value = response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+loadData();
 </script>
 
 <template>
-    <div class="itemsContainer">
-        <div class="item" v-for="randomData in randomDatas" :key="randomData">
-            <div class="imgWrapper">사진</div>
-            <div class="infoContainer">
-                <div class="title">제목</div>
-                <div class="address">주소</div>
-            </div>
-        </div>
+  <div class="itemsContainer">
+    <div class="item" v-for="data in randomDatas" :key="data">
+      <div class="imgWrapper">
+        <img class="contentImg" :src="data?.firstImage" alt="" />
+      </div>
+      <div class="infoContainer">
+        <div class="title">{{ data?.title }}</div>
+        <div class="address">{{ data?.addr1 }}</div>
+      </div>
     </div>
+  </div>
 </template>
 
 <style scoped>
 .itemsContainer {
-    display: flex;
-    height: inherit;
-    justify-content: space-between;
-    padding: 10px;
+  display: flex;
+  /* height: 1000px; */
+  justify-content: space-between;
+  padding: 10px;
 }
 
 .item {
-    width: 220px;
-    height: 250px;
-    background-color: aqua;
-    border-radius: 10px;
+  width: 300px;
+  height: 350px;
 }
 .imgWrapper {
-    width: 100%;
-    height: 70%;
-    background-color: yellow;
+  width: 100%;
+  height: 80%;
 }
 .infoContainer {
-    width: 100%;
-    height: 30%;
-    background-color: blueviolet;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.contentImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
 }
 </style>

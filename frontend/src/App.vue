@@ -27,8 +27,8 @@ onMounted(() => {
     class="backgroundBox"
     :style="{ backgroundColor: useSettingStore().boxColor }"
   ></div>
-  <main>
-    <RouterView />
+  <main class="appMain">
+    <RouterView class="mainContent" />
   </main>
   <footer>
     <FooterComponent />
@@ -44,8 +44,14 @@ header {
   transition: background-color 0.3s; /* 부드러운 전환 효과 */
   z-index: 99;
 }
-main {
+.appMain {
   padding-top: 60px;
+  width: 100vw;
+  height: auto;
+  /* display: flex; */
+}
+
+.mainContent {
   width: 1000px;
   margin: 0px auto;
 }

@@ -1,31 +1,24 @@
-import { ref, computed } from "vue";
-import { defineStore } from "pinia";
+import { ref, computed } from 'vue';
+import { defineStore } from 'pinia';
 
-export const useMemberStore = defineStore("member", () => {
-  const memberList = [
-    {
-      id: "ssafy",
-      password: "ssafy",
-      name: "김싸피",
-    },
-    {
-      id: "admin",
-      password: "admin",
-      name: "관리자",
-    },
-  ];
-  const id = ref("");
-  const name = ref("");
-
-  const changeId = (input) => {
-    id.value = input;
+export const useMemberStore = defineStore('member', () => {
+  // const user = ref();
+  const user = {
+    userId: 'asd',
+    userName: 'asd',
+    userPwd: 'asd',
+    birth: 'asd',
+    userPhone: 'asd',
+    admin: 1,
   };
 
-  const changeName = () => {
-    const idx = memberList.findIndex((item) => item.id === id.value);
-    if (idx !== -1) {
-      name.value = memberList[idx].name;
-    }
+  const setUser = (input) => {
+    user.value = input;
   };
-  return { memberList, id, name, changeId, changeName };
+
+  const logout = () => {
+    user.value = null;
+  };
+
+  return { user, setUser, logout };
 });
