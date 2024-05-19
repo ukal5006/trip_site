@@ -84,7 +84,8 @@ public class SecurityConfig {
             "/attraction/randomList/**",
             "/attraction/inRange/**",
             "/attraction/randomRestaurant/**",
-            "/attraction/getTop3/**"
+            "/attraction/getTop3/**",
+            "/bot/chat/**"
         };
 
     @Bean
