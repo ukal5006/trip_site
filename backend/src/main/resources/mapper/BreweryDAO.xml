@@ -20,15 +20,18 @@
 	</resultMap>
 
 	<!--양조장 지역별 리스트 보여주기 -->
-	<select id="showBreweryRegionList" resultType="map" resultMap="regionList">
-		select brewery_title, brewery_address, brewery_kind,
-		brewery_tel, min_people, brewery_img
-		from brewery
-		where brewery_img is not null
-		and brewery_img != '' and brewery_address like concat(#{brewery_address}, '%')
-	</select>
-
-	<resultMap type="map" id="regionList">
+    <select id="showBreweryRegionList" resultType="map" resultMap="regionBrew">
+        SELECT brewery_title, brewery_address, brewery_kind, brewery_tel, min_people, brewery_img
+        FROM brewery
+        WHERE brewery_img IS NOT NULL
+        AND brewery_img != ''
+        AND (
+            <foreach item="region" collection="regions" open="(" separator=" OR " close=")">
+                brewery_address LIKE CONCAT(#{region}, '%')
+            </foreach>
+        )
+    </select>
+	<resultMap type="map" id="regionBrew">
 		<result column="brewery_title" property="breweryTitle" />
 		<result column="brewery_address" property="breweryAddress" />
 		<result column="brewery_kind" property="breweryKind" />
