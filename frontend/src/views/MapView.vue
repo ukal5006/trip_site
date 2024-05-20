@@ -1,11 +1,18 @@
 <script setup>
-import { useSettingStore } from "@/stores/setting";
+import { useSettingStore } from '@/stores/setting';
+import MapComponent from '@/components/MapComponent.vue';
 
 const setting = useSettingStore();
-setting.changeBoxColor("rgb(225,245,196)");
+setting.changeBoxColor('rgb(225,245,196)');
 </script>
 <template>
-    <h1>Map</h1>
+  <MapComponent class="mapMain" />
 </template>
 
-<style scoped></style>
+<style scoped>
+.mapMain {
+  height: 100px;
+  width: 100%;
+  position: relative;
+}
+</style>

@@ -71,24 +71,26 @@ const clickArea = (area) => {
 </script>
 
 <template>
-  <h1 class="info">대한민국 지역 정보</h1>
-  <h1 class="info">어디까지 알고있니?</h1>
-  <div class="areaContainer">
-    <div
-      class="areaWrapper"
-      v-for="area in areaList"
-      :key="area"
-      @click="clickArea(area)"
-    >
-      <div class="areaImg">
-        <img :src="area.img" />
+  <div>
+    <h1 class="info">대한민국 지역 정보</h1>
+    <h1 class="info">어디까지 알고있니?</h1>
+    <div class="areaContainer">
+      <div
+        class="areaWrapper"
+        v-for="area in areaList"
+        :key="area"
+        @click="clickArea(area)"
+      >
+        <div class="areaImg">
+          <img :src="area.img" />
+        </div>
+        <span>{{ area.title }}</span>
       </div>
-      <span>{{ area.title }}</span>
     </div>
+    <AreaRecommendComponet :area="selectedArea" />
+    <AreaOfiicialComponent :area="selectedArea" />
+    <AreaRandomComponent :area="selectedArea" />
   </div>
-  <AreaRecommendComponet :area="selectedArea" />
-  <AreaOfiicialComponent :area="selectedArea" />
-  <AreaRandomComponent :area="selectedArea" />
 </template>
 
 <style scoped>

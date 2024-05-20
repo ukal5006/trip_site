@@ -24,20 +24,112 @@
 		<result column="longitude" property="longitude" />
 	</resultMap>
 
-	<!--랜덤 값 4개 가져오기 -->
+	<!--랜덤 관광지 3개 가져오기 -->
 	<select id="getRandomAttractions" resultMap="random">
-		SELECT first_image, title, addr1
+		SELECT content_id,
+		first_image,
+		title, addr1
 		FROM attraction_info
-		WHERE first_image IS NOT NULL AND first_image != ''
+		WHERE first_image IS NOT
+		NULL AND
+		first_image != ''
 		AND content_type_id = 12
-		AND addr1 LIKE CONCAT(#{addr1}, '%')
+		AND addr1 LIKE
+		CONCAT(#{addr1}, '%')
 		ORDER BY RAND()
 		LIMIT 3;
-
 	</select>
+
 	<resultMap type="AttractionInfoDTO" id="random">
+		<result column="content_id" property="contendId" />
 		<result column="first_image" property="firstImage" />
 		<result column="title" property="title" />
 		<result column="addr1" property="addr1" />
+	</resultMap>
+
+	<!-- 범위 내의 관광지 정보 가져오기 -->
+	<select id="getInRangeAttractions" resultType="map" resultMap="range">
+        <![CDATA[
+        SELECT
+        	ai.content_id,
+        	ai.content_type_id,
+            ai.title,
+            ai.addr1,
+            ad.overview,
+            ai.latitude,
+            ai.longitude,
+            (6371 * acos(cos(radians(#{latitude}))
+            * cos(radians(ai.latitude))
+            * cos(radians(ai.longitude) - radians(#{longitude}))
+            + sin(radians(#{latitude}))
+            * sin(radians(ai.latitude)))) AS distance,
+            ai.first_image
+        FROM attraction_info ai
+        JOIN attraction_description ad ON ai.content_id = ad.content_id
+        HAVING distance < #{radius}
+        ORDER BY distance
+        ]]>
+	</select>
+	
+<resultMap type="map" id="range">
+    <result column="content_id" property="contentId" />
+    <result column="content_type_id" property="contentTypeId" />
+    <result column="title" property="title" />
+    <result column="addr1" property="addr1" />
+    <result column="overview" property="overview" />
+    <result column="latitude" property="latitude" />
+    <result column="longitude" property="longitude" />
+    <result column="distance" property="distance" />
+    <result column="first_image" property="firstImage"/>
+</resultMap>
+
+	<!-- 랜덤 맛집 3개 조회 -->
+	<select id="getRandomRestaurant" resultType="map" resultMap="randRest3">
+		SELECT
+		content_id,
+		first_image,
+		title,
+		addr1
+		FROM attraction_info
+		WHERE first_image IS NOT
+		NULL
+		AND first_image != ''
+		AND content_type_id = 39
+		AND addr1 LIKE
+		CONCAT(#{addr1}, '%')
+		ORDER BY RAND()
+		LIMIT 3;
+	</select>
+	<resultMap type="map" id="randRest3">
+		<result column="content_id" property="contendId" />
+		<result column="title" property="title" />
+		<result column="addr1" property="addr1" />
+		<result column="first_image" property="firstImage" />
+	</resultMap>
+
+
+	<!-- 조회순 top3 조회 -->
+	<select id="getTop3" resultType="map" resultMap="top3">
+		SELECT
+		content_id,
+		content_type_id,
+		first_image,
+		title,
+		addr1
+		FROM attraction_info
+		WHERE first_image IS NOT NULL
+		AND first_image != ''
+		AND addr1 LIKE
+		CONCAT(#{addr1}, '%')
+		ORDER BY readcount DESC
+		LIMIT 3;
+	</select>
+
+	<resultMap type="map" id="top3">
+		<result column="content_id" property="contendId" />
+		<result column="content_type_id" property="contentTypeId" />
+		<result column="title" property="title" />
+		<result column="addr1" property="addr1" />
+		<result column="first_image" property="firstImage" />
 	</resultMap>
 </mapper>

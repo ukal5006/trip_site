@@ -13,6 +13,18 @@ public class BreweryDTO {
 	
 	public BreweryDTO() {}
 	
+	
+	public BreweryDTO(String breweryTitle, String breweryAddress, String breweryKind, String breweryTel, int minPeople,
+			String breweryImg) {
+		this.breweryTitle = breweryTitle;
+		this.breweryAddress = breweryAddress;
+		this.breweryKind = breweryKind;
+		this.breweryTel = breweryTel;
+		this.minPeople = minPeople;
+		this.breweryImg = breweryImg;
+	}
+
+
 	public BreweryDTO(int breweryNum, String breweryTitle, String breweryAddress, String breweryKind, String breweryTel,
 			int minPeople, String breweryImg, double brewery_lat, double brewery_long) {
 		
