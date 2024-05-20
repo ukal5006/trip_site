@@ -48,10 +48,11 @@
 	</resultMap>
 
 	<!-- 범위 내의 관광지 정보 가져오기 -->
-	<select id="getInRangeAttractions" resultType="map">
+	<select id="getInRangeAttractions" resultType="map" resultMap="range">
         <![CDATA[
         SELECT
         	ai.content_id,
+        	ai.content_type_id,
             ai.title,
             ai.addr1,
             ad.overview,
@@ -61,13 +62,26 @@
             * cos(radians(ai.latitude))
             * cos(radians(ai.longitude) - radians(#{longitude}))
             + sin(radians(#{latitude}))
-            * sin(radians(ai.latitude)))) AS distance
+            * sin(radians(ai.latitude)))) AS distance,
+            ai.first_image
         FROM attraction_info ai
         JOIN attraction_description ad ON ai.content_id = ad.content_id
         HAVING distance < #{radius}
         ORDER BY distance
         ]]>
 	</select>
+	
+<resultMap type="map" id="range">
+    <result column="content_id" property="contentId" />
+    <result column="content_type_id" property="contentTypeId" />
+    <result column="title" property="title" />
+    <result column="addr1" property="addr1" />
+    <result column="overview" property="overview" />
+    <result column="latitude" property="latitude" />
+    <result column="longitude" property="longitude" />
+    <result column="distance" property="distance" />
+    <result column="first_image" property="firstImage"/>
+</resultMap>
 
 	<!-- 랜덤 맛집 3개 조회 -->
 	<select id="getRandomRestaurant" resultType="map" resultMap="randRest3">
