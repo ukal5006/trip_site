@@ -20,6 +20,14 @@ public class BreweryService {
     
     //양조장 해당 지역 리스트 넘겨주기
     public List<Map<String, Object>> showBreweryRegionList(String region){
-    	return bdao.showBreweryRegionList(region);
+    	switch(region) {
+    	case"충청":
+    		return bdao.showBreweryRegionList(List.of("충남", "충북"));
+    	case"전라":
+    		return bdao.showBreweryRegionList(List.of("전북", "전남"));
+    	case"경상":
+    		return bdao.showBreweryRegionList(List.of("경북", "경남"));
+    	}
+    	return bdao.showBreweryRegionList(List.of(region));
     }
 }
