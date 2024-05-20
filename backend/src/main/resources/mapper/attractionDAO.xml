@@ -3,25 +3,21 @@
 <mapper namespace="com.example.trip.attraction.dao.attractionDAO">
 
 	<select id="selectList" resultMap="mmm">
-		select *
-		from attraction_info
-		where content_type_id=#{contentTypeId}
-		order by content_id desc
+		select ai.content_id, ai.content_type_id, ai.title, ai.addr1, ai.tel, ai.first_image, ai.first_image2, ai.readcount, ad.overview
+		from attraction_info ai, attraction_description ad
+		where ai.content_id = ad.content_id and ai.content_id=#{contendId}
+		order by content_id desc;
 	</select>
-	<resultMap type="AttractionInfoDTO" id="mmm">
-		<result column="content_id" property="contendId" />
+	<resultMap type="map" id="mmm">
+		<result column="content_id" property="contentId" />
 		<result column="content_type_id" property="contentTypeId" />
 		<result column="title" property="title" />
 		<result column="addr1" property="addr1" />
-		<result column="zipcode" property="zipcode" />
 		<result column="tel" property="tel" />
 		<result column="first_image" property="firstImage" />
 		<result column="first_image2" property="firstImage2" />
 		<result column="readcount" property="readCount" />
-		<result column="sido_code" property="sidoCode" />
-		<result column="gugun_code" property="gugunCode" />
-		<result column="latitude" property="latitude" />
-		<result column="longitude" property="longitude" />
+		<result column = "overview" property="overview"/>
 	</resultMap>
 
 	<!--랜덤 관광지 3개 가져오기 -->
@@ -41,7 +37,7 @@
 	</select>
 
 	<resultMap type="AttractionInfoDTO" id="random">
-		<result column="content_id" property="contendId" />
+		<result column="content_id" property="contentId" />
 		<result column="first_image" property="firstImage" />
 		<result column="title" property="title" />
 		<result column="addr1" property="addr1" />
@@ -101,7 +97,7 @@
 		LIMIT 3;
 	</select>
 	<resultMap type="map" id="randRest3">
-		<result column="content_id" property="contendId" />
+		<result column="content_id" property="contentId" />
 		<result column="title" property="title" />
 		<result column="addr1" property="addr1" />
 		<result column="first_image" property="firstImage" />
@@ -126,7 +122,7 @@
 	</select>
 
 	<resultMap type="map" id="top3">
-		<result column="content_id" property="contendId" />
+		<result column="content_id" property="contentId" />
 		<result column="content_type_id" property="contentTypeId" />
 		<result column="title" property="title" />
 		<result column="addr1" property="addr1" />
