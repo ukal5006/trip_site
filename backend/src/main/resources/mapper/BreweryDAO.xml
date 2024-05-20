@@ -13,7 +13,7 @@
 	<resultMap type="map" id="blist">
 		<result column="brewery_title" property="breweryTitle" />
 		<result column="brewery_address" property="breweryAddress" />
-		<result column="brewery_kind" property="brewery_tel" />
+		<result column="brewery_kind" property="breweryKind" />
 		<result column="brewery_tel" property="breweryTel" />
 		<result column="min_people" property="minPeople" />
 		<result column="brewery_img" property="breweryImg" />
@@ -31,13 +31,9 @@
 	<resultMap type="map" id="regionList">
 		<result column="brewery_title" property="breweryTitle" />
 		<result column="brewery_address" property="breweryAddress" />
-		<result column="brewery_kind" property="brewery_tel" />
+		<result column="brewery_kind" property="breweryKind" />
 		<result column="brewery_tel" property="breweryTel" />
 		<result column="min_people" property="minPeople" />
 		<result column="brewery_img" property="breweryImg" />
 	</resultMap>
-
-
-
-
 </mapper>

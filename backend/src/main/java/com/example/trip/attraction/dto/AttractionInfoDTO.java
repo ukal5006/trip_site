@@ -1,7 +1,7 @@
 package com.example.trip.attraction.dto;
 
 public class AttractionInfoDTO {
-	private int contendId;
+	private int contentId;
 	private int contentTypeId;
 	private String title;
 	private String addr1;
@@ -28,10 +28,10 @@ public class AttractionInfoDTO {
 	}
 
 
-	public AttractionInfoDTO(int contendId, int contentTypeId, String title, String addr1, String zipcode, String tel,
+	public AttractionInfoDTO(int contentId, int contentTypeId, String title, String addr1, String zipcode, String tel,
 			String firstImage, String firstImage2, int readCount, int sidoCode, int gugunCode, double latitude,
 			double longitude) {
-		this.contendId = contendId;
+		this.contentId = contentId;
 		this.contentTypeId = contentTypeId;
 		this.title = title;
 		this.addr1 = addr1;
@@ -47,13 +47,13 @@ public class AttractionInfoDTO {
 	}
 
 
-	public int getContendId() {
-		return contendId;
+	public int getContentId() {
+		return contentId;
 	}
 
 
-	public void setContendId(int contendId) {
-		this.contendId = contendId;
+	public void setContentId(int contentId) {
+		this.contentId = contentId;
 	}
 
 
