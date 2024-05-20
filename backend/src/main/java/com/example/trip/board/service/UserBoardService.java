@@ -38,16 +38,9 @@ public class UserBoardService {
 		return udao.deleteBoard(boardId);
 	}
 
-	public void likeBoard(int boardId, String userId) {
-		UserBoardLikeDTO like = new UserBoardLikeDTO(boardId, userId, true);
-		uservice.likeOrDislikePost(like);
-		udao.incrementGood(boardId);
-	}
-
-	public void dislikeBoard(int boardId, String userId) {
-		UserBoardLikeDTO dislike = new UserBoardLikeDTO(boardId, userId, false);
-		uservice.likeOrDislikePost(dislike);
-		udao.incrementBad(boardId);
+	public boolean likeBoard(int boardId, String userId, int good) {
+		UserBoardLikeDTO tmp = new UserBoardLikeDTO(boardId, userId, good);
+		return uservice.likeOrDislikePost(tmp);
 	}
 
 }

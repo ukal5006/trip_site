@@ -1,6 +1,7 @@
 package com.example.trip.board.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.trip.board.dto.UserBoardLikeDTO;
 
@@ -10,9 +11,14 @@ public interface UserBoardLikeDAO {
 
 	public int updateLike(UserBoardLikeDTO like);
 
-	public UserBoardLikeDTO getLike(int boardId, String userId);
+	public int deleteLike(UserBoardLikeDTO like);
+	
+	public int find(@Param("postId")int postId, @Param("userId") String userId );
+
+	public int getLike(@Param("postId")int postId, @Param("userId") String userId );
 
 	public int countLikes(int boardId);
 
 	public int countDislikes(int boardId);
+
 }

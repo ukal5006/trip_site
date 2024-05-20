@@ -23,5 +23,9 @@ public interface UserBoardDAO {
 
 	public void incrementBad(int postId);
 
+	public void decrementGood(int postId);
+
+	public void decrementBad(int postId);
+
 	public int deleteBoard(int boardId);
 }

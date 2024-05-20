@@ -19,7 +19,10 @@ public interface ReviewDAO {
 
 	public void incrementBad(int reviewId);
 
+	public void decrementGood(int reviewId);
+
+	public void decrementBad(int reviewId);
+
 	public int deleteReview(int reviewId);
-	
-	
+
 }

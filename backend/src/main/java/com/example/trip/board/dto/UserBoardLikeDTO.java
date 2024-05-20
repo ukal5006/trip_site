@@ -5,20 +5,26 @@ public class UserBoardLikeDTO {
 	private int likeId;
 	private int postId;
 	private String userId;
-	private boolean isGood;
+	private int isGood;
 
 	public UserBoardLikeDTO() {
 		super();
 	}
 
-	public UserBoardLikeDTO(int postId, String userId, boolean isGood) {
+	public UserBoardLikeDTO(int postId, String userId) {
+		super();
+		this.postId = postId;
+		this.userId = userId;
+	}
+
+	public UserBoardLikeDTO(int postId, String userId, int isGood) {
 		super();
 		this.postId = postId;
 		this.userId = userId;
 		this.isGood = isGood;
 	}
 
-	public UserBoardLikeDTO(int likeId, int postId, String userId, boolean isGood) {
+	public UserBoardLikeDTO(int likeId, int postId, String userId, int isGood) {
 		super();
 		this.likeId = likeId;
 		this.postId = postId;
@@ -50,11 +56,11 @@ public class UserBoardLikeDTO {
 		this.userId = userId;
 	}
 
-	public boolean isGood() {
+	public int getisGood() {
 		return isGood;
 	}
 
-	public void setGood(boolean isGood) {
+	public void setisGood(int isGood) {
 		this.isGood = isGood;
 	}
 

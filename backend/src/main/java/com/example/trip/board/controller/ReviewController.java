@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.trip.board.dto.ReviewDTO;
 import com.example.trip.board.service.ReviewService;
+import com.example.trip.util.JWTUtil;
 
 @RestController
 @RequestMapping(value = "/review")
@@ -85,16 +86,29 @@ public class ReviewController {
 	}
 
 	@PostMapping("/{reviewId}/like")
-	public ResponseEntity<String> likeReview(@PathVariable int reviewId,
-			@RequestHeader("Authorization") String userId) {
-		rservice.likeReview(reviewId, userId);
-		return ResponseEntity.ok("Review liked successfully");
+	public ResponseEntity<String> likeBoard(@PathVariable int reviewId, @RequestHeader("Authorization") String token) {
+		JWTUtil tmp = new JWTUtil();
+		String userId = tmp.getUserIdFromToken(token);
+
+		if (rservice.likeReview(reviewId, userId, 1)) {
+			return ResponseEntity.ok("Review liked successfully");
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("좋아요 실패했습니다.");
+		}
 	}
 
 	@PostMapping("/{reviewId}/dislike")
-	public ResponseEntity<String> dislikeReview(@PathVariable int reviewId,
-			@RequestHeader("Authorization") String userId) {
-		rservice.likeReview(reviewId, userId);
-		return ResponseEntity.ok("Review disliked successfully");
+	public ResponseEntity<String> dislikeBoard(@PathVariable int reviewId,
+			@RequestHeader("Authorization") String token) {
+		JWTUtil tmp = new JWTUtil();
+		String userId = tmp.getUserIdFromToken(token);
+
+		if (rservice.likeReview(reviewId, userId, -1)) {
+			return ResponseEntity.ok("Review liked successfully");
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("좋아요 실패했습니다.");
+		}
 	}
 }

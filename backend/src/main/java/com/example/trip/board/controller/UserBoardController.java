@@ -106,15 +106,27 @@ public class UserBoardController {
 	public ResponseEntity<String> likeBoard(@PathVariable int postId, @RequestHeader("Authorization") String token) {
 		JWTUtil tmp = new JWTUtil();
 		String userId = tmp.getUserIdFromToken(token);
-		uservice.likeBoard(postId, userId);
-		return ResponseEntity.ok("Board liked successfully");
+
+		if (uservice.likeBoard(postId, userId, 1)) {
+			return ResponseEntity.ok("Board liked successfully");
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("좋아요 실패했습니다.");
+		}
+
 	}
 
 	@PostMapping("/{postId}/dislike")
-	public ResponseEntity<String> dislikeBoard(@PathVariable int postId,
-			@RequestHeader("Authorization") String userId) {
-		uservice.dislikeBoard(postId, userId);
-		return ResponseEntity.ok("Board disliked successfully");
+	public ResponseEntity<String> dislikeBoard(@PathVariable int postId, @RequestHeader("Authorization") String token) {
+		JWTUtil tmp = new JWTUtil();
+		String userId = tmp.getUserIdFromToken(token);
+
+		if (uservice.likeBoard(postId, userId, -1)) {
+			return ResponseEntity.ok("Board liked successfully");
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("좋아요 실패했습니다.");
+		}
 	}
 
 }

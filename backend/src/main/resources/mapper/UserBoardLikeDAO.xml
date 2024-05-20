@@ -22,9 +22,21 @@
 		WHERE post_id = #{postId} AND user_id = #{userId}
 	</update>
 
-	<select id="getLike" parameterType="map"
-		resultMap="userBoardLikeInfo">
-		SELECT * FROM userboard_like
+	<delete id="deleteLike" parameterType="UserBoardLikeDTO">
+		delete from userboard_like
+		WHERE post_id = #{postId} AND user_id = #{userId}
+	</delete>
+
+	<select id="find" parameterType="map" resultType="int">
+		SELECT count(*) FROM
+		userboard_like
+		WHERE post_id = #{postId} AND
+		user_id = #{userId}
+	</select>
+	
+	<select id="getLike" parameterType="map" resultType="int">
+		SELECT is_good FROM
+		userboard_like
 		WHERE post_id = #{postId} AND
 		user_id = #{userId}
 	</select>

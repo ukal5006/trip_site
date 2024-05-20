@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.trip.board.dao.ReviewDAO;
 import com.example.trip.board.dto.ReviewDTO;
 import com.example.trip.board.dto.ReviewLikeDTO;
+import com.example.trip.board.dto.UserBoardLikeDTO;
 
 @Service
 public class ReviewService {
@@ -32,15 +33,8 @@ public class ReviewService {
 		return rdao.deleteReview(reviewId);
 	}
 
-	public void likeReview(int reviewId, String userId) {
-		ReviewLikeDTO like = new ReviewLikeDTO(reviewId, userId, true);
-		rservice.likeOrDislikeReview(like);
-		rdao.incrementGood(reviewId);
-	}
-
-	public void dislikeReview(int reviewId, String userId) {
-		ReviewLikeDTO dislike = new ReviewLikeDTO(reviewId, userId, false);
-		rservice.likeOrDislikeReview(dislike);
-		rdao.incrementBad(reviewId);
+	public boolean likeReview(int reviewId, String userId, int good) {
+		ReviewLikeDTO tmp = new ReviewLikeDTO(reviewId, userId, good);
+		return rservice.likeOrDislikeReview(tmp);
 	}
 }

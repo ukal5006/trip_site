@@ -4,20 +4,26 @@ public class ReviewLikeDTO {
 	private int likeId;
 	private int reviewId;
 	private String userId;
-	private boolean isGood;
+	private int isGood;
 
 	public ReviewLikeDTO() {
 		super();
 	}
 
-	public ReviewLikeDTO(int reviewId, String userId, boolean isGood) {
+	public ReviewLikeDTO(int reviewId, String userId) {
+		super();
+		this.reviewId = reviewId;
+		this.userId = userId;
+	}
+
+	public ReviewLikeDTO(int reviewId, String userId, int isGood) {
 		super();
 		this.reviewId = reviewId;
 		this.userId = userId;
 		this.isGood = isGood;
 	}
 
-	public ReviewLikeDTO(int likeId, int postId, String userId, boolean isGood) {
+	public ReviewLikeDTO(int likeId, int postId, String userId, int isGood) {
 		super();
 		this.likeId = likeId;
 		this.reviewId = postId;
@@ -49,11 +55,11 @@ public class ReviewLikeDTO {
 		this.userId = userId;
 	}
 
-	public boolean isGood() {
+	public int getisGood() {
 		return isGood;
 	}
 
-	public void setGood(boolean isGood) {
+	public void setisGood(int isGood) {
 		this.isGood = isGood;
 	}
 
