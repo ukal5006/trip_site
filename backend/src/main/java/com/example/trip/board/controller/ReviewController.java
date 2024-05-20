@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -81,5 +82,19 @@ public class ReviewController {
 		catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 삭제에 실패했습니다.");
 		}
+	}
+
+	@PostMapping("/{reviewId}/like")
+	public ResponseEntity<String> likeReview(@PathVariable int reviewId,
+			@RequestHeader("Authorization") String userId) {
+		rservice.likeReview(reviewId, userId);
+		return ResponseEntity.ok("Review liked successfully");
+	}
+
+	@PostMapping("/{reviewId}/dislike")
+	public ResponseEntity<String> dislikeReview(@PathVariable int reviewId,
+			@RequestHeader("Authorization") String userId) {
+		rservice.likeReview(reviewId, userId);
+		return ResponseEntity.ok("Review disliked successfully");
 	}
 }

@@ -41,6 +41,12 @@
 		WHERE notice_id = #{notice_id}
 	</update>
 
+	<update id="incrementViewCount" parameterType="int">
+		UPDATE Notice
+		SET read_count = read_count + 1
+		WHERE notice_id = #{noticeId}
+	</update>
+
 	<delete id="deleteNotice" parameterType="int">
 		DELETE FROM Notice
 		WHERE

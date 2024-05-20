@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.trip.user.dao.UserDAO;
+import com.example.trip.user.dto.LoginDTO;
+import com.example.trip.user.dto.LoginResponseDTO;
 import com.example.trip.user.dto.UserDTO;
 
 @Service
@@ -11,8 +13,8 @@ public class UserService {
 	@Autowired
 	private UserDAO udao;
 
-	public UserDTO login(UserDTO user) {
-		return udao.login(new UserDTO(user.getUserId(), user.getUserPwd()));
+	public LoginDTO login(LoginDTO login) {
+		return udao.login(login);
 	}
 
 	public UserDTO getUser(String userId) {

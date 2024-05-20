@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.trip.board.dao.UserBoardDAO">
 
-	<resultMap type="UserBoardDTO"
-		id="boardInfo">
+	<resultMap type="UserBoardDTO" id="boardInfo">
 		<result column="post_id" property="postId" />
 		<result column="post_type" property="postType" />
 		<result column="title" property="title" />
@@ -16,14 +15,16 @@
 		<result column="bad" property="bad" />
 	</resultMap>
 
-	<select id="getList"  resultType="UserBoardDTO" >
-		SELECT post_type, title, user_id, read_count, good, bad, write_date
+	<select id="getList" resultType="UserBoardDTO">
+		SELECT post_type,
+		title, user_id,
+		read_count, good, bad, write_date
 		FROM userboard
 	</select>
 
-	<select id="showContent" resultType="UserBoardDTO" 
+	<select id="showContent" resultType="UserBoardDTO"
 		parameterType="int">
-		SELECT * 
+		SELECT *
 		FROM userboard WHERE
 		post_id = #{postId}
 	</select>
@@ -44,9 +45,27 @@
 		WHERE post_id = #{postId}
 	</update>
 
+	<update id="incrementViewCount" parameterType="int">
+		UPDATE userboard
+		SET read_count = read_count + 1
+		WHERE post_id = #{postId}
+	</update>
+
 	<delete id="deleteBoard" parameterType="int">
 		DELETE FROM userboard
 		WHERE
 		post_id = #{postId}
 	</delete>
+
+	<update id="incrementGood" parameterType="int">
+		UPDATE userboard
+		SET good = good + 1
+		WHERE post_id = #{postId}
+	</update>
+
+	<update id="incrementBad" parameterType="int">
+		UPDATE userboard
+		SET bad = bad + 1
+		WHERE post_id = #{postId}
+	</update>
 </mapper>

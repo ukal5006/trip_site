@@ -15,5 +15,11 @@ public interface ReviewDAO {
 
 	public int updateReview(ReviewDTO review);
 
+	public void incrementGood(int reviewId);
+
+	public void incrementBad(int reviewId);
+
 	public int deleteReview(int reviewId);
+	
+	
 }

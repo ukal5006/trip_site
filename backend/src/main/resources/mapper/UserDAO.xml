@@ -10,8 +10,13 @@
 		<result column="admin" property="admin" />
 	</resultMap>
 
+	<resultMap type="LoginDTO" id="loginInfo">
+		<result column="user_id" property="userId" />
+		<result column="user_password" property="userPwd" />
+	</resultMap>
 
-	<select id="login" parameterType="UserDTO" resultMap="userInfo">
+
+	<select id="login" parameterType="LoginDTO" resultMap="loginInfo">
 		select *
 		from
 		user

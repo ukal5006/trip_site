@@ -6,6 +6,7 @@ public class UserDTO {
 	private String birth;
 	private String userName;
 	private String userPhone;
+	private String userEmail;
 	private int admin;
 
 	public UserDTO(String userId, String userPwd, String birth, String userName, String userPhone, int admin) {
@@ -21,7 +22,6 @@ public class UserDTO {
 	public UserDTO() {
 		super();
 	}
-	
 
 	public UserDTO(String userId, String userPwd, String birth, String userName, String userPhone) {
 		this.userId = userId;
@@ -93,6 +93,14 @@ public class UserDTO {
 		this.userPhone = userPhone;
 	}
 
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
 	public int getAdmin() {
 		return admin;
 	}
@@ -104,6 +112,7 @@ public class UserDTO {
 	@Override
 	public String toString() {
 		return "UserDTO [userId=" + userId + ", userPwd=" + userPwd + ", birth=" + birth + ", userName=" + userName
-				+ ", userPhone=" + userPhone + "]";
+				+ ", userPhone=" + userPhone + ", userEmail=" + userEmail + ", admin=" + admin + "]";
 	}
+
 }

@@ -2,12 +2,13 @@ package com.example.trip.user.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.trip.user.dto.LoginDTO;
 import com.example.trip.user.dto.UserDTO;
 
 @Mapper
 public interface UserDAO {
 
-	public UserDTO login(UserDTO user); // 로그인
+	public LoginDTO login(LoginDTO login); // 로그인
 
 	public UserDTO getUser(String userId); // 회원정보조회
 

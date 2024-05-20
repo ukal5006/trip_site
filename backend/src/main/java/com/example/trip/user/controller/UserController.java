@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.trip.user.dto.LoginDTO;
 import com.example.trip.user.dto.LoginResponseDTO;
 import com.example.trip.user.dto.UserDTO;
 import com.example.trip.user.service.UserService;
@@ -29,13 +30,13 @@ public class UserController {
 	// 로그인
 	@PostMapping(value = "/login", headers = {
 			"Content-type=application/json" })
-	public ResponseEntity<?> login(@RequestBody UserDTO user) {
-		UserDTO loginInfo = uservice.login(user);
+	public ResponseEntity<?> login(@RequestBody LoginDTO login) {
+		LoginDTO loginInfo = uservice.login(login);
 		if (loginInfo != null) { // 로그인 성공
-			String accessToken = jwtUtil.createAccessToken(user.getUserId());
-			String refreshToken = jwtUtil.createRefreshToken(user.getUserPwd());
+			String accessToken = jwtUtil.createAccessToken(login.getUserId());
+			String refreshToken = jwtUtil.createRefreshToken(login.getUserPwd());
 
-			LoginResponseDTO response = new LoginResponseDTO(loginInfo, accessToken, refreshToken);
+			LoginResponseDTO response = new LoginResponseDTO(accessToken, refreshToken);
 			return ResponseEntity.ok().body(response);
 		}
 		else { // 로그인 실패
@@ -53,7 +54,7 @@ public class UserController {
 
 	// 회원정보조회
 	@PostMapping("/getUser")
-	public ResponseEntity<?> getUser(@RequestBody UserDTO user) {
+	public ResponseEntity<?> getUser(@RequestBody LoginDTO user) {
 		UserDTO info = uservice.getUser(user.getUserId());
 		if (info != null) {
 			return ResponseEntity.ok(info);

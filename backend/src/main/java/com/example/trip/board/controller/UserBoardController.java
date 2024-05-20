@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.trip.board.dto.UserBoardDTO;
 import com.example.trip.board.service.UserBoardService;
+import com.example.trip.util.JWTUtil;
 
 @RestController
 @RequestMapping(value = "/userBoard")
@@ -98,6 +100,21 @@ public class UserBoardController {
 		catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 삭제에 실패했습니다.");
 		}
+	}
+
+	@PostMapping("/{postId}/like")
+	public ResponseEntity<String> likeBoard(@PathVariable int postId, @RequestHeader("Authorization") String token) {
+		JWTUtil tmp = new JWTUtil();
+		String userId = tmp.getUserIdFromToken(token);
+		uservice.likeBoard(postId, userId);
+		return ResponseEntity.ok("Board liked successfully");
+	}
+
+	@PostMapping("/{postId}/dislike")
+	public ResponseEntity<String> dislikeBoard(@PathVariable int postId,
+			@RequestHeader("Authorization") String userId) {
+		uservice.dislikeBoard(postId, userId);
+		return ResponseEntity.ok("Board disliked successfully");
 	}
 
 }

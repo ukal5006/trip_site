@@ -24,6 +24,7 @@ public class NoticeService {
 
 	// 공지사항 글 1개 가져오기
 	public NoticeDTO showContent(int noticeId) {
+		ndao.incrementViewCount(noticeId);
 		return ndao.showContent(noticeId);
 	}
 

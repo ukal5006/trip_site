@@ -16,6 +16,8 @@ public interface NoticeDAO {
 	public int writeNotice(NoticeDTO notice); // 공지사항 글 쓰기
 
 	public int updateNotice(NoticeDTO notice); // 공지사항 수정하기
+	
+	public int incrementViewCount(int noticeId);
 
 	public int deleteNotice(int noticeId); // 공지사항 삭제하기
 }

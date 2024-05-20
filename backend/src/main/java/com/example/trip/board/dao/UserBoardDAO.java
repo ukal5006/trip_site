@@ -17,5 +17,11 @@ public interface UserBoardDAO {
 
 	public int updateBoard(UserBoardDTO board);
 
+	public int incrementViewCount(int boardId);
+
+	public void incrementGood(int postId);
+
+	public void incrementBad(int postId);
+
 	public int deleteBoard(int boardId);
 }

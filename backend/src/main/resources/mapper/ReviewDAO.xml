@@ -26,7 +26,8 @@
 		INSERT INTO review
 		(content_id, user_id, rate, content)
 		VALUES
-		(#{contentId}, #{userId}, #{rate}, #{content})
+		(#{contentId}, #{userId},
+		#{rate}, #{content})
 	</insert>
 
 	<update id="updateReview" parameterType="ReviewDTO">
@@ -44,5 +45,16 @@
 		WHERE
 		review_id = #{reviewId}
 	</delete>
+	<update id="incrementGood" parameterType="int">
+		UPDATE review
+		SET good = good + 1
+		WHERE review_id = #{reviewId}
+	</update>
+
+	<update id="incrementBad" parameterType="int">
+		UPDATE review
+		SET bad = bad + 1
+		WHERE review_id = #{reviewId}
+	</update>
 </mapper>
 
