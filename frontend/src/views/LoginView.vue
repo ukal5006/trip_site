@@ -5,7 +5,6 @@ import { useMemberStore } from '@/stores/member';
 import { useSettingStore } from '@/stores/setting';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
-import TestComponent from '@/components/TestComponent.vue';
 
 const router = useRouter();
 
@@ -16,7 +15,7 @@ const { setUser } = useMemberStore();
 
 const inputId = ref('');
 const inputPassword = ref('');
-const URL = 'http://192.168.10.47:9999/user/login';
+const URL = 'http://192.168.219.121:9999/user/login';
 const login = async () => {
   try {
     const response = await axios.post(URL, {
@@ -65,7 +64,7 @@ const login = async () => {
       <div class="other">
         <RouterLink>비밀번호 찾기</RouterLink> <span class="split">|</span>
         <RouterLink>아이디 찾기</RouterLink> <span class="split">|</span>
-        <RouterLink>회원가입</RouterLink>
+        <RouterLink :to="{ name: 'join' }">회원가입</RouterLink>
       </div>
     </div>
   </div>
