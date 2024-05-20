@@ -83,7 +83,9 @@ public class SecurityConfig {
             "/webjars/**",
             "/attraction/**",
             "/bot/chat/**",
-            "/brewery/**"
+            "/brewery/**",
+            "/user/**",
+            "/board/**"
         };
 
     @Bean
