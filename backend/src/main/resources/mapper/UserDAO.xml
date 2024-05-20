@@ -7,6 +7,7 @@
 		<result column="birth" property="birth" />
 		<result column="user_name" property="userName" />
 		<result column="user_phone" property="userPhone" />
+		<result column="user_email" property="userEmail" />
 		<result column="admin" property="admin" />
 	</resultMap>
 
@@ -16,18 +17,20 @@
 	</resultMap>
 
 
-	<select id="login" parameterType="LoginDTO" resultMap="loginInfo">
+	<select id="login" parameterType="LoginDTO"
+		resultMap="loginInfo">
 		select *
 		from
 		user
 		where
-		user_id=#{userId} and user_password=#{userPwd}
+		user_id=#{userId} and
+		user_password=#{userPwd}
 	</select>
 
 
 	<select id="getUser" parameterType="string" resultType="UserDTO"
 		resultMap="userInfo">
-		SELECT user_id, birth, user_name, user_phone
+		SELECT *
 		FROM user WHERE
 		user_id =
 		#{userId}
@@ -37,11 +40,13 @@
 		INSERT INTO user (user_id,
 		user_password, birth,
 		user_name,
-		user_phone, admin)
-		VALUES (#{userId},
+		user_phone, user_email, admin)
+		VALUES
+		(#{userId},
 		#{userPwd}, #{birth},
 		#{userName},
 		#{userPhone},
+		#{userEmail},
 		#{admin})
 	</insert>
 
@@ -55,14 +60,15 @@
 	<select id="findId" parameterType="UserDTO" resultType="string">
 		SELECT
 		user_id FROM user WHERE user_name = #{userName} AND birth = #{birth}
-		AND user_phone = #{userPhone}
+		AND user_phone = #{userPhone} AND user_email = #{userEmail}
 	</select>
 
 	<select id="findPw" parameterType="UserDTO" resultType="string">
 		SELECT
 		user_password FROM user WHERE user_id = #{userId} AND user_name =
 		#{userName} AND birth = #{birth}
-		AND user_phone = #{userPhone}
+		AND user_phone = #{userPhone} AND
+		user_email = #{userEmail}
 	</select>
 
 	<update id="initPw" parameterType="UserDTO">
@@ -73,10 +79,12 @@
 
 	<update id="updateUser" parameterType="UserDTO">
 		update user set
-		user_id = #{userId},
+		user_id =
+		#{userId},
 		user_password = #{userPwd},
 		user_phone = #{userPhone}
-		where user_id = #{userId}
+		where
+		user_id = #{userId}
 	</update>
 
 	<delete id="deleteUser" parameterType="String">

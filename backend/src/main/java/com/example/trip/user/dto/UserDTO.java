@@ -9,13 +9,15 @@ public class UserDTO {
 	private String userEmail;
 	private int admin;
 
-	public UserDTO(String userId, String userPwd, String birth, String userName, String userPhone, int admin) {
+	public UserDTO(String userId, String userPwd, String birth, String userName, String userPhone, String userEmail,
+			int admin) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.birth = birth;
 		this.userName = userName;
 		this.userPhone = userPhone;
+		this.userEmail = userEmail;
 		this.admin = admin;
 	}
 
@@ -23,25 +25,19 @@ public class UserDTO {
 		super();
 	}
 
-	public UserDTO(String userId, String userPwd, String birth, String userName, String userPhone) {
-		this.userId = userId;
-		this.userPwd = userPwd;
-		this.birth = birth;
-		this.userName = userName;
-		this.userPhone = userPhone;
-	}
-
-	public UserDTO(String userName, String birth, String userPhone) {
+	public UserDTO(String userName, String birth, String userPhone, String userEmail) {
 		this.userName = userName;
 		this.birth = birth;
 		this.userPhone = userPhone;
+		this.userEmail = userEmail;
 	}
 
-	public UserDTO(String userId, String userName, String birth, String userPhone) {
+	public UserDTO(String userId, String userName, String birth, String userPhone, String userEmail) {
 		this.userId = userId;
 		this.userName = userName;
 		this.birth = birth;
 		this.userPhone = userPhone;
+		this.userEmail = userEmail;
 	}
 
 	public UserDTO(String userId, String userPwd) {

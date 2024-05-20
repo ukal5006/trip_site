@@ -187,6 +187,7 @@
 			<groupId>org.apache.httpcomponents.core5</groupId>
 			<artifactId>httpcore5</artifactId>
 		</dependency>
+
 	</dependencies>
 
 	<build>
