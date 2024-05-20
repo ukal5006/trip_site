@@ -18,71 +18,87 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.trip.board.dto.NoticeDTO;
 import com.example.trip.board.service.NoticeService;
 
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpSession;
 
 @RestController
-@Tag(name = "공지사항 컨트롤러", description="공지사항 CRUD" )
+@Tag(name = "공지사항 컨트롤러", description = "공지사항 CRUD")
 @RequestMapping(value = "/notice")
 public class NoticeController {
-    @Autowired
-    private NoticeService nservice;
-    
-//    @Autowired 
-//    private UserService uservice;
-    
-    @GetMapping("/contentList")
-    @Operation(method ="GET", summary="공지사항 전체 가져오기")
-    public List<NoticeDTO> getList(){
-    	return nservice.getList();
-    }
+	@Autowired
+	private NoticeService nservice;
 
-    //커뮤니티 게시글 자세히 보기
-    @GetMapping("/showContent")
-    public NoticeDTO showNotice(@RequestParam("noticeId") int noticeId) {
-    	 NoticeDTO n = nservice.showContent(noticeId);
-    	 System.out.println(n.toString());
-    	return nservice.showContent(noticeId);
-    }
-    
-    //공지사항 게시글 작성하기(공지사항은 관리자만 작성할 수 있음)
-    @PostMapping("/write")
-    public ResponseEntity<?> writeNotice(@RequestBody NoticeDTO notice, HttpSession session) {
-        String userId = (String) session.getAttribute("userId");  // 세션에서 사용자 ID 가져오기
-        notice.setUserId(userId);  // NoticeDTO에 사용자 ID 설정
+	@GetMapping()
+	public ResponseEntity<List<NoticeDTO>> getList() {
+		try {
+			List<NoticeDTO> posts = nservice.getList();
+			return ResponseEntity.ok(posts);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(500).body(null);
+		}
+	}
 
-        int noticeId = nservice.writeNotice(notice);  // 공지사항 작성
-        if (noticeId > 0) {
-            notice.setNoticeId(noticeId);  // 새로 생성된 공지사항 ID 설정
-            return ResponseEntity.ok(notice);
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 작성 실패");
-        }
-    }
-    
-    //공지시항 게시글 수정(공지사항은 관리자만 수정할 수 있음)
-    @PutMapping("/update")
-    public ResponseEntity<?> updateNotice(@RequestBody NoticeDTO notice) {
-        try {
-            boolean updated = nservice.updateNotice(notice);
-            if (!updated) {
-                return ResponseEntity.badRequest().body("Update failed or no permission.");
-            }
-            return ResponseEntity.ok("Notice updated successfully.");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("An error occurred: " + e.getMessage());
-        }
-    }
-    
-    // 공지사항 삭제 메소드
-    @DeleteMapping("/delete/{noticeId}")
-    public ResponseEntity<?> deleteNotice(@PathVariable int noticeId) {
-        try {
-        	nservice.deleteNotice(noticeId);
-            return ResponseEntity.ok("Notice deleted successfully.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete notice: " + e.getMessage());
-        }
-    }
+	// 공지사항 자세히 보기
+	@GetMapping("/{selectOne}")
+	public ResponseEntity<?> showContent(@RequestParam int noticeId) {
+		try {
+			NoticeDTO post = nservice.showContent(noticeId);
+			if (post != null) {
+				return ResponseEntity.ok(post);
+			}
+			else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("공지사항을 찾을 수 없습니다.");
+			}
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 조회에 실패했습니다.");
+		}
+	}
+
+	// 공지사항 게시글 작성하기(공지사항은 관리자만 작성할 수 있음)
+	@PostMapping(value = "/write", headers = {
+			"Content-type=application/json" })
+	public ResponseEntity<?> writeNotice(@RequestBody NoticeDTO notice) {
+		try {
+			nservice.writeNotice(notice);
+			return ResponseEntity.status(HttpStatus.CREATED).body("공지사항이 성공적으로 등록되었습니다.");
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항이 등록에 실패했습니다.");
+		}
+	}
+
+	// 공지사항 수정
+	@PutMapping("/{postId}")
+	public ResponseEntity<?> updateNotice(@PathVariable int noticeId, @RequestBody NoticeDTO notice) {
+		try {
+			int status = nservice.updateNotice(notice);
+			if (status > 0) {
+				return ResponseEntity.ok("공지사항이 성공적으로 수정되었습니다.");
+			}
+			else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("공지사항을 찾을 수 없습니다.");
+			}
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 수정에 실패했습니다.");
+		}
+	}
+
+	// 공지사항 삭제
+	@DeleteMapping("/{postId}")
+	public ResponseEntity<?> deleteNotice(@PathVariable int noticeId) {
+		try {
+			int status = nservice.deleteNotice(noticeId);
+			if (status > 0) {
+				return ResponseEntity.ok("공지사항이 성공적으로 삭제되었습니다.");
+			}
+			else {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 삭제에 실패했습니다.");
+			}
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 삭제에 실패했습니다.");
+		}
+	}
 }

@@ -6,6 +6,7 @@ public class UserDTO {
 	private String birth;
 	private String userName;
 	private String userPhone;
+	private String userEmail;
 	private int admin;
 
 	public UserDTO(String userId, String userPwd, String birth, String userName, String userPhone, int admin) {
@@ -30,9 +31,26 @@ public class UserDTO {
 		this.userPhone = userPhone;
 	}
 
+	public UserDTO(String userName, String birth, String userPhone) {
+		this.userName = userName;
+		this.birth = birth;
+		this.userPhone = userPhone;
+	}
+
+	public UserDTO(String userId, String userName, String birth, String userPhone) {
+		this.userId = userId;
+		this.userName = userName;
+		this.birth = birth;
+		this.userPhone = userPhone;
+	}
+
 	public UserDTO(String userId, String userPwd) {
 		this.userId = userId;
 		this.userPwd = userPwd;
+	}
+
+	public UserDTO(String userId) {
+		this.userId = userId;
 	}
 
 	public String getUserId() {
@@ -75,6 +93,14 @@ public class UserDTO {
 		this.userPhone = userPhone;
 	}
 
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
 	public int getAdmin() {
 		return admin;
 	}
@@ -86,6 +112,7 @@ public class UserDTO {
 	@Override
 	public String toString() {
 		return "UserDTO [userId=" + userId + ", userPwd=" + userPwd + ", birth=" + birth + ", userName=" + userName
-				+ ", userPhone=" + userPhone + "]";
+				+ ", userPhone=" + userPhone + ", userEmail=" + userEmail + ", admin=" + admin + "]";
 	}
+
 }
