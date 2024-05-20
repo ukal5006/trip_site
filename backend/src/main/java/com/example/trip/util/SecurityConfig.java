@@ -88,7 +88,8 @@ public class SecurityConfig {
             "/bot/chat/**",
             "/brewery/**",
             "/user/**",
-            "/board/**"
+            "/board/**",
+            "/wishlist/**"
         };
 
     @Bean
