@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.trip.attraction.dao.attractionDAO;
 import com.example.trip.attraction.dto.AttractionInfoDTO;
+import com.example.trip.board.dao.ReviewDAO;
 
 @Service
 public class AttractionService {

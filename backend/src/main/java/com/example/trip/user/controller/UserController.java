@@ -33,11 +33,14 @@ public class UserController {
 	public ResponseEntity<?> login(@RequestBody LoginDTO login) {
 		LoginDTO loginInfo = uservice.login(login);
 		if (loginInfo != null) { // 로그인 성공
-			String accessToken = jwtUtil.createAccessToken(login.getUserId());
-			String refreshToken = jwtUtil.createRefreshToken(login.getUserPwd());
-
-			LoginResponseDTO response = new LoginResponseDTO(accessToken, refreshToken);
-			return ResponseEntity.ok().body(response);
+//			String accessToken = jwtUtil.createAccessToken(login.getUserId());
+//			String refreshToken = jwtUtil.createRefreshToken(login.getUserPwd());
+//
+//			LoginResponseDTO response = new LoginResponseDTO(accessToken, refreshToken);
+//			return ResponseEntity.ok().body(response);
+			
+			UserDTO info = uservice.getUser(login.getUserId());
+			return ResponseEntity.ok().body(info);
 		}
 		else { // 로그인 실패
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인에 실패하였습니다. 아이디와 패스워드를 확인하세요.");

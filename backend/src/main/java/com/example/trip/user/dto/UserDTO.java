@@ -1,15 +1,17 @@
 package com.example.trip.user.dto;
 
+import java.util.Date;
+
 public class UserDTO {
 	private String userId;
 	private String userPwd;
-	private String birth;
+	private Date birth;
 	private String userName;
 	private String userPhone;
 	private String userEmail;
 	private int admin;
 
-	public UserDTO(String userId, String userPwd, String birth, String userName, String userPhone, String userEmail,
+	public UserDTO(String userId, String userPwd, Date birth, String userName, String userPhone, String userEmail,
 			int admin) {
 		super();
 		this.userId = userId;
@@ -25,14 +27,14 @@ public class UserDTO {
 		super();
 	}
 
-	public UserDTO(String userName, String birth, String userPhone, String userEmail) {
+	public UserDTO(String userName, Date birth, String userPhone, String userEmail) {
 		this.userName = userName;
 		this.birth = birth;
 		this.userPhone = userPhone;
 		this.userEmail = userEmail;
 	}
 
-	public UserDTO(String userId, String userName, String birth, String userPhone, String userEmail) {
+	public UserDTO(String userId, String userName, Date birth, String userPhone, String userEmail) {
 		this.userId = userId;
 		this.userName = userName;
 		this.birth = birth;
@@ -65,11 +67,11 @@ public class UserDTO {
 		this.userPwd = userPwd;
 	}
 
-	public String getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(String birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 

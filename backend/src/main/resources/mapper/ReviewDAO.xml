@@ -15,7 +15,7 @@
 	</resultMap>
 
 
-	<select id="getList" resultType="ReviewDTO" parameterType="int">
+	<select id="getList" resultMap="reviewInfo" parameterType="int">
 		SELECT *
 		FROM review
 		where

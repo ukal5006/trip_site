@@ -31,6 +31,7 @@ public class ReviewController {
 	public ResponseEntity<List<ReviewDTO>> getList(@RequestParam int contentId) {
 		try {
 			List<ReviewDTO> review = rservice.getList(contentId);
+			System.out.println("$$" +review.get(0).getContentId());
 			return ResponseEntity.ok(review);
 		}
 		catch (Exception e) {

@@ -89,7 +89,8 @@ public class SecurityConfig {
             "/brewery/**",
             "/user/**",
             "/board/**",
-            "/wishlist/**"
+            "/wishlist/**",
+            "/review/**"
         };
 
     @Bean
