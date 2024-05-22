@@ -85,7 +85,7 @@ public class SecurityConfig {
             "/attraction/inRange/**",
             "/attraction/randomRestaurant/**",
             "/attraction/getTop3/**",
-            "/festival/**"
+            "/festival/**",
             "/attraction/**",
             "/bot/chat/**",
             "/brewery/**",
