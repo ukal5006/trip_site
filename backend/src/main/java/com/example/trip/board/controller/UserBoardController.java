@@ -72,8 +72,8 @@ public class UserBoardController {
 	}
 
 	// 게시글 세부 조회
-	@GetMapping("/{selectOne}")
-	public ResponseEntity<?> showContent(@RequestParam int postId) {
+	@GetMapping("/{postId}")
+	public ResponseEntity<?> showContent(@PathVariable int postId) {
 		try {
 			UserBoardDTO post = uservice.showContent(postId);
 			if (post != null) {
@@ -102,36 +102,48 @@ public class UserBoardController {
 	}
 
 	// 게시글 수정
-	@PutMapping("/{postId}")
-	public ResponseEntity<?> updateBoard(@PathVariable int postId, @RequestBody UserBoardDTO userBoard) {
-		try {
-			int status = uservice.updateBoard(userBoard);
-			if (status > 0) {
-				return ResponseEntity.ok("게시글이 성공적으로 수정되었습니다.");
+	@PutMapping("/update")
+	public ResponseEntity<?> updateBoard(@RequestBody UserBoardDTO userBoard) {
+		if (uservice.isUser(userBoard)) {
+			try {
+				int status = uservice.updateBoard(userBoard);
+				if (status > 0) {
+					return ResponseEntity.ok("게시글이 성공적으로 수정되었습니다.");
+				}
+				else {
+					return ResponseEntity.status(HttpStatus.NOT_FOUND).body("게시글을 찾을 수 없습니다.");
+				}
 			}
-			else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("게시글을 찾을 수 없습니다.");
+			catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 수정에 실패했습니다.");
 			}
+
 		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 수정에 실패했습니다.");
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("권한이 없습니다.");
 		}
 	}
 
 	// 게시글 삭제
-	@DeleteMapping("/{postId}")
-	public ResponseEntity<?> deleteBoard(@PathVariable int postId) {
-		try {
-			int status = uservice.deleteBoard(postId);
-			if (status > 0) {
-				return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> deleteBoard(@RequestBody UserBoardDTO userBoard) {
+		if (uservice.isUser(userBoard)) {
+			try {
+				int status = uservice.deleteBoard(userBoard);
+				if (status > 0) {
+					return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");
+				}
+				else {
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 삭제에 실패했습니다.");
+				}
 			}
-			else {
+			catch (Exception e) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 삭제에 실패했습니다.");
 			}
+
 		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 삭제에 실패했습니다.");
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("권한이 없습니다.");
 		}
 	}
 

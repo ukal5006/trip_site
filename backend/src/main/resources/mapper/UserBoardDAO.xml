@@ -18,7 +18,8 @@
 	<select id="getList" resultMap="boardInfo">
 		SELECT *
 		FROM userboard
-		order by write_date desc
+		order by
+		write_date desc
 	</select>
 	<select id="getListOrderDate" resultMap="boardInfo">
 		SELECT *
@@ -38,11 +39,20 @@
 
 
 
-	<select id="showContent" resultType="UserBoardDTO"
+	<select id="showContent" resultMap="boardInfo"
 		parameterType="int">
 		SELECT *
 		FROM userboard WHERE
 		post_id = #{postId}
+	</select>
+	
+	<select id="isUser" resultType="int" parameterType="UserBoardDTO">
+		select
+		count(*)
+		FROM userboard
+		where
+		post_id = #{postId} AND user_id
+		=#{userId}
 	</select>
 
 	<insert id="writeBoard" parameterType="UserBoardDTO">
@@ -56,9 +66,10 @@
 	<update id="updateBoard" parameterType="UserBoardDTO">
 		UPDATE userboard
 		SET
-		post_type = #{postType}, title = #{title}, content = #{content},
-		update_date = #{updateDate}
-		WHERE post_id = #{postId}
+		title
+		= #{title}, content = #{content}, update_date = NOW()
+		WHERE post_id =
+		#{postId}
 	</update>
 
 	<update id="incrementViewCount" parameterType="int">
@@ -67,7 +78,7 @@
 		WHERE post_id = #{postId}
 	</update>
 
-	<delete id="deleteBoard" parameterType="int">
+	<delete id="deleteBoard" parameterType="UserBoardDTO">
 		DELETE FROM userboard
 		WHERE
 		post_id = #{postId}

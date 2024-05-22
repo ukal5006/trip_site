@@ -32,34 +32,46 @@ public class WishController {
 	// 찜 추가
 	@PostMapping("/add")
 	public ResponseEntity<?> addWish(@RequestBody WishDTO wish) {
-		try {
-			int status = wservice.insertWish(wish);
-			if (status > 0) {
-				return ResponseEntity.ok("찜성공");
+		if (wservice.isUser(wish)) {
+			try {
+				int status = wservice.insertWish(wish);
+				if (status > 0) {
+					return ResponseEntity.ok("찜성공");
+				}
+				else {
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add wish");
+				}
 			}
-			else {
+			catch (Exception e) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add wish");
 			}
 		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add wish");
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("권한이 없습니다.");
 		}
 	}
 
 	// 찜 삭제
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> deleteWish(@RequestBody WishDTO wish) {
-		try {
-			int status = wservice.deleteWish(wish);
-			if (status > 0) {
-				return ResponseEntity.ok("찜제거");
+
+		if (wservice.isUser(wish)) {
+			try {
+				int status = wservice.deleteWish(wish);
+				if (status > 0) {
+					return ResponseEntity.ok("찜제거");
+				}
+				else {
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete wish");
+				}
 			}
-			else {
+			catch (Exception e) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete wish");
 			}
+
 		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete wish");
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("권한이 없습니다.");
 		}
 	}
 

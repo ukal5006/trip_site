@@ -14,4 +14,6 @@ public interface WishDAO {
 
 	public int deleteWish(WishDTO wish);
 
+	public int isUser(WishDTO wish);
+
 }

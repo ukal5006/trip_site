@@ -21,5 +21,5 @@ public interface NoticeDAO {
 
 	public int incrementViewCount(int noticeId);
 
-	public int deleteNotice(int noticeId); // 공지사항 삭제하기
+	public int deleteNotice(NoticeDTO notice); // 공지사항 삭제하기
 }

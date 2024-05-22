@@ -13,6 +13,19 @@ public class CommentDTO {
 	public CommentDTO() {
 		super();
 	}
+	
+	
+	public CommentDTO(String userId) {
+		super();
+		this.userId = userId;
+	}
+
+
+	public CommentDTO(int commentId, String comment) {
+		super();
+		this.commentId = commentId;
+		this.comment = comment;
+	}
 
 	public CommentDTO(int commentId, String comment, Date updateDate) {
 		super();

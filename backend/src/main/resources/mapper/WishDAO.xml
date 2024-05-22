@@ -16,6 +16,8 @@
 		#{userId})
 	</insert>
 
+
+
 	<delete id="deleteWish" parameterType="WishDTO">
 		DELETE FROM wishlist
 		WHERE
@@ -28,5 +30,15 @@
 		WHERE user_id = #{userId}
 	</select>
 
+	<select id="isUser" resultType="int"
+		parameterType="WishDTO">
+		select
+		count(*)
+		FROM wishlist
+		where
+		wish_id = #{wishId} AND
+		user_id
+		=#{userId}
+	</select>
 
 </mapper>

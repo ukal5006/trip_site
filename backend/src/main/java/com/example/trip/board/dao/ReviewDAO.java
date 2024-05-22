@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.trip.board.dto.CommentDTO;
 import com.example.trip.board.dto.ReviewDTO;
 
 @Mapper
@@ -25,6 +26,7 @@ public interface ReviewDAO {
 
 	public void decrementBad(int reviewId);
 
-	public int deleteReview(int reviewId);
+	public int deleteReview(ReviewDTO review);
 
+	public int isUser(ReviewDTO review);
 }

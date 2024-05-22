@@ -53,6 +53,15 @@ public class UserService {
 		udao.initPw(user);
 	}
 
+	public boolean isAdmin(String userId) {
+		if (udao.isAdmin(userId) == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public void sendEmail(String to, String tmpPw) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("qqa109@naver.com");

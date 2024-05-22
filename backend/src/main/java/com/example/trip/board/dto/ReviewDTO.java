@@ -21,14 +21,12 @@ public class ReviewDTO {
 		this.content = content;
 		this.updateDate = updateDate;
 	}
-	
 
-	public ReviewDTO(int reviewId, int rate, String content, Date updateDate) {
+	public ReviewDTO(int reviewId, int rate, String content) {
 		super();
 		this.reviewId = reviewId;
 		this.rate = rate;
 		this.content = content;
-		this.updateDate = updateDate;
 	}
 
 	public ReviewDTO(int contentId, String userId, int rate, String content) {

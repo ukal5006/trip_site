@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.trip.board.dto.CommentDTO;
 import com.example.trip.board.service.CommentService;
+import com.example.trip.user.service.UserService;
 
 @RestController
 @RequestMapping(value = "/comment")
@@ -50,36 +50,48 @@ public class CommentController {
 	}
 
 	// 댓글 수정
-	@PutMapping("/{commentId}")
-	public ResponseEntity<?> updateBoard(@PathVariable int commentId, @RequestBody CommentDTO comment) {
-		try {
-			int status = cservice.updateComment(comment);
-			if (status > 0) {
-				return ResponseEntity.ok("댓글이 성공적으로 수정되었습니다.");
+	@PutMapping("/update")
+	public ResponseEntity<?> updateBoard(@RequestBody CommentDTO comment) {
+		if (cservice.isUser(comment)) {
+			try {
+				int status = cservice.updateComment(comment);
+				if (status > 0) {
+					return ResponseEntity.ok("댓글이 성공적으로 수정되었습니다.");
+				}
+				else {
+					return ResponseEntity.status(HttpStatus.NOT_FOUND).body("댓글을 찾을 수 없습니다.");
+				}
 			}
-			else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("댓글을 찾을 수 없습니다.");
+			catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("댓글 수정에 실패했습니다.");
 			}
 		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("댓글 수정에 실패했습니다.");
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("권한이 없습니다.");
 		}
 	}
 
 	// 댓글 삭제
-	@DeleteMapping("/{commentId}")
-	public ResponseEntity<?> deleteBoard(@PathVariable int commentId) {
-		try {
-			int status = cservice.deleteComment(commentId);
-			if (status > 0) {
-				return ResponseEntity.ok("댓글이 성공적으로 삭제되었습니다.");
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> deleteBoard(@RequestBody CommentDTO comment) {
+		if (cservice.isUser(comment)) {
+			try {
+				int status = cservice.deleteComment(comment);
+				if (status > 0) {
+					return ResponseEntity.ok("댓글이 성공적으로 삭제되었습니다.");
+				}
+				else {
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("댓글 삭제에 실패했습니다.");
+				}
 			}
-			else {
+			catch (Exception e) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("댓글 삭제에 실패했습니다.");
 			}
+
 		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("댓글 삭제에 실패했습니다.");
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("권한이 없습니다.");
+
 		}
 	}
 }

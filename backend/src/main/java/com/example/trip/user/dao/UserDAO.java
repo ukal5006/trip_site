@@ -26,5 +26,5 @@ public interface UserDAO {
 
 	public void initPw(UserDTO user); // 임시 비밀번호 발급
 	
-	
+	public int isAdmin(String userID);
 }

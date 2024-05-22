@@ -50,8 +50,8 @@ public class NoticeController {
 	}
 
 	// 공지사항 자세히 보기
-	@GetMapping("/{selectOne}")
-	public ResponseEntity<?> showContent(@RequestParam int noticeId) {
+	@GetMapping("/{noticeId}")
+	public ResponseEntity<?> showContent(@PathVariable int noticeId) {
 		try {
 			NoticeDTO post = nservice.showContent(noticeId);
 			if (post != null) {
@@ -70,46 +70,66 @@ public class NoticeController {
 	@PostMapping(value = "/write", headers = {
 			"Content-type=application/json" })
 	public ResponseEntity<?> writeNotice(@RequestBody NoticeDTO notice) {
-		try {
-			nservice.writeNotice(notice);
-			return ResponseEntity.status(HttpStatus.CREATED).body("공지사항이 성공적으로 등록되었습니다.");
+		if (nservice.isUser(notice)) {
+			try {
+				nservice.writeNotice(notice);
+				return ResponseEntity.status(HttpStatus.CREATED).body("공지사항이 성공적으로 등록되었습니다.");
+			}
+			catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항이 등록에 실패했습니다.");
+			}
+
 		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항이 등록에 실패했습니다.");
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("권한이 없습니다.");
 		}
 	}
 
 	// 공지사항 수정
-	@PutMapping("/{postId}")
-	public ResponseEntity<?> updateNotice(@PathVariable int noticeId, @RequestBody NoticeDTO notice) {
-		try {
-			int status = nservice.updateNotice(notice);
-			if (status > 0) {
-				return ResponseEntity.ok("공지사항이 성공적으로 수정되었습니다.");
+	@PutMapping("/update")
+	public ResponseEntity<?> updateNotice(@RequestBody NoticeDTO notice) {
+		if (nservice.isUser(notice)) {
+			try {
+				int status = nservice.updateNotice(notice);
+				if (status > 0) {
+					return ResponseEntity.ok("공지사항이 성공적으로 수정되었습니다.");
+				}
+				else {
+					return ResponseEntity.status(HttpStatus.NOT_FOUND).body("공지사항을 찾을 수 없습니다.");
+				}
 			}
-			else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("공지사항을 찾을 수 없습니다.");
+			catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 수정에 실패했습니다.");
 			}
+
 		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 수정에 실패했습니다.");
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("권한이 없습니다.");
 		}
 	}
 
 	// 공지사항 삭제
-	@DeleteMapping("/{postId}")
-	public ResponseEntity<?> deleteNotice(@PathVariable int noticeId) {
-		try {
-			int status = nservice.deleteNotice(noticeId);
-			if (status > 0) {
-				return ResponseEntity.ok("공지사항이 성공적으로 삭제되었습니다.");
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> deleteNotice(@RequestBody NoticeDTO notice) {
+
+		if (nservice.isUser(notice)) {
+			try {
+				int status = nservice.deleteNotice(notice);
+				if (status > 0) {
+					return ResponseEntity.ok("공지사항이 성공적으로 삭제되었습니다.");
+				}
+				else {
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 삭제에 실패했습니다.");
+				}
 			}
-			else {
+			catch (Exception e) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 삭제에 실패했습니다.");
 			}
+
 		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 삭제에 실패했습니다.");
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("권한이 없습니다.");
 		}
+
 	}
 }

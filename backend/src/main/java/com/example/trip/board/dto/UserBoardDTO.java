@@ -18,6 +18,13 @@ public class UserBoardDTO {
 		super();
 	}
 
+	public UserBoardDTO(int postId, String title, String content) {
+		super();
+		this.postId = postId;
+		this.title = title;
+		this.content = content;
+	}
+
 	public UserBoardDTO(int postType, String title, String content, String userId) {
 		super();
 		this.postType = postType;

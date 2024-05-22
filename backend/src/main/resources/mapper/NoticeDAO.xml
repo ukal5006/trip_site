@@ -25,7 +25,7 @@
 		order by write_date desc limit 5
 	</select>
 
-	<select id="showContent" resultType="NoticeDTO"
+	<select id="showContent" resultMap="noticeInfo"
 		parameterType="int">
 		SELECT * FROM Notice WHERE
 		notice_id = #{noticeId}
@@ -54,7 +54,7 @@
 		WHERE notice_id = #{noticeId}
 	</update>
 
-	<delete id="deleteNotice" parameterType="int">
+	<delete id="deleteNotice" parameterType="NoticeDTO">
 		DELETE FROM Notice
 		WHERE
 		notice_id = #{notice_id}
