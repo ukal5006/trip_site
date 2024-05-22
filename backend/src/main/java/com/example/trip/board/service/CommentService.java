@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 
 import com.example.trip.board.dao.CommentDAO;
 import com.example.trip.board.dto.CommentDTO;
+import com.example.trip.user.service.UserService;
 
 @Service
 public class CommentService {
 
 	@Autowired
 	private CommentDAO cdao;
+	@Autowired
+	private UserService uservice;
 
 	public List<CommentDTO> getList(int postId) {
 		return cdao.getList(postId);
@@ -26,7 +29,16 @@ public class CommentService {
 		return cdao.updateComment(comment);
 	}
 
-	public int deleteComment(int commentId) {
-		return cdao.deleteComment(commentId);
+	public int deleteComment(CommentDTO comment) {
+		return cdao.deleteComment(comment);
+	}
+
+	public boolean isUser(CommentDTO comment) {
+		if (cdao.isUser(comment) > 0 || uservice.isAdmin(comment.getUserId())) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

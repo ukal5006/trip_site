@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.trip.board.dto.CommentDTO;
 import com.example.trip.board.dto.ReviewDTO;
 import com.example.trip.board.service.ReviewService;
 import com.example.trip.util.JWTUtil;
@@ -38,6 +39,17 @@ public class ReviewController {
 		}
 	}
 
+	@GetMapping("/orderGood")
+	public ResponseEntity<List<ReviewDTO>> getListOrderGood(@RequestParam int contentId) {
+		try {
+			List<ReviewDTO> review = rservice.getListOrderGood(contentId);
+			return ResponseEntity.ok(review);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(500).body(null);
+		}
+	}
+
 	// 리뷰 등록
 	@PostMapping(value = "/write", headers = {
 			"Content-type=application/json" })
@@ -52,36 +64,50 @@ public class ReviewController {
 	}
 
 	// 리뷰 수정
-	@PutMapping("/{reviewId}")
-	public ResponseEntity<?> updateReview(@PathVariable int reviewId, @RequestBody ReviewDTO review) {
-		try {
-			int status = rservice.updateReview(review);
-			if (status > 0) {
-				return ResponseEntity.ok("리뷰가 성공적으로 수정되었습니다.");
+	@PutMapping("/update")
+	public ResponseEntity<?> updateReview(@RequestBody ReviewDTO review) {
+		if (rservice.isUser(review)) {
+			try {
+				int status = rservice.updateReview(review);
+				if (status > 0) {
+					return ResponseEntity.ok("리뷰가 성공적으로 수정되었습니다.");
+				}
+				else {
+					return ResponseEntity.status(HttpStatus.NOT_FOUND).body("리뷰를 찾을 수 없습니다.");
+				}
 			}
-			else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("리뷰를 찾을 수 없습니다.");
+			catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 수정에 실패했습니다.");
 			}
+
 		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 수정에 실패했습니다.");
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("권한이 없습니다.");
+
 		}
 	}
 
 	// 리뷰 삭제
-	@DeleteMapping("/{reviewId}")
-	public ResponseEntity<?> deleteReview(@PathVariable int reviewId) {
-		try {
-			int status = rservice.deleteReview(reviewId);
-			if (status > 0) {
-				return ResponseEntity.ok("리뷰가 성공적으로 삭제되었습니다.");
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> deleteReview(@RequestBody ReviewDTO review) {
+		if (rservice.isUser(review)) {
+			try {
+				int status = rservice.deleteReview(review);
+				if (status > 0) {
+					return ResponseEntity.ok("리뷰가 성공적으로 삭제되었습니다.");
+				}
+				else {
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 삭제에 실패했습니다.");
+				}
 			}
-			else {
+			catch (Exception e) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 삭제에 실패했습니다.");
 			}
+
 		}
-		catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 삭제에 실패했습니다.");
+		else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("권한이 없습니다.");
+
 		}
 	}
 

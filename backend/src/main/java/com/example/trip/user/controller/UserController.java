@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.trip.user.dto.LoginDTO;
-import com.example.trip.user.dto.LoginResponseDTO;
 import com.example.trip.user.dto.UserDTO;
 import com.example.trip.user.service.UserService;
 import com.example.trip.util.JWTUtil;
@@ -33,11 +33,14 @@ public class UserController {
 	public ResponseEntity<?> login(@RequestBody LoginDTO login) {
 		LoginDTO loginInfo = uservice.login(login);
 		if (loginInfo != null) { // 로그인 성공
-			String accessToken = jwtUtil.createAccessToken(login.getUserId());
-			String refreshToken = jwtUtil.createRefreshToken(login.getUserPwd());
-
-			LoginResponseDTO response = new LoginResponseDTO(accessToken, refreshToken);
-			return ResponseEntity.ok().body(response);
+//			String accessToken = jwtUtil.createAccessToken(login.getUserId());
+//			String refreshToken = jwtUtil.createRefreshToken(login.getUserPwd());
+//
+//			LoginResponseDTO response = new LoginResponseDTO(accessToken, refreshToken);
+//			return ResponseEntity.ok().body(response);
+			
+			UserDTO info = uservice.getUser(login.getUserId());
+			return ResponseEntity.ok().body(info);
 		}
 		else { // 로그인 실패
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인에 실패하였습니다. 아이디와 패스워드를 확인하세요.");
@@ -131,7 +134,8 @@ public class UserController {
 			String tmpPw = getrandomPw(); // 랜덤 비밀번호로 초기화
 			user.setUserPwd(tmpPw);
 			uservice.initPw(user);
-			return ResponseEntity.ok("사용자의 임시 비밀번호는 : " + tmpPw + " 로 초기화되었습니다.");
+			uservice.sendEmail(user.getUserEmail(), tmpPw);
+			return ResponseEntity.ok("사용자의 임시 비밀번호가 메일로 발송되었습니다.");
 		}
 		else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자 정보를 찾을 수 없습니다");

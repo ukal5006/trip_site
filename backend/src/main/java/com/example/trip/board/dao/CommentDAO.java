@@ -14,6 +14,9 @@ public interface CommentDAO {
 
 	public int updateComment(CommentDTO comment);
 
-	public int deleteComment(int commentId);
+	public int deleteComment(CommentDTO comment);
 
+	public int getCount(int postId);
+
+	public int isUser(CommentDTO comment);
 }

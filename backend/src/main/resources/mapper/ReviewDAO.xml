@@ -15,32 +15,53 @@
 	</resultMap>
 
 
-	<select id="getList" resultType="ReviewDTO" parameterType="int">
+	<select id="getList" resultMap="reviewInfo" parameterType="int">
 		SELECT *
 		FROM review
 		where
 		content_id = #{contentId}
+		order by write_date
+		desc
+	</select>
+
+	<select id="getListOrderGood" resultMap="reviewInfo"
+		parameterType="int">
+		SELECT *
+		FROM review
+		where
+		content_id = #{contentId}
+		order
+		by good desc
+	</select>
+	
+	<select id="isUser" resultType="int" parameterType="ReviewDTO">
+		select
+		count(*)
+		FROM review
+		where
+		review_id = #{reviewId} AND user_id
+		=#{userId}
 	</select>
 
 	<insert id="writeReview" parameterType="ReviewDTO">
 		INSERT INTO review
-		(content_id, user_id, rate, content)
+		(content_id, user_id, rate, content, write_date)
 		VALUES
 		(#{contentId}, #{userId},
-		#{rate}, #{content})
+		#{rate}, #{content}, NOW())
 	</insert>
 
 	<update id="updateReview" parameterType="ReviewDTO">
 		UPDATE review
 		SET
 		rate =
-		#{rate}, content = #{content},
-		update_date = #{updateDate}
+		#{rate}, content = #{content}, update_date = NOW()
 		WHERE
-		review_id = #{reviewId}
+		review_id =
+		#{reviewId}
 	</update>
 
-	<delete id="deleteReview" parameterType="int">
+	<delete id="deleteReview" parameterType="ReviewDTO">
 		DELETE FROM review
 		WHERE
 		review_id = #{reviewId}

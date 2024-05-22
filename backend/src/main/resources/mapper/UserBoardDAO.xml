@@ -15,36 +15,61 @@
 		<result column="bad" property="bad" />
 	</resultMap>
 
-	<select id="getList" resultType="UserBoardDTO">
-		SELECT post_type,
-		title, user_id,
-		read_count, good, bad, write_date
+	<select id="getList" resultMap="boardInfo">
+		SELECT *
 		FROM userboard
+		order by
+		write_date desc
+	</select>
+	<select id="getListOrderDate" resultMap="boardInfo">
+		SELECT *
+		FROM userboard
+		order by write_date desc limit 5
+	</select>
+	<select id="getListOrderRead" resultMap="boardInfo">
+		SELECT *
+		FROM userboard
+		order by read_count desc limit 5
+	</select>
+	<select id="getListOrderGood" resultMap="boardInfo">
+		SELECT *
+		FROM userboard
+		order by good desc limit 5
 	</select>
 
 
 
-	<select id="showContent" resultType="UserBoardDTO"
+	<select id="showContent" resultMap="boardInfo"
 		parameterType="int">
 		SELECT *
 		FROM userboard WHERE
 		post_id = #{postId}
 	</select>
+	
+	<select id="isUser" resultType="int" parameterType="UserBoardDTO">
+		select
+		count(*)
+		FROM userboard
+		where
+		post_id = #{postId} AND user_id
+		=#{userId}
+	</select>
 
 	<insert id="writeBoard" parameterType="UserBoardDTO">
 		INSERT INTO userboard
-		(post_type, title, content, user_id)
+		(post_type, title, content, user_id, write_date)
 		VALUES
 		(#{postType}, #{title},
-		#{content}, #{userId})
+		#{content}, #{userId}, NOW())
 	</insert>
 
 	<update id="updateBoard" parameterType="UserBoardDTO">
 		UPDATE userboard
 		SET
-		post_type = #{postType}, title = #{title}, content = #{content},
-		update_date = #{updateDate}
-		WHERE post_id = #{postId}
+		title
+		= #{title}, content = #{content}, update_date = NOW()
+		WHERE post_id =
+		#{postId}
 	</update>
 
 	<update id="incrementViewCount" parameterType="int">
@@ -53,7 +78,7 @@
 		WHERE post_id = #{postId}
 	</update>
 
-	<delete id="deleteBoard" parameterType="int">
+	<delete id="deleteBoard" parameterType="UserBoardDTO">
 		DELETE FROM userboard
 		WHERE
 		post_id = #{postId}

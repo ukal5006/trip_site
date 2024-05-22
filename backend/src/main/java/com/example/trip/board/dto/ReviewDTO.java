@@ -16,10 +16,23 @@ public class ReviewDTO {
 	public ReviewDTO() {
 	}
 
+	public ReviewDTO(int reviewId, String userId) {
+		super();
+		this.reviewId = reviewId;
+		this.userId = userId;
+	}
+
 	public ReviewDTO(int rate, String content, Date updateDate) {
 		this.rate = rate;
 		this.content = content;
 		this.updateDate = updateDate;
+	}
+
+	public ReviewDTO(int reviewId, int rate, String content) {
+		super();
+		this.reviewId = reviewId;
+		this.rate = rate;
+		this.content = content;
 	}
 
 	public ReviewDTO(int contentId, String userId, int rate, String content) {

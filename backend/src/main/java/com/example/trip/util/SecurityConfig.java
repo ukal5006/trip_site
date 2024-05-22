@@ -90,6 +90,13 @@ public class SecurityConfig {
             "/bot/chat/**",
             "/brewery/**",
             "/user/**",
+            "/board/**",
+            "/wishlist/**",
+            "/review/**",
+            "/comment/**",
+            "/notice/**",
+            "/userBoard/**",
+
             "/board/**"
 
         };

@@ -11,12 +11,27 @@
 		<result column="update_date" property="updateDate" />
 	</resultMap>
 
-	<select id="getList" resultType="CommentDTO"
-		resultMap="commentInfo" parameterType="int">
+	<select id="getList" resultMap="commentInfo" parameterType="int">
 		select *
 		FROM comment
 		where
 		post_id = #{postId}
+		order by write_date asc
+	</select>
+	<select id="getCount" resultType="int" parameterType="int">
+		select
+		count(*)
+		FROM comment
+		where
+		post_id = #{postId}
+	</select>
+	<select id="isUser" resultType="int" parameterType="CommentDTO">
+		select
+		count(*)
+		FROM comment
+		where
+		comment_id = #{commentId} AND user_id
+		=#{userId}
 	</select>
 
 
@@ -25,23 +40,25 @@
 		(post_id, user_id, comment_text, write_date)
 		VALUES
 		(#{postId},
-		#{userId}, #{comment}, #{writeDate})
+		#{userId}, #{comment}, NOW())
 	</insert>
 
 	<update id="updateComment" parameterType="CommentDTO">
 		UPDATE comment
 		SET
-		comment_text = #{comment},
-		update_date = #{updateDate}
+		comment_text = #{comment}
+		, update_date = NOW()
 		WHERE comment_id =
 		#{commentId}
 	</update>
 
-	<delete id="deleteComment" parameterType="int">
+	<delete id="deleteComment" parameterType="CommentDTO">
 		DELETE FROM comment
 		WHERE
 		comment_id = #{commentId}
 	</delete>
+
+
 
 </mapper>
 

@@ -4,12 +4,19 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.trip.board.dto.ReviewDTO;
 import com.example.trip.board.dto.UserBoardDTO;
 
 @Mapper
 public interface UserBoardDAO {
 
 	public List<UserBoardDTO> getList();
+
+	public List<UserBoardDTO> getListOrderDate();
+
+	public List<UserBoardDTO> getListOrderRead();
+
+	public List<UserBoardDTO> getListOrderGood();
 
 	public UserBoardDTO showContent(int boardId);
 
@@ -27,5 +34,7 @@ public interface UserBoardDAO {
 
 	public void decrementBad(int postId);
 
-	public int deleteBoard(int boardId);
+	public int deleteBoard(UserBoardDTO board);
+
+	public int isUser(UserBoardDTO board);
 }

@@ -25,4 +25,6 @@ public interface UserDAO {
 	public String findPw(UserDTO user); // 비밀번호 찾기
 
 	public void initPw(UserDTO user); // 임시 비밀번호 발급
+	
+	public int isAdmin(String userID);
 }
