@@ -1,38 +1,48 @@
-brewery_title,brewery_address,brewery_kind,brewery_num,min_people,brewery_img,brewery_lat,brewery_long
-(��)����������,��� ȭ���� ������ ������ 835 (��)����������,Ź��,031-354-9376,5,https://www.goingsool.com/upload/Screenshot%202023-07-31%20at%2014.00.51.JPG,37.1495859,126.9609462
-(��)����,��� ���ν� ó�α� ������ �׾��� 2298-1 ����,"Ź��, ����, ������, ��ť��",070-4218-5225,10,https://www.goingsool.com/upload/Screenshot%202023-07-31%20at%2014.04.01.JPG,37.23328185,127.2983363
-(��)�츮��,��� ���� ������ �뺸������ 29 (��)�츮��,"Ź��, ���Ź��, ��Ÿ�ַ�, ����",010-2387-1277,5,https://www.goingsool.com/upload/(%EC%A3%BC)%EC%9A%B0%EB%A6%AC%EC%88%A0_%EA%B3%B5%EC%9E%A5%EC%A0%84%EA%B2%BD.jpg,37.81987436,127.3563087
-��ǳ������,��õ ��ȭ�� ���� ������� 8 �ݾ�����,Ź��(���ɸ� 4��),070-4400-1931,1,https://www.goingsool.com/upload/%EA%B8%88%ED%92%881.JPG,37.6384562,126.4913369
-���ȸ����� ������������,��� ��õ�� ���ϸ� ����ȣ���� 335 ������������,Ź�� ���� ������,010-5245-9708,5,https://www.goingsool.com/upload/dd%20%EC%A0%84%EA%B0%80%EB%84%A4%EC%B2%98.PNG,38.06937835,127.3087163
-���ȸ����� �������(��),��� ����� ����� 63 ���ȸ����� �������(��),"Ź��, �����ļ���, ����, ��Ÿ�ַ�",010-4670-8760,8,https://www.goingsool.com/upload/Screenshot%202023-06-26%20at%2011.26.18.JPG,37.15451376,127.0691384
-���ȸ�����(��)���ƿ�,��� ���ֽ� ������ 93-12 ���ƿ�,"Ź��,����, ������, ��Ÿ�ַ�",010-9971-1670,4,https://www.goingsool.com/upload/image014.png,37.24594201,127.6444062
-���ȸ�����(��)������,��� ���ý� ������ ������� 108 ���ȸ�����(��)������,"Ź��,����, ������",010-8482-8929,8,https://www.goingsool.com/upload/%EC%BA%A1%EC%B2%987.PNG,37.00049327,126.9893933
-��õŹ��������1���� ������,��õ ���� �ȳ���433���� 14 ��õŹ��������1���� ������,1. Ź��,010-4710-1625,30,https://www.goingsool.com/upload/%EC%9D%B8%EC%B2%9C%ED%83%81%EC%A3%BC%20(4).png,37.52174818,126.7091154
-ȣ���̹�ž�����(�������󿵳�����),��� ���ý� ������ �濭�� 37 ȣ���̹�ž����� (�������󿵳�����),"Ź��, ������",031-683-0981,10,https://www.goingsool.com/upload/%EC%BA%A1%EC%B2%985.PNG,36.97107046,126.8735788
-���ȸ����� �����ֽ�ȸ��,����Ư����ġ�� ��õ�� �ŵ��� ǳ��1�� 6-3 ���ȸ����� �����ֽ�ȸ��,"������(����Ư����) Ź��, ����, ������ ����",033-261-1525,10,https://www.goingsool.com/upload/%EC%BA%A1%EC%B2%9811.PNG,37.81716142,127.7173859
-���������,����Ư����ġ�� ���ֽ� �Ǻθ� �Ǻν��̱� 84 ���������,"�����ļ���(25%,41%), ����(13%,16%)",033-748-8008,8,https://www.goingsool.com/upload/%EB%AA%A8%EC%9B%94%201.PNG,37.299415,127.9734512
-���ȸ����� (��) ���̾���,�泲 ����� ���̸� Ȳ����� 1075-21 ���ȸ����� (��) ���̾���,�� ����,010-8803-2066,15,https://www.goingsool.com/upload/%EC%96%91%EC%B4%8C%EC%96%91%EC%A1%B0%201%EB%B2%881.PNG,36.17784293,127.2012087
-���ȸ����� ����������,�泲 ���걺 ������ ����� 107-25 ���ȸ����� ����������,"����,������",010-8530-2959,10,https://www.goingsool.com/upload/Screenshot%202023-06-26%20at%2009.59.37.JPG,36.76185044,126.6980778
-���ȸ����� ���񵵰�(��),��� û�ֽ� û���� ������ �̿������� 1275 ���ȸ����� ���񵵰�(��),���� �� Ź��(������վ���),010-4741-6567,10,https://www.goingsool.com/upload/Screenshot%202023-07-13%20at%2015.03.00.JPG,36.71425238,127.6050997
-���ȸ�����(��)ȭ��,��� û�ֽ� û���� ������ ǳ��1�� 8-2 ���ȸ�����(��)ȭ��,"����, Ź��, �����ļ���",043-214-9424,10,https://www.goingsool.com/upload/%EA%B7%B8%EB%A6%BC1.png,36.7016275,127.5454484
-���ȸ�����(��)�η�����,�泲 õ�Ƚ� ���ϱ� ����� ����� 17-6 ���ȸ�����(��)�η�����,"������,�Ϲ�������,�귣��",010-5408-5740,20,https://www.goingsool.com/upload/%EB%91%90%EB%A0%88%EC%96%91%EC%A1%B0.jpg,36.91355284,127.2027313
-�밭������,��� �ܾ籺 �밭�� �밭�� 60 �밭������,���ɸ�,010-6228-4406,6,https://www.goingsool.com/upload/sample_thumbnail1.jpg,36.92220817,128.3537272
-������,��� ������ �Ű�� ������ô�� 143 ������,"������, ������",010-8841-8954,5,https://www.goingsool.com/upload/IMG_3117.JPG,36.19209394,127.9367252
-�긷���̳ʸ�,��� ������ ������ �긷��� 31-45 �긷���̳ʸ�,"������, ������",010-2989-9815,2,https://www.goingsool.com/upload/d%ED%8F%AC%EB%8F%84%EB%B0%AD.PNG,36.16672721,127.8206047
-�ó���� ���̳ʸ�(���ֳ���),��� ������ ��õ�� ���2�� 23 �ó���� ���̳ʸ�(���ֳ���),"������(����),������",043-742-5275,4,https://www.goingsool.com/upload/Screenshot%202023-06-26%20at%2010.55.08.JPG,36.20235366,127.7203297
-���̰����̳ʸ�,�泲 ����� ���̸� Ȳ����� 1075-21 ���̰����̳ʸ�,"������, �Ϲ�������",010-7182-4207,2,https://www.goingsool.com/upload/%EC%96%91%EC%B4%8C%EA%B0%90%201.PNG,36.17784293,127.2012087
-���ȸ����� �ֽ�ȸ�� �߼�����,���� ��籺 ��� �߷ɷ� 29 ���ȸ����� �ֽ�ȸ�� �߼�����,������,010-8911-4336,6,https://www.goingsool.com/upload/mosaSApPaE.jpeg,35.36638658,126.9852867
-���ȸ�����(��)����,���� ���ֱ� �ȼ��� �幫�� 1375-7 ���ȸ�����(��)����,������,063-323-2355,3,https://www.goingsool.com/upload/down%20%EC%88%A0%EA%B3%A0%EC%A7%80.PNG,35.81482428,127.6306014
-���ο������չ���,���� ������ ������ ������ø�� 288-23 ���ο������չ���,����ȫ��,010-4116-7720,5,https://www.goingsool.com/upload/%EB%8C%80%EB%8C%80%EB%A1%9C2.JPG,34.5524631,126.3035813
-��������������������,���� ������ ����� Ȳ��� 1018 ��������������������,"Ź��, ����",010-3678-7188,10,https://www.goingsool.com/upload/%EC%A7%80%EB%A6%AC%EC%82%B0%EC%9A%B4%EB%B4%89%EC%A3%BC%EC%A1%B0%20%EC%A0%84%EA%B2%BD1-2%20(1)_%20down.jpg,35.43729191,127.5240133
-û����,���� �强�� �强�� �������� 240 û����,������(Ź��),061-393-4141,10,https://www.goingsool.com/upload/%EC%BA%A1%EC%B2%984.PNG,35.33758722,126.8154305
-�����յ�������,���� ������ ���θ� â��2�� 17 �����յ�������,"���ɸ�, ������",063-539-5031,1,https://www.goingsool.com/upload/image01.png,35.65142937,126.9448036
-��â������ �ֽ�ȸ�� ���ȸ�����,���� �س��� ȭ��� ��â�� 1 ��â������ �ֽ�ȸ�� ���ȸ�����,Ź��,061-532-5152,1,https://www.goingsool.com/upload/%ED%95%B4%EC%B0%BD%EC%A3%BC%EC%A1%B0%EC%9E%A51.PNG,34.51761653,126.5381112
-(��)�����꼺�����,�λ� ������ �꼺�� 409 ���ȸ����α����꼺,Ź��,010-2783-9965,1,https://www.goingsool.com/upload/SNV30003.JPG,35.25174154,129.0518521
-���ȸ�����(��)�ּ���,�泲 �Ծ籺 ����� ����â�̱� 3 �ּ��� ��ȭ��,"����, ��ť��, ������",010-3533-0465,20,https://www.goingsool.com/upload/%EC%BA%A1%EC%B2%98.PNG,35.56639579,127.7754781
-���ȸ�����(��)�Ϲ̾�,�泲 �Ծ籺 �Ծ��� ����� 442-14 ���ȸ�����(��)�Ϲ̾�,��ӷ� ����,010-5164-2501,2,https://www.goingsool.com/upload/noname01.jpg,35.46918241,127.6717792
-���ξȵ�����,��� �ȵ��� ǳ���� �������6�� 6 ���ξȵ�����,������ ����,054-856-6903,15,https://www.goingsool.com/upload/%EB%AA%85%EC%9D%B8%20%EC%95%88%EB%8F%99%EC%86%8C%EC%A3%BC%20%ED%98%B8%EB%A6%AC800.jpg,36.60387795,128.5413589
-��������,��� ����� ���θ� ����1�� 49-15 ��������,"Ź��,����,��Ÿ�ַ�,��������",010-5320-9500,1,https://www.goingsool.com/upload/Screenshot%202023-06-26%20at%2010.24.24.JPG,36.77220501,128.314029
-�𲿷� ���̳ʸ�((��)�ѱ�����),��� ��õ�� ��ȣ�� â��� 100-44 �𲿷� ���̳ʸ�((��)�ѱ�����),������(����),010-3477-9239,4,https://www.goingsool.com/upload/%EC%96%91%EC%A1%B0%EC%9E%A5%20%EC%B5%9C%EC%8B%A0%EC%9D%B4%EB%AF%B8%EC%A7%80%20(1).jpg,35.90698347,128.8826853
-������ ���̳ʸ�,��� ��õ�� ����� �ݰ3�� 29 ������ ���̳ʸ�,������,010-6403-3077,10,https://www.goingsool.com/upload/image023.png,35.87578591,128.0460039
-���̳���,��� ����� ������ ����� 609 ���̳���,����,054-572-0601,1,https://www.goingsool.com/upload/%EC%98%A4%EB%AF%B8%EB%82%98%EB%9D%BC%ED%88%AC%EC%96%B4.jpg,36.73613331,128.0913475
+﻿brewery_title,brewery_address,brewery_kind,brewery_num,min_people,brewery_img,brewery_lat,brewery_long,
+(주)배혜정도가,경기 화성시 정남면 서봉로 835 (주)배혜정도가,탁주,031-354-9376,5,https://www.goingsool.com/upload/Screenshot%202023-07-31%20at%2014.00.51.JPG,0.0,0.0,
+(주)술샘,경기 용인시 처인구 양지면 죽양대로 2298-1 술샘,탁주, 약주, 증류주, 리큐르,070-4218-5225,10,https://www.goingsool.com/upload/Screenshot%202023-07-31%20at%2014.04.01.JPG,0.0,0.0,
+(주)우리술,경기 가평군 조종면 대보간선로 29 (주)우리술,탁주, 살균탁주, 기타주류, 약주,010-2387-1277,5,https://www.goingsool.com/upload/(%EC%A3%BC)%EC%9A%B0%EB%A6%AC%EC%88%A0_%EA%B3%B5%EC%9E%A5%EC%A0%84%EA%B2%BD.jpg,0.0,0.0,
+금풍양조장,인천 강화군 길상면 삼랑성길 8 금양조장,탁주(막걸리 4종),070-4400-1931,1,https://www.goingsool.com/upload/%EA%B8%88%ED%92%881.JPG,0.0,0.0,
+농업회사법인 술빚는전가네,경기 포천시 영북면 산정호수로 335 술빚는전가네,탁주 약주 증류주,010-5245-9708,5,https://www.goingsool.com/upload/dd%20%EC%A0%84%EA%B0%80%EB%84%A4%EC%B2%98.PNG,0.0,0.0,
+농업회사법인 오산양조(주),경기 오산시 시장길 63 농업회사법인 오산양조(주),탁주, 증류식소주, 약주, 기타주류,010-4670-8760,8,https://www.goingsool.com/upload/Screenshot%202023-06-26%20at%2011.26.18.JPG,0.0,0.0,
+농업회사법인(주)술아원,경기 여주시 점봉길 93-12 술아원,탁주,약주, 증류주, 기타주류,010-9971-1670,4,https://www.goingsool.com/upload/image014.png,0.0,0.0,
+농업회사법인(주)좋은술,경기 평택시 오성면 숙성뜰길 108 농업회사법인(주)좋은술,탁주,약주, 증류주,010-8482-8929,8,https://www.goingsool.com/upload/%EC%BA%A1%EC%B2%987.PNG,0.0,0.0,
+인천탁주제조제1공장 양조장,인천 부평구 안남로433번길 14 인천탁주제조제1공장 양조장,1. 탁주,010-4710-1625,30,https://www.goingsool.com/upload/%EC%9D%B8%EC%B2%9C%ED%83%81%EC%A3%BC%20(4).png,0.0,0.0,
+호랑이배꼽양조장(밝은세상영농조합),경기 평택시 포승읍 충열길 37 호랑이배꼽양조장 (밝은세상영농조합),탁주, 증류주,031-683-0981,10,https://www.goingsool.com/upload/%EC%BA%A1%EC%B2%985.PNG,0.0,0.0,
+농업회사법인 예술주식회사,강원특별자치도 춘천시 신동면 풍류1길 6-3 농업회사법인 예술주식회사,전통주(지역특산주) 탁주, 약주, 증류식 소주,033-261-1525,10,https://www.goingsool.com/upload/%EC%BA%A1%EC%B2%9811.PNG,0.0,0.0,
+모월양조장,강원특별자치도 원주시 판부면 판부신촌길 84 모월양조장,증류식소주(25%,41%), 약주(13%,16%),033-748-8008,8,https://www.goingsool.com/upload/%EB%AA%A8%EC%9B%94%201.PNG,0.0,0.0,
+농업회사법인 (유) 양촌양조,충남 논산시 양촌면 황산벌로 1075-21 농업회사법인 (유) 양촌양조,전 주종,010-8803-2066,15,https://www.goingsool.com/upload/%EC%96%91%EC%B4%8C%EC%96%91%EC%A1%B0%201%EB%B2%881.PNG,0.0,0.0,
+농업회사법인 예산사과와인,충남 예산군 고덕면 대몽로 107-25 농업회사법인 예산사과와인,와인,증류주,010-8530-2959,10,https://www.goingsool.com/upload/Screenshot%202023-06-26%20at%2009.59.37.JPG,0.0,0.0,
+농업회사법인 장희도가(주),충북 청주시 청원구 내수읍 미원초정로 1275 농업회사법인 장희도가(주),약주 및 탁주(세종대왕어주),010-4741-6567,10,https://www.goingsool.com/upload/Screenshot%202023-07-13%20at%2015.03.00.JPG,0.0,0.0,
+농업회사법인(유)화양,충북 청주시 청원구 내수읍 풍정1길 8-2 농업회사법인(유)화양,약주, 탁주, 증류식소주,043-214-9424,10,https://www.goingsool.com/upload/%EA%B7%B8%EB%A6%BC1.png,0.0,0.0,
+농업회사법인(주)두레양조,충남 천안시 서북구 입장면 율목길 17-6 농업회사법인(주)두레양조,과실주,일반증류주,브랜디,010-5408-5740,20,https://www.goingsool.com/upload/%EB%91%90%EB%A0%88%EC%96%91%EC%A1%B0.jpg,0.0,0.0,
+대강양조장,충북 단양군 대강면 대강로 60 대강양조장,막걸리,010-6228-4406,6,https://www.goingsool.com/upload/sample_thumbnail1.jpg,0.0,0.0,
+도란원,충북 영동군 매곡면 유전장척길 143 도란원,과실주, 증류주,010-8841-8954,5,https://www.goingsool.com/upload/IMG_3117.JPG,0.0,0.0,
+산막와이너리,충북 영동군 영동읍 산막골길 31-45 산막와이너리,과실주, 증류주,010-2989-9815,2,https://www.goingsool.com/upload/d%ED%8F%AC%EB%8F%84%EB%B0%AD.PNG,0.0,0.0,
+시나브로 와이너리(불휘농장),충북 영동군 심천면 약목2길 23 시나브로 와이너리(불휘농장),과실주(와인),증류주,043-742-5275,4,https://www.goingsool.com/upload/Screenshot%202023-06-26%20at%2010.55.08.JPG,0.0,0.0,
+양촌감와이너리,충남 논산시 양촌면 황산벌로 1075-21 양촌감와이너리,과실주, 일반증류주,010-7182-4207,2,https://www.goingsool.com/upload/%EC%96%91%EC%B4%8C%EA%B0%90%201.PNG,0.0,0.0,
+농업회사법인 (유) 양촌양조,충남 논산시 양촌면 황산벌로 1075-21 농업회사법인 (유) 양촌양조,전 주종,010-8803-2066,15,https://www.goingsool.com/upload/%EC%96%91%EC%B4%8C%EC%96%91%EC%A1%B0%201%EB%B2%881.PNG,0.0,0.0,
+농업회사법인 예산사과와인,충남 예산군 고덕면 대몽로 107-25 농업회사법인 예산사과와인,와인,증류주,010-8530-2959,10,https://www.goingsool.com/upload/Screenshot%202023-06-26%20at%2009.59.37.JPG,0.0,0.0,
+농업회사법인 장희도가(주),충북 청주시 청원구 내수읍 미원초정로 1275 농업회사법인 장희도가(주),약주 및 탁주(세종대왕어주),010-4741-6567,10,https://www.goingsool.com/upload/Screenshot%202023-07-13%20at%2015.03.00.JPG,0.0,0.0,
+농업회사법인(유)화양,충북 청주시 청원구 내수읍 풍정1길 8-2 농업회사법인(유)화양,약주, 탁주, 증류식소주,043-214-9424,10,https://www.goingsool.com/upload/%EA%B7%B8%EB%A6%BC1.png,0.0,0.0,
+농업회사법인(주)두레양조,충남 천안시 서북구 입장면 율목길 17-6 농업회사법인(주)두레양조,과실주,일반증류주,브랜디,010-5408-5740,20,https://www.goingsool.com/upload/%EB%91%90%EB%A0%88%EC%96%91%EC%A1%B0.jpg,0.0,0.0,
+대강양조장,충북 단양군 대강면 대강로 60 대강양조장,막걸리,010-6228-4406,6,https://www.goingsool.com/upload/sample_thumbnail1.jpg,0.0,0.0,
+도란원,충북 영동군 매곡면 유전장척길 143 도란원,과실주, 증류주,010-8841-8954,5,https://www.goingsool.com/upload/IMG_3117.JPG,0.0,0.0,
+산막와이너리,충북 영동군 영동읍 산막골길 31-45 산막와이너리,과실주, 증류주,010-2989-9815,2,https://www.goingsool.com/upload/d%ED%8F%AC%EB%8F%84%EB%B0%AD.PNG,0.0,0.0,
+시나브로 와이너리(불휘농장),충북 영동군 심천면 약목2길 23 시나브로 와이너리(불휘농장),과실주(와인),증류주,043-742-5275,4,https://www.goingsool.com/upload/Screenshot%202023-06-26%20at%2010.55.08.JPG,0.0,0.0,
+양촌감와이너리,충남 논산시 양촌면 황산벌로 1075-21 양촌감와이너리,과실주, 일반증류주,010-7182-4207,2,https://www.goingsool.com/upload/%EC%96%91%EC%B4%8C%EA%B0%90%201.PNG,0.0,0.0,
+농업회사법인 주식회사 추성고을,전남 담양군 용면 추령로 29 농업회사법인 주식회사 추성고을,전통주,010-8911-4336,6,https://www.goingsool.com/upload/mosaSApPaE.jpeg,0.0,0.0,
+농업회사법인(유)덕유,전북 무주군 안성면 장무로 1375-7 농업회사법인(유)덕유,과실주,063-323-2355,3,https://www.goingsool.com/upload/down%20%EC%88%A0%EA%B3%A0%EC%A7%80.PNG,0.0,0.0,
+대대로영농조합법인,전남 진도군 군내면 명량대첩로 288-23 대대로영농조합법인,진도홍주,010-4116-7720,5,https://www.goingsool.com/upload/%EB%8C%80%EB%8C%80%EB%A1%9C2.JPG,0.0,0.0,
+지리산운봉주조영농조합,전북 남원시 운봉읍 황산로 1018 지리산운봉주조영농조합,탁주, 약주,010-3678-7188,10,https://www.goingsool.com/upload/%EC%A7%80%EB%A6%AC%EC%82%B0%EC%9A%B4%EB%B4%89%EC%A3%BC%EC%A1%B0%20%EC%A0%84%EA%B2%BD1-2%20(1)_%20down.jpg,0.0,0.0,
+청산녹수,전남 장성군 장성읍 전고개로 240 청산녹수,전통주(탁주),061-393-4141,10,https://www.goingsool.com/upload/%EC%BA%A1%EC%B2%984.PNG,0.0,0.0,
+태인합동주조장,전북 정읍시 태인면 창흥2길 17 태인합동주조장,막걸리, 증류주,063-539-5031,1,https://www.goingsool.com/upload/image01.png,0.0,0.0,
+해창주조장 주식회사 농업회사법인,전남 해남군 화산면 해창길 1 해창주조장 주식회사 농업회사법인,탁주,061-532-5152,1,https://www.goingsool.com/upload/%ED%95%B4%EC%B0%BD%EC%A3%BC%EC%A1%B0%EC%9E%A51.PNG,0.0,0.0,
+(유)금정산성토산주,부산 금정구 산성로 409 농업회사법인금정산성,탁주,010-2783-9965,1,https://www.goingsool.com/upload/SNV30003.JPG,0.0,0.0,
+농업회사법인(주)솔송주,경남 함양군 지곡면 지곡창촌길 3 솔송주 문화관,약주, 리큐르, 과실주,010-3533-0465,20,https://www.goingsool.com/upload/%EC%BA%A1%EC%B2%98.PNG,0.0,0.0,
+농업회사법인(주)하미앙,경남 함양군 함양읍 삼봉로 442-14 농업회사법인(주)하미앙,산머루 와인,010-5164-2501,2,https://www.goingsool.com/upload/noname01.jpg,0.0,0.0,
+명인안동소주,경북 안동시 풍산읍 산업단지6길 6 명인안동소주,증류식 소주,054-856-6903,15,https://www.goingsool.com/upload/%EB%AA%85%EC%9D%B8%20%EC%95%88%EB%8F%99%EC%86%8C%EC%A3%BC%20%ED%98%B8%EB%A6%AC800.jpg,0.0,0.0,
+문경주조,경북 문경시 동로면 노은1길 49-15 문경주조,탁주,약주,기타주류,증류소주,010-5320-9500,1,https://www.goingsool.com/upload/Screenshot%202023-06-26%20at%2010.24.24.JPG,0.0,0.0,
+뱅꼬레 와이너리((주)한국와인),경북 영천시 금호읍 창산길 100-44 뱅꼬레 와이너리((주)한국와인),과실주(와인),010-3477-9239,4,https://www.goingsool.com/upload/%EC%96%91%EC%A1%B0%EC%9E%A5%20%EC%B5%9C%EC%8B%A0%EC%9D%B4%EB%AF%B8%EC%A7%80%20(1).jpg,0.0,0.0,
+수도산 와이너리,경북 김천시 증산면 금곡리3길 29 수도산 와이너리,과실주,010-6403-3077,10,https://www.goingsool.com/upload/image023.png,0.0,0.0,
+오미나라,경북 문경시 문경읍 새재로 609 오미나라,와인,054-572-0601,1,https://www.goingsool.com/upload/%EC%98%A4%EB%AF%B8%EB%82%98%EB%9D%BC%ED%88%AC%EC%96%B4.jpg,0.0,0.0,

@@ -6,15 +6,18 @@ public class UserDTO {
 	private String birth;
 	private String userName;
 	private String userPhone;
+	private String userEmail;
 	private int admin;
 
-	public UserDTO(String userId, String userPwd, String birth, String userName, String userPhone, int admin) {
+	public UserDTO(String userId, String userPwd, String birth, String userName, String userPhone, String userEmail,
+			int admin) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.birth = birth;
 		this.userName = userName;
 		this.userPhone = userPhone;
+		this.userEmail = userEmail;
 		this.admin = admin;
 	}
 
@@ -22,17 +25,28 @@ public class UserDTO {
 		super();
 	}
 
-	public UserDTO(String userId, String userPwd, String birth, String userName, String userPhone) {
-		this.userId = userId;
-		this.userPwd = userPwd;
-		this.birth = birth;
+	public UserDTO(String userName, String birth, String userPhone, String userEmail) {
 		this.userName = userName;
+		this.birth = birth;
 		this.userPhone = userPhone;
+		this.userEmail = userEmail;
+	}
+
+	public UserDTO(String userId, String userName, String birth, String userPhone, String userEmail) {
+		this.userId = userId;
+		this.userName = userName;
+		this.birth = birth;
+		this.userPhone = userPhone;
+		this.userEmail = userEmail;
 	}
 
 	public UserDTO(String userId, String userPwd) {
 		this.userId = userId;
 		this.userPwd = userPwd;
+	}
+
+	public UserDTO(String userId) {
+		this.userId = userId;
 	}
 
 	public String getUserId() {
@@ -75,6 +89,14 @@ public class UserDTO {
 		this.userPhone = userPhone;
 	}
 
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
 	public int getAdmin() {
 		return admin;
 	}
@@ -86,6 +108,7 @@ public class UserDTO {
 	@Override
 	public String toString() {
 		return "UserDTO [userId=" + userId + ", userPwd=" + userPwd + ", birth=" + birth + ", userName=" + userName
-				+ ", userPhone=" + userPhone + "]";
+				+ ", userPhone=" + userPhone + ", userEmail=" + userEmail + ", admin=" + admin + "]";
 	}
+
 }

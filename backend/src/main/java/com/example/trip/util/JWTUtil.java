@@ -57,6 +57,16 @@ public class JWTUtil {
 		return create(userId, "refresh-token", refreshTokenExpireTime);
 	}
 
+	public boolean isTokenValid(String token) {
+		try {
+			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
+			return !claims.getBody().getExpiration().before(new Date());
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
 	public String refreshAccessToken(String refreshToken) {
 		try {
 			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(refreshToken);
@@ -84,7 +94,7 @@ public class JWTUtil {
 			return false;
 		}
 	}
-	
+
 	public String getUserIdFromToken(String token) {
 		try {
 			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);

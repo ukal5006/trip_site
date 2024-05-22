@@ -12,15 +12,17 @@ watch(props, () => {
   loadData();
 });
 
+const navigateToDetail = (id) => {
+  window.open(`${window.location.origin}/detail/${id}`, '_blank');
+};
+
 const randomDatas = ref('');
 const URL = 'http://192.168.10.93:9999/attraction/';
 const loadData = async () => {
-  console.log('데이터 슛!');
   try {
     const response = await axios.get(
       `${URL}${props.random.type}/${props.random.areaTitle}`
     );
-    console.log(response.data);
     randomDatas.value = response.data;
   } catch (error) {
     console.error(error);
@@ -31,7 +33,12 @@ loadData();
 
 <template>
   <div class="itemsContainer">
-    <div class="item" v-for="data in randomDatas" :key="data">
+    <div
+      class="item"
+      v-for="data in randomDatas"
+      :key="data.contentId"
+      @click="navigateToDetail(data.contentId)"
+    >
       <div class="imgWrapper">
         <img class="contentImg" :src="data?.firstImage" alt="" />
       </div>
@@ -54,6 +61,7 @@ loadData();
 .item {
   width: 300px;
   height: 350px;
+  cursor: pointer;
 }
 .imgWrapper {
   width: 100%;

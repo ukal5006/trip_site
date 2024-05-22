@@ -14,9 +14,9 @@ public class AttractionService {
 	@Autowired
 	private attractionDAO adao;
 	//관광지 1개 조회
-	public List<AttractionInfoDTO> selectList(int cidtype) {
-		return adao.selectList(cidtype);
-	}
+    public List<Map<String, Object>> selectList(int cidtype){
+    	return adao.selectList(cidtype);
+    }
 	//관광지 랜덤 3개 가져오기
     public List<AttractionInfoDTO> getRandomAttractions(String region) {
         return adao.getRandomAttractions(region);

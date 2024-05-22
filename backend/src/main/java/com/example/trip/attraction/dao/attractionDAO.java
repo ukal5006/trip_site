@@ -10,7 +10,8 @@ import com.example.trip.attraction.dto.AttractionInfoDTO;
 
 @Mapper
 public interface attractionDAO {
-	public List<AttractionInfoDTO> selectList(int cidtype); // 관광지 1개 가져오기
+	// 관광지 1개 가져오기
+	public List<Map<String, Object>> selectList(int cidtype);
 	public List<AttractionInfoDTO> getRandomAttractions(String region); //관광지 랜덤 3개 가져오기
 	//범위내 관광지 조회
 	public List<Map<String, Object>> getInRangeAttractions(@Param("latitude") double latitude, @Param("longitude") double longitude, @Param("radius") double radius);
