@@ -85,6 +85,8 @@ public class SecurityConfig {
             "/attraction/inRange/**",
             "/attraction/randomRestaurant/**",
             "/attraction/getTop3/**",
+            "/festival/**",
+            "/attraction/**",
             "/bot/chat/**",
             "/brewery/**",
             "/user/**",
@@ -93,8 +95,10 @@ public class SecurityConfig {
             "/review/**",
             "/comment/**",
             "/notice/**",
-            "/userBoard/**"
-            
+            "/userBoard/**",
+
+            "/board/**"
+
         };
 
     @Bean
