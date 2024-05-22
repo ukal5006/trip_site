@@ -1,82 +1,136 @@
 <script setup>
-import LogoComponent from "@/components/LogoComponent.vue";
-import { computed, ref } from "vue";
-import { useMemberStore } from "@/stores/member";
-import router from "@/router";
-import { useSettingStore } from "@/stores/setting";
+import LogoComponent from '@/components/LogoComponent.vue';
+import { ref } from 'vue';
+import { useMemberStore } from '@/stores/member';
+import { useSettingStore } from '@/stores/setting';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const setting = useSettingStore();
-setting.changeBoxColor("rgb(240,242,244)");
-// setting.changeBoxColor("rgb(255,249,113)");
+setting.changeBoxColor('rgb(240,242,244)');
 
-// const useRouter = router();
+const { setUser } = useMemberStore();
 
-const { memberList, changeId, changeName } = useMemberStore();
-
-const inputId = ref("");
-const inputPassword = ref("");
-
-const login = () => {
-    if (inputId.value == "") {
-        alert("id를 입력해 주세요.");
-    } else if (inputPassword.value == "") {
-        alert("password를 입력해 주세요.");
+const inputId = ref('');
+const inputPassword = ref('');
+const URL = 'http://192.168.219.121:9999/user/login';
+const login = async () => {
+  try {
+    const response = await axios.post(URL, {
+      userId: inputId.value,
+      userPwd: inputPassword.value,
+    });
+    console.log(response.data);
+    setUser(response.data.user);
+    router.replace('/');
+  } catch (error) {
+    const errorCode = error.response.request.status;
+    // console.log(error.response.request.status);
+    if (errorCode === 401) {
+      alert('Id 또는 Password가 잘못되었습니다.');
     } else {
-        console.log(`id:${inputId.value} | password:${inputPassword.value}`);
-        const memberIndex = memberList.findIndex(
-            (item) => item.id == inputId.value && item.password == inputPassword.value
-        );
-        if (memberIndex != -1) {
-            changeId(inputId.value);
-            changeName();
-            router.replace("/");
-        } else {
-            alert("Id 또는 Password가 잘못되었습니다.");
-        }
+      alert('서버에러');
     }
+  }
 };
 </script>
 
 <template>
-    <div>
-        <LogoComponent />
-        <h1 class="temp">로그인</h1>
-        <input class="input" type="text" placeholder="아이디" v-model="inputId" />
-        <input class="input" type="password" placeholder="비밀번호" v-model="inputPassword" />
-        <div class="btn" @click="login">로그인</div>
-        <div>비밀번호 찾기 | 아이디 찾기 | 회원가입</div>
+  <div>
+    <LogoComponent />
+    <div class="loginContainer">
+      <h1 class="loginTitle">Welcome Back</h1>
+      <div class="inputWrapper">
+        <input
+          class="input"
+          type="text"
+          placeholder="아이디"
+          @keyup.enter="login"
+          v-model="inputId"
+        />
+      </div>
+      <div class="inputWrapper">
+        <input
+          class="input"
+          type="password"
+          placeholder="비밀번호"
+          @keyup.enter="login"
+          v-model="inputPassword"
+        />
+      </div>
+      <div class="btn" @click="login">로그인</div>
+      <div class="other">
+        <RouterLink>비밀번호 찾기</RouterLink> <span class="split">|</span>
+        <RouterLink>아이디 찾기</RouterLink> <span class="split">|</span>
+        <RouterLink :to="{ name: 'join' }">회원가입</RouterLink>
+      </div>
     </div>
+  </div>
 </template>
 
 <style scoped>
-.temp {
-    margin-top: 100px;
+.loginContainer {
+  width: 300px;
+  padding: 20px 30px;
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
 }
-h1 {
-    margin-bottom: 20px;
+.loginTitle {
+  margin-top: 100px;
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: 700;
 }
-div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 10px auto;
+.inputWrapper {
+  padding-left: 10px;
+  width: 200px;
+  height: 40px;
+  margin-bottom: 20px;
+  background-color: whitesmoke;
+  border-radius: 5px;
 }
 
 .input {
-    width: 200px;
-    height: 40px;
+  width: 180px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  &:focus {
+    outline: none;
+  }
 }
 .btn {
-    width: 200px;
-    height: 50px;
-    background-color: white;
-    border-radius: 10px;
-    transition: 0.3s;
-    border: 1px solid gray;
-    &:hover {
-        cursor: pointer;
-        box-shadow: 2px 2px 2px gray;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  color: whitesmoke;
+  background-color: rgb(15, 55, 88);
+  border-radius: 10px;
+  transition: 0.3s;
+  border: 1px solid gray;
+  cursor: pointer;
+  margin-bottom: 20px;
+  &:hover {
+    background-color: rgba(15, 55, 88, 0.9);
+  }
+}
+
+.other {
+  margin-bottom: 50px;
+  display: flex;
+}
+
+.split {
+  margin: 0px 10px;
 }
 </style>

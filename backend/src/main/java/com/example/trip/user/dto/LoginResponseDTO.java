@@ -1,23 +1,12 @@
 package com.example.trip.user.dto;
 
 public class LoginResponseDTO {
-	private UserDTO user;
 	private String accessToken;
 	private String refreshToken;
 
-	public LoginResponseDTO(UserDTO user, String accessToken, String refreshToken) {
-		this.user = user;
+	public LoginResponseDTO(String accessToken, String refreshToken) {
 		this.accessToken = accessToken;
 		this.refreshToken = refreshToken;
-	}
-
-	// Getters and Setters
-	public UserDTO getUser() {
-		return user;
-	}
-
-	public void setUser(UserDTO user) {
-		this.user = user;
 	}
 
 	public String getAccessToken() {

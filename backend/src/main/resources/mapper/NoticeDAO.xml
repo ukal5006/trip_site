@@ -1,63 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.trip.board.dao.NoticeDAO">
-	<!-- 게시글 1개 가져오기 -->
-	<select id="showContent" resultType="NoticeDTO" resultMap="show">
-		select n.notice_id, n.write_date, n.content, n.notice_img,
-		n.notice_title, u.user_id, u.user_name, n.read_count
-		from notice n ,
-		user u
-		where n.user_id = u.user_id and notice_id=#{noticeId}
-	</select>
-	<resultMap type="NoticeDTO" id="show">
+
+	<resultMap type="NoticeDTO" id="noticeInfo">
 		<result column="notice_id" property="noticeId" />
 		<result column="write_date" property="writeDate" />
 		<result column="content" property="content" />
 		<result column="notice_img" property="noticeImg" />
-		<result column="notice_title" property="noticeTitle" />
 		<result column="user_id" property="userId" />
-		<result column="user_name" property="writeName" />
-		<result column="read_count" property="readCount" />
-	</resultMap>
-
-	<!--게시글 목록 가져오기 -->
-	<select id="getList" resultType="NoticeDTO" resultMap="list">
-		select
-		n.notice_id, n.write_date, u.user_name, n.read_count, n.notice_title
-		from notice n, user u
-		where n.user_id = u.user_id
-	</select>
-	<resultMap type="NoticeDTO" id="list">
-		<result column="notice_id" property="noticeId" />
-		<result column="write_date" property="writeDate" />
-		<result column="user_name" property="writeName" />
-		<result column="read_count" property="readCount" />
 		<result column="notice_title" property="noticeTitle" />
+		<result column="read_count" property="readCount" />
 	</resultMap>
 
-	<!--공지사항 글 쓰기 -->
-	<insert id="writeNotice" parameterType="NoticeDTO"
-		useGeneratedKeys="true" keyProperty="noticeId">
-		INSERT INTO notice (content,
-		notice_img, notice_title, user_id, user_name)
-		VALUES (#{content},
-		#{noticeImg}, #{noticeTitle}, #{userId},
-		#{userName})
+	<select id="getList" resultType="NoticeDTO">
+		select *
+		from
+		notice
+	</select>
+
+	<select id="showContent" resultType="NoticeDTO"
+		parameterType="int">
+		SELECT * FROM Notice WHERE
+		notice_id = #{noticeId}
+	</select>
+
+	<insert id="writeNotice" parameterType="NoticeDTO">
+		INSERT INTO Notice
+		(notice_title, content, user_id)
+		VALUES
+		( #{noticeTitle},
+		#{content},
+		#{userId})
 	</insert>
 
-	<!--공지사항 내용 수정 -->
 	<update id="updateNotice" parameterType="NoticeDTO">
-		UPDATE notice
+		UPDATE Notice
 		SET
-		notice_title = #{noticeTitle},
-		content = #{content},
-		notice_img =
-		#{noticeImg}
+		notice_img = #{noticeImg}, notice_title = #{noticeTitle}, content =
+		#{content}
+		WHERE notice_id = #{notice_id}
+	</update>
+
+	<update id="incrementViewCount" parameterType="int">
+		UPDATE Notice
+		SET read_count = read_count + 1
 		WHERE notice_id = #{noticeId}
 	</update>
 
-	<!--공지사항 삭제 -->
 	<delete id="deleteNotice" parameterType="int">
-		DELETE FROM notice WHERE notice_id = #{noticeId}
+		DELETE FROM Notice
+		WHERE
+		notice_id = #{notice_id}
 	</delete>
 </mapper>
+

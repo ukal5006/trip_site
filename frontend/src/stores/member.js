@@ -1,31 +1,29 @@
-import { ref, computed } from "vue";
-import { defineStore } from "pinia";
+import { ref, computed } from 'vue';
+import { defineStore } from 'pinia';
+import { useRouter } from 'vue-router';
 
-export const useMemberStore = defineStore("member", () => {
-  const memberList = [
-    {
-      id: "ssafy",
-      password: "ssafy",
-      name: "김싸피",
-    },
-    {
-      id: "admin",
-      password: "admin",
-      name: "관리자",
-    },
-  ];
-  const id = ref("");
-  const name = ref("");
+export const useMemberStore = defineStore('member', () => {
+  const router = useRouter();
 
-  const changeId = (input) => {
-    id.value = input;
+  const user = ref();
+  // const user = ref({
+  //   userId: 'ssafy',
+  //   userName: '김싸피',
+  //   userPwd: '1234',
+  //   birth: '1998-10-02',
+  //   userPhone: '010-2520-5066',
+  //   admin: 1,
+  // });
+  // jwt << 이거를 쿠키에 넣어서 뭔가를... 이건아직 못함
+
+  const setUser = (input) => {
+    user.value = input;
   };
 
-  const changeName = () => {
-    const idx = memberList.findIndex((item) => item.id === id.value);
-    if (idx !== -1) {
-      name.value = memberList[idx].name;
-    }
+  const logout = () => {
+    user.value = null;
+    router.replace('/');
   };
-  return { memberList, id, name, changeId, changeName };
+
+  return { user, setUser, logout };
 });
