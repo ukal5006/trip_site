@@ -18,6 +18,17 @@ public class UserBoardDTO {
 		super();
 	}
 
+	public UserBoardDTO(int postId) {
+		super();
+		this.postId = postId;
+	}
+
+	public UserBoardDTO(int postId, String userId) {
+		super();
+		this.postId = postId;
+		this.userId = userId;
+	}
+
 	public UserBoardDTO(int postId, String title, String content) {
 		super();
 		this.postId = postId;

@@ -15,6 +15,32 @@ public class NoticeDTO {
 		super();
 	}
 
+	public NoticeDTO(int noticeId) {
+		super();
+		this.noticeId = noticeId;
+	}
+
+	public NoticeDTO(int noticeId, String userId) {
+		super();
+		this.noticeId = noticeId;
+		this.userId = userId;
+	}
+
+	public NoticeDTO(String content, String userId, String noticeTitle) {
+		super();
+		this.content = content;
+		this.userId = userId;
+		this.noticeTitle = noticeTitle;
+	}
+
+	public NoticeDTO(int noticeId, String content, String noticeImg, String noticeTitle) {
+		super();
+		this.noticeId = noticeId;
+		this.content = content;
+		this.noticeImg = noticeImg;
+		this.noticeTitle = noticeTitle;
+	}
+
 	public NoticeDTO(Date writeDate, String userId, String noticeTitle, int readCount) {
 		super();
 		this.writeDate = writeDate;

@@ -57,10 +57,10 @@
 
 	<insert id="writeBoard" parameterType="UserBoardDTO">
 		INSERT INTO userboard
-		(post_type, title, content, user_id)
+		(post_type, title, content, user_id, write_date)
 		VALUES
 		(#{postType}, #{title},
-		#{content}, #{userId})
+		#{content}, #{userId}, NOW())
 	</insert>
 
 	<update id="updateBoard" parameterType="UserBoardDTO">

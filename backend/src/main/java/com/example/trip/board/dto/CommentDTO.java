@@ -13,17 +13,22 @@ public class CommentDTO {
 	public CommentDTO() {
 		super();
 	}
-	
-	
+
 	public CommentDTO(String userId) {
 		super();
 		this.userId = userId;
 	}
 
-
 	public CommentDTO(int commentId, String comment) {
 		super();
 		this.commentId = commentId;
+		this.comment = comment;
+	}
+
+	public CommentDTO(int commentId, int postId, String comment) {
+		super();
+		this.commentId = commentId;
+		this.postId = postId;
 		this.comment = comment;
 	}
 
@@ -34,12 +39,11 @@ public class CommentDTO {
 		this.updateDate = updateDate;
 	}
 
-	public CommentDTO(int postId, String userId, String comment, Date writeDate) {
+	public CommentDTO(int postId, String userId, String comment) {
 		super();
 		this.postId = postId;
 		this.userId = userId;
 		this.comment = comment;
-		this.writeDate = writeDate;
 	}
 
 	public CommentDTO(int commentId, int postId, String userId, String comment, Date writeDate, Date updateDate) {

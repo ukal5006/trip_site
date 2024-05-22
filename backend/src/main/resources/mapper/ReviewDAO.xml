@@ -45,10 +45,10 @@
 
 	<insert id="writeReview" parameterType="ReviewDTO">
 		INSERT INTO review
-		(content_id, user_id, rate, content)
+		(content_id, user_id, rate, content, write_date)
 		VALUES
 		(#{contentId}, #{userId},
-		#{rate}, #{content})
+		#{rate}, #{content}, NOW())
 	</insert>
 
 	<update id="updateReview" parameterType="ReviewDTO">

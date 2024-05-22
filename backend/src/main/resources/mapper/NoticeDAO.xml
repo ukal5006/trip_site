@@ -33,11 +33,11 @@
 
 	<insert id="writeNotice" parameterType="NoticeDTO">
 		INSERT INTO Notice
-		(notice_title, content, user_id)
+		(notice_title, content, user_id, write_date)
 		VALUES
 		( #{noticeTitle},
 		#{content},
-		#{userId})
+		#{userId}, NOW())
 	</insert>
 
 	<update id="updateNotice" parameterType="NoticeDTO">
