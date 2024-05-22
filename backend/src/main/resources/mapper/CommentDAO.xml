@@ -17,6 +17,7 @@
 		FROM comment
 		where
 		post_id = #{postId}
+		order by write_date desc
 	</select>
 
 

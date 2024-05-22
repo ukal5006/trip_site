@@ -31,7 +31,16 @@ public class ReviewController {
 	public ResponseEntity<List<ReviewDTO>> getList(@RequestParam int contentId) {
 		try {
 			List<ReviewDTO> review = rservice.getList(contentId);
-			System.out.println("$$" +review.get(0).getContentId());
+			return ResponseEntity.ok(review);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(500).body(null);
+		}
+	}
+	@GetMapping("/orderGood")
+	public ResponseEntity<List<ReviewDTO>> getListOrderGood(@RequestParam int contentId) {
+		try {
+			List<ReviewDTO> review = rservice.getListOrderGood(contentId);
 			return ResponseEntity.ok(review);
 		}
 		catch (Exception e) {

@@ -22,6 +22,10 @@ public class NoticeService {
 		return ndao.getList();
 	}
 
+	public List<NoticeDTO> getListOrderDate() {
+		return ndao.getListOrderDate();
+	}
+
 	// 공지사항 글 1개 가져오기
 	public NoticeDTO showContent(int noticeId) {
 		ndao.incrementViewCount(noticeId);

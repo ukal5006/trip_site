@@ -38,6 +38,39 @@ public class UserBoardController {
 		}
 	}
 
+	@GetMapping("/orderDate")
+	public ResponseEntity<List<UserBoardDTO>> getListOrderDate() {
+		try {
+			List<UserBoardDTO> posts = uservice.getListOrderDate();
+			return ResponseEntity.ok(posts);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(500).body(null);
+		}
+	}
+
+	@GetMapping("/orderRead")
+	public ResponseEntity<List<UserBoardDTO>> getListOrderRead() {
+		try {
+			List<UserBoardDTO> posts = uservice.getListOrderRead();
+			return ResponseEntity.ok(posts);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(500).body(null);
+		}
+	}
+
+	@GetMapping("/orderGood")
+	public ResponseEntity<List<UserBoardDTO>> getListOrderGood() {
+		try {
+			List<UserBoardDTO> posts = uservice.getListOrderGood();
+			return ResponseEntity.ok(posts);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(500).body(null);
+		}
+	}
+
 	// 게시글 세부 조회
 	@GetMapping("/{selectOne}")
 	public ResponseEntity<?> showContent(@RequestParam int postId) {

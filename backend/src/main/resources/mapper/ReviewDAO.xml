@@ -20,6 +20,15 @@
 		FROM review
 		where
 		content_id = #{contentId}
+		order by write_date desc
+	</select>
+	
+	<select id="getListOrderGood" resultMap="reviewInfo" parameterType="int">
+		SELECT *
+		FROM review
+		where
+		content_id = #{contentId}
+		order by good desc
 	</select>
 
 	<insert id="writeReview" parameterType="ReviewDTO">

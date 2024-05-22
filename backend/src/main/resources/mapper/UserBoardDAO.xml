@@ -15,11 +15,25 @@
 		<result column="bad" property="bad" />
 	</resultMap>
 
-	<select id="getList" resultType="UserBoardDTO">
-		SELECT post_type,
-		title, user_id,
-		read_count, good, bad, write_date
+	<select id="getList" resultMap="boardInfo">
+		SELECT *
 		FROM userboard
+		order by write_date desc
+	</select>
+	<select id="getListOrderDate" resultMap="boardInfo">
+		SELECT *
+		FROM userboard
+		order by write_date desc limit 5
+	</select>
+	<select id="getListOrderRead" resultMap="boardInfo">
+		SELECT *
+		FROM userboard
+		order by read_count desc limit 5
+	</select>
+	<select id="getListOrderGood" resultMap="boardInfo">
+		SELECT *
+		FROM userboard
+		order by good desc limit 5
 	</select>
 
 

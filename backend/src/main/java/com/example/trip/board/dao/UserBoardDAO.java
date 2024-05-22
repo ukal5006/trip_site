@@ -11,6 +11,12 @@ public interface UserBoardDAO {
 
 	public List<UserBoardDTO> getList();
 
+	public List<UserBoardDTO> getListOrderDate();
+
+	public List<UserBoardDTO> getListOrderRead();
+
+	public List<UserBoardDTO> getListOrderGood();
+
 	public UserBoardDTO showContent(int boardId);
 
 	public int writeBoard(UserBoardDTO board);

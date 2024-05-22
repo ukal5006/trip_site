@@ -11,6 +11,8 @@ public interface ReviewDAO {
 
 	public List<ReviewDTO> getList(int contentId);
 
+	public List<ReviewDTO> getListOrderGood(int contentId);
+
 	public int writeReview(ReviewDTO review);
 
 	public int updateReview(ReviewDTO review);

@@ -21,6 +21,10 @@ public class ReviewService {
 		return rdao.getList(contentId);
 	}
 
+	public List<ReviewDTO> getListOrderGood(int contentId) {
+		return rdao.getListOrderGood(contentId);
+	}
+
 	public int writeReview(ReviewDTO review) {
 		return rdao.writeReview(review);
 	}

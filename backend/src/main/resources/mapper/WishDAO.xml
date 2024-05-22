@@ -15,7 +15,7 @@
 		VALUES (#{contentId},
 		#{userId})
 	</insert>
-	
+
 	<delete id="deleteWish" parameterType="WishDTO">
 		DELETE FROM wishlist
 		WHERE

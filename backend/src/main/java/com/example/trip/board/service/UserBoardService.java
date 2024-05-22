@@ -21,6 +21,18 @@ public class UserBoardService {
 		return udao.getList();
 	}
 
+	public List<UserBoardDTO> getListOrderDate() {
+		return udao.getListOrderDate();
+	}
+
+	public List<UserBoardDTO> getListOrderRead() {
+		return udao.getListOrderRead();
+	}
+
+	public List<UserBoardDTO> getListOrderGood() {
+		return udao.getListOrderGood();
+	}
+
 	public UserBoardDTO showContent(int boardId) {
 		udao.incrementViewCount(boardId);
 		return udao.showContent(boardId);

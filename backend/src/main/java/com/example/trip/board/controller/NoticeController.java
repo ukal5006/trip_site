@@ -38,6 +38,17 @@ public class NoticeController {
 		}
 	}
 
+	@GetMapping("/orderDate")
+	public ResponseEntity<List<NoticeDTO>> getListOrderDate() {
+		try {
+			List<NoticeDTO> posts = nservice.getListOrderDate();
+			return ResponseEntity.ok(posts);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(500).body(null);
+		}
+	}
+
 	// 공지사항 자세히 보기
 	@GetMapping("/{selectOne}")
 	public ResponseEntity<?> showContent(@RequestParam int noticeId) {

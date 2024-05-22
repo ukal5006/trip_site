@@ -12,10 +12,17 @@
 		<result column="read_count" property="readCount" />
 	</resultMap>
 
-	<select id="getList" resultType="NoticeDTO">
+	<select id="getList" resultMap="noticeInfo">
 		select *
 		from
 		notice
+		order by write_date desc
+	</select>
+	<select id="getListOrderDate" resultMap="noticeInfo">
+		select *
+		from
+		notice
+		order by write_date desc limit 5
 	</select>
 
 	<select id="showContent" resultType="NoticeDTO"
