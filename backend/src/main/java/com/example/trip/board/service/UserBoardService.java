@@ -50,6 +50,10 @@ public class UserBoardService {
 	}
 
 	public int deleteBoard(UserBoardDTO board) {
+//		System.out.println(board.toString());
+//		int tmp = udao.deleteBoard(board);
+//		System.out.println(tmp);
+//		return tmp;
 		return udao.deleteBoard(board);
 	}
 

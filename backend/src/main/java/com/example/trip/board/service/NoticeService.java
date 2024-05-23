@@ -1,15 +1,15 @@
 package com.example.trip.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.trip.board.dao.NoticeDAO;
 import com.example.trip.board.dto.NoticeDTO;
-import com.example.trip.board.dto.ReviewDTO;
 import com.example.trip.user.service.UserService;
-import com.example.trip.util.AdminOnly;
+import com.example.trip.util.aop.NoticePagination;
 
 @Service
 public class NoticeService {
@@ -18,10 +18,29 @@ public class NoticeService {
 	private NoticeDAO ndao;
 	@Autowired
 	private UserService uservice;
+	@Autowired
+	private NoticePagination noticePagination;
 
 	// 공지사항 목록 가져오기
-	public List<NoticeDTO> getList() {
-		return ndao.getList();
+//	public List<NoticeDTO> getList() {
+//		return ndao.getList();
+//	}
+
+	// 공지사항 목록 가져오기
+	public List<NoticeDTO> getNoticeList(int page) {
+		Map<String, Object> pageInfo = noticePagination.getPageInfo(page);
+		int offset = (int) pageInfo.get("offset");
+		int pageSize = (int) pageInfo.get("pageSize");
+
+		return ndao.getNoticeList(pageSize, offset);
+	}
+
+	public int getTotalNoticeCount() {
+		return ndao.selectTotalCount();
+	}
+
+	public Map<String, Object> getPaginationInfo(int page) {
+		return noticePagination.getPageInfo(page);
 	}
 
 	public List<NoticeDTO> getListOrderDate() {
@@ -51,6 +70,7 @@ public class NoticeService {
 	public int deleteNotice(NoticeDTO notice) {
 		return ndao.deleteNotice(notice);
 	}
+
 	public boolean isUser(NoticeDTO notice) {
 		if (uservice.isAdmin(notice.getUserId())) {
 			return true;
@@ -61,24 +81,3 @@ public class NoticeService {
 	}
 
 }
-
-//@Service
-//public class NoticeService {
-//
-//    @Autowired
-//    private NoticeRepository noticeRepository;
-//
-//    public void writeNotice(NoticeDTO notice) {
-//        noticeRepository.save(notice);
-//    }
-//
-//    public void updateNotice(NoticeDTO notice) {
-//        noticeRepository.save(notice);
-//    }
-//
-//    public NoticeDTO getNotice(int noticeId) {
-//        return noticeRepository.findById(noticeId).orElse(null);
-//    }
-//
-//    // 기타 공지사항 관련 메서드들
-//}

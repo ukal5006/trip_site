@@ -1,6 +1,8 @@
 package com.example.trip.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,15 +29,26 @@ public class NoticeController {
 	@Autowired
 	private NoticeService nservice;
 
-	@GetMapping()
-	public ResponseEntity<List<NoticeDTO>> getList() {
-		try {
-			List<NoticeDTO> posts = nservice.getList();
-			return ResponseEntity.ok(posts);
-		}
-		catch (Exception e) {
-			return ResponseEntity.status(500).body(null);
-		}
+//	@GetMapping()
+//	public ResponseEntity<List<NoticeDTO>> getList() {
+//		try {
+//			List<NoticeDTO> posts = nservice.getList();
+//			return ResponseEntity.ok(posts);
+//		}
+//		catch (Exception e) {
+//			return ResponseEntity.status(500).body(null);
+//		}
+//	}
+	@GetMapping("/list")
+	public Map<String, Object> list(@RequestParam(defaultValue = "1") int page) {
+		List<NoticeDTO> notices = nservice.getNoticeList(page);
+		Map<String, Object> pageInfo = nservice.getPaginationInfo(page);
+
+		Map<String, Object> response = new HashMap<>();
+		response.put("notices", notices);
+		response.put("pageInfo", pageInfo);
+
+		return response;
 	}
 
 	@GetMapping("/orderDate")
@@ -71,6 +84,7 @@ public class NoticeController {
 			"Content-type=application/json" })
 	public ResponseEntity<?> writeNotice(@RequestBody NoticeDTO notice) {
 		if (nservice.isUser(notice)) {
+
 			try {
 				nservice.writeNotice(notice);
 				return ResponseEntity.status(HttpStatus.CREATED).body("공지사항이 성공적으로 등록되었습니다.");
@@ -78,7 +92,6 @@ public class NoticeController {
 			catch (Exception e) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항이 등록에 실패했습니다.");
 			}
-
 		}
 		else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("권한이 없습니다.");
@@ -119,7 +132,7 @@ public class NoticeController {
 					return ResponseEntity.ok("공지사항이 성공적으로 삭제되었습니다.");
 				}
 				else {
-					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사항 삭제에 실패했습니다.");
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("공지사ddddd항 삭제에 실패했습니다.");
 				}
 			}
 			catch (Exception e) {

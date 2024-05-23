@@ -16,18 +16,15 @@ public class NoticeDTO {
 	}
 
 	public NoticeDTO(int noticeId) {
-		super();
 		this.noticeId = noticeId;
 	}
 
 	public NoticeDTO(int noticeId, String userId) {
-		super();
 		this.noticeId = noticeId;
 		this.userId = userId;
 	}
 
 	public NoticeDTO(String content, String userId, String noticeTitle) {
-		super();
 		this.content = content;
 		this.userId = userId;
 		this.noticeTitle = noticeTitle;
@@ -47,6 +44,16 @@ public class NoticeDTO {
 		this.userId = userId;
 		this.noticeTitle = noticeTitle;
 		this.readCount = readCount;
+	}
+	
+
+	public NoticeDTO(int noticeId, String content, String noticeImg, String userId, String noticeTitle) {
+		super();
+		this.noticeId = noticeId;
+		this.content = content;
+		this.noticeImg = noticeImg;
+		this.userId = userId;
+		this.noticeTitle = noticeTitle;
 	}
 
 	public NoticeDTO(int noticeId, Date writeDate, String content, String noticeImg, String userId, String noticeTitle,

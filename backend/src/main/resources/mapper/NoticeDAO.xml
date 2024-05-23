@@ -16,13 +16,15 @@
 		select *
 		from
 		notice
-		order by write_date desc
+		order by
+		write_date desc
 	</select>
 	<select id="getListOrderDate" resultMap="noticeInfo">
 		select *
 		from
 		notice
-		order by write_date desc limit 5
+		order
+		by write_date desc limit 5
 	</select>
 
 	<select id="showContent" resultMap="noticeInfo"
@@ -45,19 +47,30 @@
 		SET
 		notice_img = #{noticeImg}, notice_title = #{noticeTitle}, content =
 		#{content}
-		WHERE notice_id = #{notice_id}
+		WHERE notice_id = #{noticeId}
 	</update>
 
 	<update id="incrementViewCount" parameterType="int">
 		UPDATE Notice
-		SET read_count = read_count + 1
+		SET
+		read_count = read_count + 1
 		WHERE notice_id = #{noticeId}
 	</update>
 
 	<delete id="deleteNotice" parameterType="NoticeDTO">
 		DELETE FROM Notice
 		WHERE
-		notice_id = #{notice_id}
+		notice_id = #{noticeId}
 	</delete>
+	<select id="getNoticeList" resultType="NoticeDTO">
+		SELECT * FROM notice
+		ORDER BY write_date DESC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(*) FROM notice
+	</select>
+
 </mapper>
 

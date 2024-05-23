@@ -134,7 +134,7 @@ public class UserBoardController {
 					return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");
 				}
 				else {
-					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 삭제에 실패했습니다.");
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시dddd글 삭제에 실패했습니다.");
 				}
 			}
 			catch (Exception e) {
@@ -147,12 +147,12 @@ public class UserBoardController {
 		}
 	}
 
-	@PostMapping("/{postId}/like")
-	public ResponseEntity<String> likeBoard(@PathVariable int postId, @RequestHeader("Authorization") String token) {
-		JWTUtil tmp = new JWTUtil();
-		String userId = tmp.getUserIdFromToken(token);
+	@PostMapping("/good")
+	public ResponseEntity<String> likeBoard(@RequestBody UserBoardDTO userBoard) {
+//		JWTUtil tmp = new JWTUtil();
+//		String userId = tmp.getUserIdFromToken(token);
 
-		if (uservice.likeBoard(postId, userId, 1)) {
+		if (uservice.likeBoard(userBoard.getPostId(), userBoard.getUserId(), 1)) {
 			return ResponseEntity.ok("Board liked successfully");
 		}
 		else {
@@ -161,16 +161,16 @@ public class UserBoardController {
 
 	}
 
-	@PostMapping("/{postId}/dislike")
-	public ResponseEntity<String> dislikeBoard(@PathVariable int postId, @RequestHeader("Authorization") String token) {
-		JWTUtil tmp = new JWTUtil();
-		String userId = tmp.getUserIdFromToken(token);
+	@PostMapping("/bad")
+	public ResponseEntity<String> dislikeBoard(@RequestBody UserBoardDTO userBoard) {
+//		JWTUtil tmp = new JWTUtil();
+//		String userId = tmp.getUserIdFromToken(token);
 
-		if (uservice.likeBoard(postId, userId, -1)) {
+		if (uservice.likeBoard(userBoard.getPostId(), userBoard.getUserId(), -1)) {
 			return ResponseEntity.ok("Board liked successfully");
 		}
 		else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("좋아요 실패했습니다.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("싫어요 실패했습니다.");
 		}
 	}
 
