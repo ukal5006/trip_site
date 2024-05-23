@@ -44,7 +44,7 @@ public class UserBoardController {
 		Map<String, Object> pageInfo = uservice.getPaginationInfo(page);
 
 		Map<String, Object> response = new HashMap<>();
-		response.put("notices", notices);
+		response.put("userBoard", notices);
 		response.put("pageInfo", pageInfo);
 
 		return response;

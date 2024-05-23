@@ -45,7 +45,7 @@ public class NoticeController {
 		Map<String, Object> pageInfo = nservice.getPaginationInfo(page);
 
 		Map<String, Object> response = new HashMap<>();
-		response.put("notices", notices);
+		response.put("notice", notices);
 		response.put("pageInfo", pageInfo);
 
 		return response;

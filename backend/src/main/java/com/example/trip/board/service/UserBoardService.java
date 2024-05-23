@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.trip.board.dao.UserBoardDAO;
-import com.example.trip.board.dto.NoticeDTO;
 import com.example.trip.board.dto.UserBoardDTO;
 import com.example.trip.board.dto.UserBoardLikeDTO;
 import com.example.trip.user.service.UserService;
-import com.example.trip.util.aop.NoticePagination;
+import com.example.trip.util.aop.UserBoardPagination;
 
 @Service
 public class UserBoardService {
@@ -22,7 +21,7 @@ public class UserBoardService {
 	@Autowired
 	private UserService uuservice;
 	@Autowired
-	private NoticePagination noticePagination;
+	private UserBoardPagination noticePagination;
 
 	public List<UserBoardDTO> getList() {
 		return udao.getList();
