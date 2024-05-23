@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.trip.board.dao.NoticeDAO;
 import com.example.trip.board.dto.NoticeDTO;
 import com.example.trip.user.service.UserService;
+import com.example.trip.util.aop.NoticePagination;
 
 @Service
 public class NoticeService {

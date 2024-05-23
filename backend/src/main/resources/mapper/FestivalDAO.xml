@@ -1,18 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.trip.festival.dao.FestivalDAO">
-	<select id="showList" resultMap = "festList" resultType="map">
-		select * from festival;
-	</select>
-	<resultMap type="map" id="festList">
-		<result column="title" property="titie"/>
-		<result column="Img_url" property="imgUrl"/>
-		<result column="start_date" property="startDate"/>
-		<result column="end_date" property="endDate"/>
-		<result column="address" property="address"/>
-		<result column="price" property="money"/>
-		<result column="institution" property="institution"/>
-		<result column="tel_num" property="telNum"/>
-		<result column="homepage" property="homePage"/>
-	</resultMap>
+
+    <!--축제 전체 리스트 가져오기 -->
+    <select id="showList" resultMap="festList" resultType="map">
+        select *
+        from festival;
+    </select>
+    <resultMap type="map" id="festList">
+        <result column="title" property="title" />
+        <result column="Img_url" property="imgUrl" />
+        <result column="start_date" property="startDate" />
+        <result column="end_date" property="endDate" />
+        <result column="address" property="address" />
+        <result column="price" property="money" />
+        <result column="institution" property="institution" />
+        <result column="tel_num" property="telNum" />
+        <result column="homepage" property="homePage" />
+    </resultMap>
+
+
+    <!--축제 1개 정보 가져오기 -->
+    <select id="showDetail" resultType="map" resultMap="detail">
+        select *
+        from festival
+        where festival_no =#{festivalNo};
+    </select>
+    <resultMap type="map" id="detail">
+        <result column="festival_no" property="festivalNo" />
+        <result column="title" property="title" />
+        <result column="Img_url" property="imgUrl" />
+        <result column="start_date" property="startDate" />
+        <result column="end_date" property="endDate" />
+        <result column="address" property="address" />
+        <result column="price" property="money" />
+        <result column="institution" property="institution" />
+        <result column="tel_num" property="telNum" />
+        <result column="homepage" property="homePage" />
+    </resultMap>
+
+    <!--축제 범위 안에 있는 것들 주기 -->
+    <select id="rangeList" resultType="map" resultMap="range">
+        select *
+        from festival
+        where festival_no between #{startIdx} and #{endIdx};
+    </select>
+    <resultMap type="map" id="range">
+        <result column="festival_no" property="festivalNo" />
+        <result column="title" property="title" />
+        <result column="Img_url" property="imgUrl" />
+        <result column="start_date" property="startDate" />
+        <result column="end_date" property="endDate" />
+        <result column="address" property="address" />
+        <result column="price" property="money" />
+        <result column="institution" property="institution" />
+        <result column="tel_num" property="telNum" />
+        <result column="homepage" property="homePage" />
+    </resultMap>
+
 </mapper>

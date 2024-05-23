@@ -16,13 +16,15 @@
 		select *
 		from
 		notice
-		order by write_date desc 
+		order by
+		write_date desc
 	</select>
 	<select id="getListOrderDate" resultMap="noticeInfo">
 		select *
 		from
 		notice
-		order by write_date desc limit 5
+		order
+		by write_date desc limit 5
 	</select>
 
 	<select id="showContent" resultMap="noticeInfo"
@@ -50,7 +52,8 @@
 
 	<update id="incrementViewCount" parameterType="int">
 		UPDATE Notice
-		SET read_count = read_count + 1
+		SET
+		read_count = read_count + 1
 		WHERE notice_id = #{noticeId}
 	</update>
 
@@ -59,5 +62,15 @@
 		WHERE
 		notice_id = #{noticeId}
 	</delete>
+	<select id="getNoticeList" resultType="NoticeDTO">
+		SELECT * FROM notice
+		ORDER BY write_date DESC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(*) FROM notice
+	</select>
+
 </mapper>
 
