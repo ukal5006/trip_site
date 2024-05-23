@@ -27,16 +27,27 @@ public class NoticeController {
 	@Autowired
 	private NoticeService nservice;
 
-	@GetMapping()
-	public ResponseEntity<List<NoticeDTO>> getList() {
-		try {
-			List<NoticeDTO> posts = nservice.getList();
-			return ResponseEntity.ok(posts);
-		}
-		catch (Exception e) {
-			return ResponseEntity.status(500).body(null);
-		}
-	}
+//	@GetMapping()
+//	public ResponseEntity<List<NoticeDTO>> getList() {
+//		try {
+//			List<NoticeDTO> posts = nservice.getList();
+//			return ResponseEntity.ok(posts);
+//		}
+//		catch (Exception e) {
+//			return ResponseEntity.status(500).body(null);
+//		}
+//	}
+    @GetMapping("/list")
+    public Map<String, Object> list(@RequestParam(defaultValue = "1") int page) {
+        List<NoticeDTO> notices = nservice.getNoticeList(page);
+        Map<String, Object> pageInfo = nservice.getPaginationInfo(page);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("notices", notices);
+        response.put("pageInfo", pageInfo);
+
+        return response;
+    }
 
 	@GetMapping("/orderDate")
 	public ResponseEntity<List<NoticeDTO>> getListOrderDate() {
