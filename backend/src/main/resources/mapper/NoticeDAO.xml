@@ -62,7 +62,8 @@
 		WHERE
 		notice_id = #{noticeId}
 	</delete>
-	<select id="getNoticeList" resultType="NoticeDTO">
+	
+	<select id="getNoticeList" resultMap="noticeInfo" parameterType="com.example.trip.board.dto.PageDTO">
 		SELECT * FROM notice
 		ORDER BY write_date DESC
 		LIMIT #{limit} OFFSET #{offset}

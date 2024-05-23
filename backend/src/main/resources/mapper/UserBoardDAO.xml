@@ -111,4 +111,15 @@
 		= bad - 1
 		WHERE post_id = #{postId}
 	</update>
+	
+	<select id="getNoticeList" resultMap="boardInfo" parameterType="com.example.trip.board.dto.PageDTO">
+		SELECT * FROM userboard
+		ORDER BY write_date DESC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(*) FROM userboard
+	</select>
+	
 </mapper>

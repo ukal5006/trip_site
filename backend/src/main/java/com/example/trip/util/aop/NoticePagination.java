@@ -13,7 +13,7 @@ public class NoticePagination {
 
 	@Autowired
 	private final NoticeDAO noticeDAO;
-	private static final int PAGE_SIZE = 10;
+	private static final int PAGE_SIZE = 15;
 
 //	@Autowired
 	public NoticePagination(NoticeDAO noticeDAO) {

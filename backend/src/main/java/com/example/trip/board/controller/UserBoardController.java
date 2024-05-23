@@ -1,6 +1,8 @@
 package com.example.trip.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,14 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.trip.board.dto.UserBoardDTO;
 import com.example.trip.board.service.UserBoardService;
-import com.example.trip.util.JWTUtil;
 
 @RestController
 @RequestMapping(value = "/userBoard")
@@ -36,6 +36,18 @@ public class UserBoardController {
 		catch (Exception e) {
 			return ResponseEntity.status(500).body(null);
 		}
+	}
+	
+	@GetMapping("/list")
+	public Map<String, Object> list(@RequestParam(defaultValue = "1") int page) {
+		List<UserBoardDTO> notices = uservice.getNoticeList(page);
+		Map<String, Object> pageInfo = uservice.getPaginationInfo(page);
+
+		Map<String, Object> response = new HashMap<>();
+		response.put("notices", notices);
+		response.put("pageInfo", pageInfo);
+
+		return response;
 	}
 
 	@GetMapping("/orderDate")
