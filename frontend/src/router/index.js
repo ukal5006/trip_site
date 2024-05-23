@@ -10,15 +10,19 @@ import PublicView from '@/views/PublicView.vue';
 import MyPageView from '@/views/MyPageView.vue';
 import NoticeDetailView from '@/views/NoticeDetailView.vue';
 import PublicDetailView from '@/views/PublicDetailView.vue';
-import PublicWriteView from '@/views/PublicWriteView.vue';
+import WriteView from '@/views/WriteView.vue';
 import { useMemberStore } from '@/stores/member';
 import MountainThemaView from '@/views/MountainThemaView.vue';
 import BreweryThemaView from '@/views/BreweryThemaView.vue';
 import EatThemaView from '@/views/EatThemaView.vue';
+import FestivalThemaView from '@/views/FestivalThemaView.vue';
 import JoinView from '@/views/JoinView.vue';
 import DetailView from '@/views/DetailView.vue';
+import AgeCheckView from '@/views/AgeCheckView.vue';
+import IdFindView from '@/views/IdFindView.vue';
+import PwdFindView from '@/views/PwdFindView.vue';
+import { useBoardStore } from '@/stores/board';
 // import PasswordCheckComponent from '@/components/PasswordCheckComponent.vue';
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -33,6 +37,16 @@ const router = createRouter({
       component: ThemaView,
     },
     {
+      path: '/idfind',
+      name: 'idfind',
+      component: IdFindView,
+    },
+    {
+      path: '/pwdfind',
+      name: 'pwdfind',
+      component: PwdFindView,
+    },
+    {
       path: '/thema/mountain',
       name: 'mountain',
       component: MountainThemaView,
@@ -43,9 +57,19 @@ const router = createRouter({
       component: BreweryThemaView,
     },
     {
+      path: '/agecheck',
+      name: 'agecheck',
+      component: AgeCheckView,
+    },
+    {
       path: '/thema/eat',
       name: 'eat',
       component: EatThemaView,
+    },
+    {
+      path: '/thema/festival',
+      name: 'festival',
+      component: FestivalThemaView,
     },
     {
       path: '/area',
@@ -93,7 +117,7 @@ const router = createRouter({
       component: PublicView,
     },
     {
-      path: '/community/notice/:boardId',
+      path: '/community/public/:boardId',
       name: 'publicDetail',
       component: PublicDetailView,
     },
@@ -101,18 +125,11 @@ const router = createRouter({
       path: '/mypage',
       name: 'mypage',
       component: MyPageView,
-      // children: [
-      //   {
-      //     path: '/mypage/password',
-      //     name: 'password',
-      //     component: PasswordCheckComponent,
-      //   },
-      // ],
     },
     {
-      path: '/write',
+      path: '/community/write',
       name: 'write',
-      component: PublicWriteView,
+      component: WriteView,
     },
   ],
 

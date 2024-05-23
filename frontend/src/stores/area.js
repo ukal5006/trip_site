@@ -506,5 +506,8 @@ export const useAreaStore = defineStore('area', () => {
       },
     ],
   };
+
+  const areaRecommendList = {};
+  const areaRandomList = {};
   return { areas, breweryAreaList };
 });

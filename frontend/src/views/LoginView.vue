@@ -8,26 +8,21 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const setting = useSettingStore();
-setting.changeBoxColor('rgb(240,242,244)');
-
 const { setUser } = useMemberStore();
 
 const inputId = ref('');
 const inputPassword = ref('');
-const URL = 'http://192.168.219.121:9999/user/login';
 const login = async () => {
   try {
-    const response = await axios.post(URL, {
+    const response = await axios.post(`${import.meta.env.VITE_URL}user/login`, {
       userId: inputId.value,
       userPwd: inputPassword.value,
     });
     console.log(response.data);
-    setUser(response.data.user);
+    setUser(response.data);
     router.replace('/');
   } catch (error) {
     const errorCode = error.response.request.status;
-    // console.log(error.response.request.status);
     if (errorCode === 401) {
       alert('Id 또는 Password가 잘못되었습니다.');
     } else {
@@ -38,7 +33,7 @@ const login = async () => {
 </script>
 
 <template>
-  <div>
+  <div class="loginFlex">
     <LogoComponent />
     <div class="loginContainer">
       <h1 class="loginTitle">Welcome Back</h1>
@@ -62,8 +57,10 @@ const login = async () => {
       </div>
       <div class="btn" @click="login">로그인</div>
       <div class="other">
-        <RouterLink>비밀번호 찾기</RouterLink> <span class="split">|</span>
-        <RouterLink>아이디 찾기</RouterLink> <span class="split">|</span>
+        <RouterLink :to="{ name: 'idfind' }">아이디 찾기</RouterLink>
+        <span class="split">|</span>
+        <RouterLink :to="{ name: 'pwdfind' }">비밀번호 찾기</RouterLink>
+        <span class="split">|</span>
         <RouterLink :to="{ name: 'join' }">회원가입</RouterLink>
       </div>
     </div>
@@ -71,6 +68,11 @@ const login = async () => {
 </template>
 
 <style scoped>
+.loginFlex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .loginContainer {
   width: 300px;
   padding: 20px 30px;
@@ -83,7 +85,7 @@ const login = async () => {
   margin: 10px auto;
 }
 .loginTitle {
-  margin-top: 100px;
+  margin-top: 50px;
   margin-bottom: 20px;
   font-size: 30px;
   font-weight: 700;

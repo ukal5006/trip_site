@@ -11,8 +11,10 @@ setting.changeBoxColor('rgb(225,245,196)');
 
 <style scoped>
 .mapMain {
+  border-top: 1px solid black;
   height: 100px;
   width: 100%;
   position: relative;
+  box-sizing: border-box;
 }
 </style>
