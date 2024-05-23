@@ -119,7 +119,7 @@ public class UserController {
 	public ResponseEntity<?> findUserId(@RequestBody UserDTO user) {
 		String userId = uservice.findId(user);
 		if (userId != null) {
-			return ResponseEntity.ok("사용자의 아이디는 : " + userId + " 입니다.");
+			return ResponseEntity.ok("님의 아이디는 : " + userId + " 입니다.");
 		}
 		else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("사용자 정보를 찾을 수 없습니다");
