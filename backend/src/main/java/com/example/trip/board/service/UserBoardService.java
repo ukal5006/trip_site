@@ -1,14 +1,17 @@
 package com.example.trip.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.trip.board.dao.UserBoardDAO;
+import com.example.trip.board.dto.NoticeDTO;
 import com.example.trip.board.dto.UserBoardDTO;
 import com.example.trip.board.dto.UserBoardLikeDTO;
 import com.example.trip.user.service.UserService;
+import com.example.trip.util.aop.NoticePagination;
 
 @Service
 public class UserBoardService {
@@ -18,11 +21,30 @@ public class UserBoardService {
 	private UserBoardLikeService uservice;
 	@Autowired
 	private UserService uuservice;
+	@Autowired
+	private NoticePagination noticePagination;
 
 	public List<UserBoardDTO> getList() {
 		return udao.getList();
 	}
 
+	///
+	public List<UserBoardDTO> getNoticeList(int page) {
+		Map<String, Object> pageInfo = noticePagination.getPageInfo(page);
+		int offset = (int) pageInfo.get("offset");
+		int pageSize = (int) pageInfo.get("pageSize");
+
+		return udao.getNoticeList(pageSize, offset);
+	}
+
+	public int getTotalNoticeCount() {
+		return udao.selectTotalCount();
+	}
+
+	public Map<String, Object> getPaginationInfo(int page) {
+		return noticePagination.getPageInfo(page);
+	}
+	///
 	public List<UserBoardDTO> getListOrderDate() {
 		return udao.getListOrderDate();
 	}

@@ -22,9 +22,9 @@ public class NoticeService {
 	private NoticePagination noticePagination;
 
 	// 공지사항 목록 가져오기
-//	public List<NoticeDTO> getList() {
-//		return ndao.getList();
-//	}
+	public List<NoticeDTO> getList() {
+		return ndao.getList();
+	}
 
 	// 공지사항 목록 가져오기
 	public List<NoticeDTO> getNoticeList(int page) {

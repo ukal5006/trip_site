@@ -3,8 +3,9 @@ package com.example.trip.board.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
-import com.example.trip.board.dto.ReviewDTO;
+import com.example.trip.board.dto.NoticeDTO;
 import com.example.trip.board.dto.UserBoardDTO;
 
 @Mapper
@@ -37,4 +38,12 @@ public interface UserBoardDAO {
 	public int deleteBoard(UserBoardDTO board);
 
 	public int isUser(UserBoardDTO board);
+
+	///
+	public List<UserBoardDTO> getNoticeList(@Param("limit") int limit, @Param("offset") int offset); // 페이징 처리된 공지사항 목록
+	// 가져오기
+
+	public int selectTotalCount(); // 전체 공지사항 수 조회
+
+	///
 }
