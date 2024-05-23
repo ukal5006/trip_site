@@ -3,9 +3,12 @@ import axios from 'axios';
 import { onMounted, computed, ref, watch } from 'vue';
 import { KakaoMap, KakaoMapMarker } from 'vue3-kakao-maps';
 import { useDataInfoStore } from '@/stores/dataInfo.js';
+import { useBoardStore } from '@/stores/board';
+
+const useBoard = useBoardStore();
 
 //http://192.168.10.93:9999/attraction/inRange?latitude=37.5665&longitude=126.9780&level=3
-const URL = 'http://192.168.10.93:9999/attraction/inRange?';
+const URL = `${import.meta.env.VITE_URL}attraction/inRange?`;
 const level = ref('3');
 const btnOpen = ref(true);
 const detailInfo = ref();
@@ -16,12 +19,17 @@ const btnHandler = () => {
 const detailOn = (contentId) => {
   detailOpen.value = true;
   detailInfo.value = contentId;
+  // console.log(detailInfo.value.contentId);
+  axios
+    .get(`${reviewURL}${detailInfo.value.contentId}`)
+    // .then((response) => console.log(response));
+    .then((response) => (reviewData.value = response.data));
 };
 const detailOff = () => {
   detailOpen.value = false;
 };
 const map = ref();
-
+const mapAddr = ref();
 const allItemList = ref();
 
 const dataInfo = useDataInfoStore();
@@ -40,6 +48,7 @@ const getUserLocation = () => {
         alert(
           '위치 액세스가 거부되어있습니다. 위치를 중심으로 보고 싶으시면 위치 액세스를 허용해 주세요.'
         );
+        loadData(coordinate.value.lat, coordinate.value.lng, level.value);
       }
     );
   } else {
@@ -58,10 +67,10 @@ const catagoryClickHandler = (catagoryIndex) => {
 
 getUserLocation();
 
-onMounted(() => {
-  console.log('마운트됨');
-  console.log(coordinate.value);
-});
+// onMounted(() => {
+//   console.log('마운트됨');
+//   console.log(coordinate.value);
+// });
 
 const onLoadKakaoMap = (mapRef) => {
   map.value = mapRef;
@@ -70,6 +79,12 @@ const onLoadKakaoMap = (mapRef) => {
   window.kakao.maps.event.addListener(map.value, 'dragend', function () {
     // 현재 지도의 중심 좌표를 가져옵니다
     const center = map.value.getCenter();
+    searchAddrFromCoords(center, function (result, status) {
+      if (status === kakao.maps.services.Status.OK) {
+        mapAddr.value = result[0].address_name;
+        // console.log(result[0].address_name); // 주소 정보 출력
+      }
+    });
     console.log('맵 드래그했음');
     loadData(center.getLat(), center.getLng(), level.value);
   });
@@ -95,7 +110,7 @@ const loadData = (lat, lng, level) => {
 };
 const itemList = ref();
 watch(allItemList, () => {
-  if (allItemList.value != null) {
+  if (allItemList.value != '') {
     itemList.value = allItemList.value.filter((item) =>
       dataInfo.getIsActive(item.contentTypeId)
     );
@@ -104,7 +119,7 @@ watch(allItemList, () => {
   }
 });
 watch(dataInfo.mapCatagory, () => {
-  if (allItemList.value != null) {
+  if (allItemList.value != '') {
     itemList.value = allItemList.value.filter((item) =>
       dataInfo.getIsActive(item.contentTypeId)
     );
@@ -117,6 +132,14 @@ const btnContent = computed(() => {
 
 watch(coordinate.value, () => {
   console.log('지도 좌표 변경');
+  const center = map.value.getCenter();
+  searchAddrFromCoords(center, function (result, status) {
+    if (status === kakao.maps.services.Status.OK) {
+      mapAddr.value = result[0].address_name;
+      console.log(result[0].address_name); // 주소 정보 출력
+    }
+  });
+  loadData(coordinate.value.lat, coordinate.value.lng, level.value);
 });
 
 const mapCatagory = dataInfo.mapCatagory;
@@ -125,6 +148,40 @@ const getTypeTitle = dataInfo.getTypeTitle;
 const navigateToDetail = (id) => {
   window.open(`${window.location.origin}/detail/${id}`, '_blank');
 };
+
+// 좌표로부터 주소 정보를 얻는 함수
+function searchAddrFromCoords(coords, callback) {
+  // 주소-좌표 변환 객체를 생성합니다
+  var geocoder = new kakao.maps.services.Geocoder();
+
+  // 좌표로부터 주소를 검색합니다
+  geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+}
+
+// function searchAddrFromCoords(lat, lng, callback) {
+//   // 주소-좌표 변환 객체를 생성합니다
+//   var geocoder = new kakao.maps.services.Geocoder();
+
+//   // 좌표로부터 주소를 검색합니다
+//   geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+// }
+const panTo = (item, lat, lon) => {
+  detailOn(item);
+  if (map.value) {
+    map.value.panTo(new kakao.maps.LatLng(lat, lon));
+  }
+};
+
+const reviewData = ref();
+const reviewURL = `${import.meta.env.VITE_URL}review?contentId=`;
+
+const reviewCount = computed(() => {
+  if (reviewData.value != null) {
+    return reviewData.value.length;
+  } else {
+    return 0;
+  }
+});
 </script>
 
 <template>
@@ -141,6 +198,25 @@ const navigateToDetail = (id) => {
       <KakaoMapMarker
         :lat="coordinate.lat"
         :lng="coordinate.lng"
+        :image="{
+          imageSrc: 'https://cdn-icons-png.flaticon.com/128/2776/2776067.png',
+          imageWidth: 50,
+          imageHeight: 50,
+          imageOption: {},
+        }"
+      ></KakaoMapMarker>
+      <KakaoMapMarker
+        v-for="item in itemList"
+        :lat="item.latitude"
+        :lng="item.longitude"
+        :clickable="true"
+        @onClickKakaoMapMarker="detailOn(item)"
+        :image="{
+          imageSrc: `/src/asset/${item.contentTypeId}.png`,
+          imageWidth: 50,
+          imageHeight: 50,
+          imageOption: {},
+        }"
       ></KakaoMapMarker>
     </KakaoMap>
     <div
@@ -149,7 +225,7 @@ const navigateToDetail = (id) => {
     >
       <div class="leftSide">
         <div class="userPlaceInfoContainer">
-          <div class="userAddr">대전 대덕구</div>
+          <div class="userAddr">{{ mapAddr }}</div>
         </div>
         <div class="selectCatagory">
           <div
@@ -175,7 +251,7 @@ const navigateToDetail = (id) => {
           <div
             v-for="place in itemList"
             class="placeItem"
-            @click="detailOn(place)"
+            @click="panTo(place, place.latitude, place.longitude - 0.004)"
           >
             <div class="placeImage">
               <img
@@ -202,7 +278,7 @@ const navigateToDetail = (id) => {
         </div>
       </div>
       <div class="detailPlace" :class="{ none: !detailOpen }">
-        <div class="detailBtn" @click="detailOff">X</div>
+        <div class="detailBtn" @click="detailOff">x</div>
         <div class="detailInfo" @click="navigateToDetail(detailInfo.contentId)">
           <div class="detailImg">
             <img
@@ -223,14 +299,17 @@ const navigateToDetail = (id) => {
             </div>
           </div>
         </div>
-        <!-- <div class="reviewContainer">
-          <div class="reviewBtn">
-            <div class="reviewListBtn">리뷰</div>
-            <div class="reviewAddBtn">리뷰남기기</div>
+        <div class="reviewContainer">
+          <div class="reviewTitle">리뷰({{ reviewCount }})</div>
+          <div class="commentItem" v-for="item in reviewData">
+            <div class="commentUserId">{{ item.userId }}</div>
+            <div class="commentContent">{{ item.content }}</div>
+            <div class="commentRate">{{ item.rate }}점</div>
+            <div class="commentDate">
+              {{ useBoard.formatDateHour(item.writeDate) }}
+            </div>
           </div>
-          <div class="reviewList"></div>
-          <div class="reviewAdd"></div>
-        </div> -->
+        </div>
       </div>
       <div @click="btnHandler" class="controllBtn">
         <i :class="btnContent"></i>
@@ -352,6 +431,7 @@ const navigateToDetail = (id) => {
   position: relative;
   width: 400px;
   height: 100%;
+  border: 1px solid black;
 
   /* background-color: rgba(0, 0, 0, 0.5); */
   background-color: whitesmoke;
@@ -360,13 +440,18 @@ const navigateToDetail = (id) => {
   position: absolute;
   top: 10px;
   right: -30px;
-  font-size: 30px;
-  color: gray;
+  color: black;
   cursor: pointer;
   background-color: aliceblue;
   width: 30px;
   height: 30px;
   text-align: center;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
 }
 .detailInfo {
   cursor: pointer;
@@ -390,15 +475,19 @@ const navigateToDetail = (id) => {
 }
 .detailOverview {
   font-size: 17px;
+  overflow-y: scroll;
   /* overflow: hidden; */
   /* white-space: nowrap; */
-  max-width: 500px;
-  max-height: 200px;
+  max-width: 400px;
+  max-height: 130px;
   text-overflow: ellipsis;
 }
 .reviewContainer {
-  background-color: tomato;
-  height: 380px;
+  /* background-color: tomato; */
+  box-sizing: border-box;
+  height: 350px;
+  overflow-y: scroll;
+  background-color: white;
 }
 .reviewBtn {
   display: flex;
@@ -417,15 +506,17 @@ const navigateToDetail = (id) => {
   right: -30px;
   top: 50%;
   transform: translateY(-50%);
-  height: 50px;
-  background-color: whitesmoke;
+  height: 40px;
+  background-color: lightskyblue;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  font-size: 40px;
+  font-size: 30px;
   display: flex;
   cursor: pointer;
-  align-items: center;
+  align-items: start;
+  justify-content: center;
   width: 30px;
+  box-sizing: border-box;
 }
 .close {
   transform: translateX(calc(-100%));
@@ -439,5 +530,41 @@ const navigateToDetail = (id) => {
 .isActive {
   font-weight: 700;
   color: black;
+}
+.reviewTitle {
+  font-size: 20px;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  background-color: white;
+  font-weight: 700;
+  font-size: 30px;
+}
+.commentItem {
+  margin-bottom: 10px;
+  border-bottom: 1px solid lightgray;
+  box-sizing: border-box;
+  padding: 10px;
+
+  /* position: relative; */
+  * {
+    margin-bottom: 5px;
+  }
+}
+.commentUserId {
+  font-size: 14px;
+  font-weight: 700;
+}
+.commentContent {
+  font-size: 15px;
+  outline: none;
+  border: none;
+}
+.commentDate {
+  color: gray;
+  font-size: 13px;
 }
 </style>

@@ -1,27 +1,28 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
+import Cookies from 'js-cookie';
 
 export const useMemberStore = defineStore('member', () => {
   const router = useRouter();
 
   const user = ref();
-  // const user = ref({
-  //   userId: 'ssafy',
-  //   userName: '김싸피',
-  //   userPwd: '1234',
-  //   birth: '1998-10-02',
-  //   userPhone: '010-2520-5066',
-  //   admin: 1,
-  // });
-  // jwt << 이거를 쿠키에 넣어서 뭔가를... 이건아직 못함
+
+  const cookieUser = Cookies.get('user');
+  if (cookieUser != undefined) {
+    user.value = JSON.parse(cookieUser);
+    console.log(user.value);
+  }
 
   const setUser = (input) => {
     user.value = input;
+    const cookieUser = JSON.stringify(user.value);
+    document.cookie = 'user=' + cookieUser;
   };
 
   const logout = () => {
     user.value = null;
+    document.cookie = 'user=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     router.replace('/');
   };
 

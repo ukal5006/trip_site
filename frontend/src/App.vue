@@ -2,8 +2,9 @@
 import { onMounted, ref } from 'vue';
 import { RouterView } from 'vue-router';
 import HeaderComponent from '@/components/HeaderComponent.vue';
-import { useSettingStore } from './stores/setting';
+// import { useSettingStore } from './stores/setting';
 import FooterComponent from '@/components/FooterComponent.vue';
+import ChatBotComponent from './components/ChatBotComponent.vue';
 
 const hasScrolled = ref(false); // 스크롤 여부에 따른 반응형 변수
 const handleScroll = () => {
@@ -23,13 +24,16 @@ onMounted(() => {
   <header :class="{ scrolled: hasScrolled }">
     <HeaderComponent />
   </header>
-  <div
+  <!-- <div
     class="backgroundBox"
     :style="{ backgroundColor: useSettingStore().boxColor }"
-  ></div>
+  ></div> -->
   <main class="appMain">
     <RouterView class="mainContent" />
   </main>
+  <aside class="chatBot">
+    <ChatBotComponent />
+  </aside>
   <footer>
     <FooterComponent />
   </footer>
@@ -54,6 +58,7 @@ header {
 .mainContent {
   width: 1000px;
   margin: 0px auto;
+  /* background-color: whitesmoke; */
 }
 
 .backgroundBox {
@@ -71,5 +76,10 @@ header {
   background-color: white; /* 원하는 배경색으로 변경하세요 */
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -2px rgba(0, 0, 0, 0.06);
+}
+.chatBot {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
 }
 </style>

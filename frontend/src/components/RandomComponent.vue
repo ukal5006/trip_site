@@ -17,7 +17,9 @@ const navigateToDetail = (id) => {
 };
 
 const randomDatas = ref('');
-const URL = 'http://192.168.10.93:9999/attraction/';
+// const URL = 'http://192.168.10.93:9999/attraction/';
+const URL = `${import.meta.env.VITE_URL}attraction/`;
+
 const loadData = async () => {
   try {
     const response = await axios.get(

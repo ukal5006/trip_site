@@ -3,7 +3,9 @@ import axios from 'axios';
 import { ref, watch } from 'vue';
 import { useDataInfoStore } from '@/stores/dataInfo.js';
 
-const URL = 'http://192.168.10.93:9999/attraction/getTop3/';
+// const URL = 'http://192.168.10.93:9999/attraction/getTop3/';
+const URL = `${import.meta.env.VITE_URL}attraction/getTop3/`;
+
 const props = defineProps({
   area: Object,
 });

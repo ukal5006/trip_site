@@ -77,15 +77,19 @@ const passwordSameCheckMsgColor = computed(() => {
 
 const join = () => {
   axios
-    .post('http://192.168.219.121:9999/user/signup', {
+    .post(`${import.meta.env.VITE_URL}user/signup`, {
       userId: inputId.value,
       userPwd: inputPassword.value,
       birth: inputBirth.value,
       userName: inputName.value,
       userPhone: inputPhone.value,
+      userEmail: inputEmail.value,
       admin: 0,
     })
-    .then(router.replace({ name: 'login' }))
+    .then(() => {
+      alert('회원가입 완료!');
+      router.replace({ name: 'login' });
+    })
     .catch((error) => {
       alert(error.response.data);
     });
@@ -94,7 +98,7 @@ const join = () => {
 const idCheck = () => {
   if (inputId.value != '') {
     axios
-      .post('http://192.168.219.121:9999/user/idCheck', {
+      .post(`${import.meta.env.VITE_URL}user/idCheck`, {
         userId: inputId.value,
       })
       .then((response) => console.log(response.data))
@@ -118,7 +122,7 @@ const debouncedIdCheck = debounce(idCheck, 500);
 </script>
 
 <template>
-  <div>
+  <div class="flex">
     <LogoComponent />
     <div class="loginContainer">
       <h1 class="loginTitle">Hello!</h1>
@@ -219,6 +223,7 @@ const debouncedIdCheck = debounce(idCheck, 500);
         />
       </div>
       <div class="btn" @click="join">회원가입</div>
+      <div class="kakao">카카오계정으로 회원가입</div>
     </div>
   </div>
 </template>
@@ -236,7 +241,7 @@ const debouncedIdCheck = debounce(idCheck, 500);
   margin: 10px auto;
 }
 .loginTitle {
-  margin-top: 100px;
+  margin-top: 0px;
   margin-bottom: 20px;
   font-size: 30px;
   font-weight: 700;
@@ -246,7 +251,7 @@ const debouncedIdCheck = debounce(idCheck, 500);
   padding-left: 10px;
   width: 200px;
   height: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   background-color: whitesmoke;
   border-radius: 5px;
 }
@@ -261,7 +266,8 @@ const debouncedIdCheck = debounce(idCheck, 500);
     outline: none;
   }
 }
-.btn {
+.btn,
+.kakao {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -273,10 +279,10 @@ const debouncedIdCheck = debounce(idCheck, 500);
   transition: 0.3s;
   border: 1px solid gray;
   cursor: pointer;
-  margin-bottom: 20px;
-  &:hover {
+  /* margin-bottom: 20px; */
+  /* &:hover {
     background-color: rgba(15, 55, 88, 0.9);
-  }
+  } */
 }
 
 .other {
@@ -298,6 +304,11 @@ const debouncedIdCheck = debounce(idCheck, 500);
     height: 20px;
     margin: 0px 10px;
   }
+}
+.flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* .idCheckBtn {
@@ -331,5 +342,11 @@ const debouncedIdCheck = debounce(idCheck, 500);
   font-size: 14px;
   line-height: 16px;
   margin-right: 5px;
+}
+.kakao {
+  margin-top: 17px;
+  background-color: #f7e111;
+  color: #000000;
+  border: none;
 }
 </style>
