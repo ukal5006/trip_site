@@ -97,7 +97,7 @@ public class ReviewController {
 					return ResponseEntity.ok("리뷰가 성공적으로 삭제되었습니다.");
 				}
 				else {
-					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 삭제에 실패했습니다.");
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("리뷰 ㄹㄹ삭제에 실패했습니다.");
 				}
 			}
 			catch (Exception e) {
@@ -111,12 +111,12 @@ public class ReviewController {
 		}
 	}
 
-	@PostMapping("/{reviewId}/like")
-	public ResponseEntity<String> likeBoard(@PathVariable int reviewId, @RequestHeader("Authorization") String token) {
-		JWTUtil tmp = new JWTUtil();
-		String userId = tmp.getUserIdFromToken(token);
+	@PostMapping("/good")
+	public ResponseEntity<String> likeBoard(@RequestBody ReviewDTO review) {
+//		JWTUtil tmp = new JWTUtil();
+//		String userId = tmp.getUserIdFromToken(token);
 
-		if (rservice.likeReview(reviewId, userId, 1)) {
+		if (rservice.likeReview(review.getReviewId(), review.getUserId(), 1)) {
 			return ResponseEntity.ok("Review liked successfully");
 		}
 		else {
@@ -124,17 +124,16 @@ public class ReviewController {
 		}
 	}
 
-	@PostMapping("/{reviewId}/dislike")
-	public ResponseEntity<String> dislikeBoard(@PathVariable int reviewId,
-			@RequestHeader("Authorization") String token) {
-		JWTUtil tmp = new JWTUtil();
-		String userId = tmp.getUserIdFromToken(token);
+	@PostMapping("/bad")
+	public ResponseEntity<String> dislikeBoard(@RequestBody ReviewDTO review) {
+//		JWTUtil tmp = new JWTUtil();
+//		String userId = tmp.getUserIdFromToken(token);
 
-		if (rservice.likeReview(reviewId, userId, -1)) {
+		if (rservice.likeReview(review.getReviewId(), review.getUserId(), -1)) {
 			return ResponseEntity.ok("Review liked successfully");
 		}
 		else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("좋아요 실패했습니다.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("싫어요 실패했습니다.");
 		}
 	}
 }

@@ -16,7 +16,7 @@
 		select *
 		from
 		notice
-		order by write_date desc
+		order by write_date desc 
 	</select>
 	<select id="getListOrderDate" resultMap="noticeInfo">
 		select *
@@ -45,7 +45,7 @@
 		SET
 		notice_img = #{noticeImg}, notice_title = #{noticeTitle}, content =
 		#{content}
-		WHERE notice_id = #{notice_id}
+		WHERE notice_id = #{noticeId}
 	</update>
 
 	<update id="incrementViewCount" parameterType="int">
@@ -57,7 +57,7 @@
 	<delete id="deleteNotice" parameterType="NoticeDTO">
 		DELETE FROM Notice
 		WHERE
-		notice_id = #{notice_id}
+		notice_id = #{noticeId}
 	</delete>
 </mapper>
 

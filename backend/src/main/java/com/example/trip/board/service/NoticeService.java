@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.trip.board.dao.NoticeDAO;
 import com.example.trip.board.dto.NoticeDTO;
-import com.example.trip.board.dto.ReviewDTO;
 import com.example.trip.user.service.UserService;
-import com.example.trip.util.AdminOnly;
 
 @Service
 public class NoticeService {
@@ -51,6 +49,7 @@ public class NoticeService {
 	public int deleteNotice(NoticeDTO notice) {
 		return ndao.deleteNotice(notice);
 	}
+
 	public boolean isUser(NoticeDTO notice) {
 		if (uservice.isAdmin(notice.getUserId())) {
 			return true;
@@ -61,24 +60,3 @@ public class NoticeService {
 	}
 
 }
-
-//@Service
-//public class NoticeService {
-//
-//    @Autowired
-//    private NoticeRepository noticeRepository;
-//
-//    public void writeNotice(NoticeDTO notice) {
-//        noticeRepository.save(notice);
-//    }
-//
-//    public void updateNotice(NoticeDTO notice) {
-//        noticeRepository.save(notice);
-//    }
-//
-//    public NoticeDTO getNotice(int noticeId) {
-//        return noticeRepository.findById(noticeId).orElse(null);
-//    }
-//
-//    // 기타 공지사항 관련 메서드들
-//}

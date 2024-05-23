@@ -17,7 +17,6 @@ public class ReviewDTO {
 	}
 
 	public ReviewDTO(int reviewId, String userId) {
-		super();
 		this.reviewId = reviewId;
 		this.userId = userId;
 	}
@@ -36,6 +35,16 @@ public class ReviewDTO {
 	}
 
 	public ReviewDTO(int contentId, String userId, int rate, String content) {
+		this.contentId = contentId;
+		this.userId = userId;
+		this.rate = rate;
+		this.content = content;
+	}
+	
+
+	public ReviewDTO(int reviewId, int contentId, String userId, int rate, String content) {
+		super();
+		this.reviewId = reviewId;
 		this.contentId = contentId;
 		this.userId = userId;
 		this.rate = rate;

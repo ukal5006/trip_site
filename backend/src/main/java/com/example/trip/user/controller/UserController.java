@@ -68,7 +68,7 @@ public class UserController {
 	}
 
 	// 회원정보수정
-	@PostMapping("/updateUser")
+	@PostMapping("/update")
 	public ResponseEntity<?> updateUser(@RequestBody UserDTO user) {
 		try {
 			int ststus = uservice.updateUser(user);

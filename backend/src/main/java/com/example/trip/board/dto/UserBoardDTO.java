@@ -15,29 +15,33 @@ public class UserBoardDTO {
 	private int bad;
 
 	public UserBoardDTO() {
-		super();
 	}
 
 	public UserBoardDTO(int postId) {
-		super();
 		this.postId = postId;
 	}
 
 	public UserBoardDTO(int postId, String userId) {
-		super();
 		this.postId = postId;
 		this.userId = userId;
 	}
 
 	public UserBoardDTO(int postId, String title, String content) {
-		super();
 		this.postId = postId;
 		this.title = title;
 		this.content = content;
 	}
 
 	public UserBoardDTO(int postType, String title, String content, String userId) {
-		super();
+		this.postType = postType;
+		this.title = title;
+		this.content = content;
+		this.userId = userId;
+	}
+	
+
+	public UserBoardDTO(int postId, int postType, String title, String content, String userId) {
+		this.postId = postId;
 		this.postType = postType;
 		this.title = title;
 		this.content = content;
@@ -45,7 +49,6 @@ public class UserBoardDTO {
 	}
 
 	public UserBoardDTO(int postType, String title, Date writeDate, String userId, int readCount, int good, int bad) {
-		super();
 		this.postType = postType;
 		this.title = title;
 		this.writeDate = writeDate;
@@ -57,7 +60,6 @@ public class UserBoardDTO {
 
 	public UserBoardDTO(int postId, int postType, String title, String content, Date writeDate, Date updateDate,
 			String userId, int readCount, int good, int bad) {
-		super();
 		this.postId = postId;
 		this.postType = postType;
 		this.title = title;
